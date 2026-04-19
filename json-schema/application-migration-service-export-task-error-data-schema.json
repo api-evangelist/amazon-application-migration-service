@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-export-task-error-data-schema.json",
+  "title": "ExportTaskErrorData",
+  "description": "Data associated with an export task error",
+  "type": "object",
+  "properties": {
+    "rawError": {
+      "type": "string",
+      "description": "Raw error message"
+    }
+  }
+}

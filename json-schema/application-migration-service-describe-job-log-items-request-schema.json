@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-describe-job-log-items-request-schema.json",
+  "title": "DescribeJobLogItemsRequest",
+  "description": "Request to describe job log items",
+  "type": "object",
+  "properties": {
+    "jobID": {
+      "type": "string",
+      "description": "Job ID to get log items for"
+    },
+    "maxResults": {
+      "type": "integer",
+      "description": "Maximum results to return"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    },
+    "accountID": {
+      "type": "string",
+      "description": "Account ID for cross-account access"
+    }
+  }
+}

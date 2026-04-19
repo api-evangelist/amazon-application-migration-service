@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-list-source-server-actions-response-schema.json",
+  "title": "ListSourceServerActionsResponse",
+  "description": "Response with list of source server actions",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "description": "List of actions"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    }
+  }
+}

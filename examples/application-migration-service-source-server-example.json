@@ -1,0 +1,15 @@
+{
+  "sourceServerID": "s-1234567890abcdef0",
+  "arn": "arn:aws:mgn:us-east-1:123456789012:source-server/s-1234567890abcdef0",
+  "isArchived": false,
+  "tags": {},
+  "lifeCycle": "example-string",
+  "dataReplicationInfo": "example-string",
+  "sourceProperties": "example-string",
+  "launchedInstance": "example-string",
+  "applicationID": "app-1234567890abcdef0",
+  "vcenterClientID": "vcc-1234567890abcdef0",
+  "replicationType": "AGENT_BASED",
+  "userProvidedID": "my-server-01",
+  "fqdnForActionFramework": "server.example.com"
+}

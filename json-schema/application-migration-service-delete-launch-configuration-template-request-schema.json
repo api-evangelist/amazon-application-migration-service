@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-delete-launch-configuration-template-request-schema.json",
+  "title": "DeleteLaunchConfigurationTemplateRequest",
+  "description": "Request to delete a launch configuration template",
+  "type": "object",
+  "properties": {
+    "launchConfigurationTemplateID": {
+      "type": "string",
+      "description": "Template ID to delete"
+    }
+  }
+}

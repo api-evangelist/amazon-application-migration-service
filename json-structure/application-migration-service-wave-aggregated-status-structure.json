@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-wave-aggregated-status-structure.json",
+  "title": "WaveAggregatedStatus",
+  "description": "Aggregated status of all applications in a wave",
+  "type": "record",
+  "fields": {
+    "lastUpdateDateTime": {
+      "type": "string",
+      "description": "Date/time of last status update"
+    },
+    "healthStatus": {
+      "type": "string",
+      "description": "Overall health status"
+    },
+    "progressStatus": {
+      "type": "string",
+      "description": "Overall progress status"
+    },
+    "totalApplications": {
+      "type": "integer",
+      "description": "Total number of applications in the wave"
+    }
+  }
+}

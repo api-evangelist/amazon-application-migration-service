@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-create-replication-configuration-template-request-schema.json",
+  "title": "CreateReplicationConfigurationTemplateRequest",
+  "description": "Request to create a replication configuration template",
+  "type": "object",
+  "properties": {
+    "stagingAreaSubnetId": {
+      "type": "string",
+      "description": "Subnet ID"
+    },
+    "associateDefaultSecurityGroup": {
+      "type": "boolean",
+      "description": "Associate default security group"
+    },
+    "replicationServersSecurityGroupsIDs": {
+      "type": "array",
+      "description": "replicationServersSecurityGroupsIDs"
+    },
+    "replicationServerInstanceType": {
+      "type": "string",
+      "description": "replicationServerInstanceType"
+    },
+    "useLowBandwidthForReplication": {
+      "type": "boolean",
+      "description": "useLowBandwidthForReplication"
+    },
+    "dataPlaneRouting": {
+      "type": "string",
+      "description": "dataPlaneRouting"
+    },
+    "createPublicIP": {
+      "type": "boolean",
+      "description": "createPublicIP"
+    },
+    "stagingAreaTags": {
+      "type": "object",
+      "description": "stagingAreaTags"
+    },
+    "defaultLargeStagingDiskType": {
+      "type": "string",
+      "description": "defaultLargeStagingDiskType"
+    },
+    "ebsEncryption": {
+      "type": "string",
+      "description": "ebsEncryption"
+    },
+    "bandwidthThrottling": {
+      "type": "integer",
+      "description": "bandwidthThrottling"
+    },
+    "tags": {
+      "type": "object",
+      "description": "tags"
+    }
+  }
+}

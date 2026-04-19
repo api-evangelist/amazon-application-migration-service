@@ -1,0 +1,11 @@
+{
+  "jobID": "mgnjob-1234567890abcdef0",
+  "arn": "arn:aws:mgn:us-east-1:123456789012:job/mgnjob-1234567890abcdef0",
+  "type": "LAUNCH",
+  "initiatedBy": "START_CUTOVER",
+  "creationDateTime": "2026-04-19T00:00:00Z",
+  "endDateTime": "2026-04-19T01:00:00Z",
+  "status": "COMPLETED",
+  "participatingServers": [],
+  "tags": {}
+}

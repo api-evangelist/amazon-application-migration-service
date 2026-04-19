@@ -1,0 +1,11 @@
+{
+  "sourceServerID": "s-1234567890abcdef0",
+  "name": "Updated configuration",
+  "stagingAreaSubnetId": "subnet-1234567890abcdef0",
+  "replicationServerInstanceType": "t3.small",
+  "useLowBandwidthForReplication": false,
+  "bandwidthThrottling": 0,
+  "dataPlaneRouting": "PRIVATE_IP",
+  "createPublicIP": false,
+  "accountID": "123456789012"
+}

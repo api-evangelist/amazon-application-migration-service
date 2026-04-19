@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-data-replication-error-structure.json",
+  "title": "DataReplicationError",
+  "description": "Replication error details",
+  "type": "record",
+  "fields": {
+    "error": {
+      "type": "string",
+      "description": "Error type"
+    },
+    "rawError": {
+      "type": "string",
+      "description": "Raw error message"
+    }
+  }
+}

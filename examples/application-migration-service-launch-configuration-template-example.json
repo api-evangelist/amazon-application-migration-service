@@ -1,0 +1,11 @@
+{
+  "launchConfigurationTemplateID": "lct-1234567890abcdef0",
+  "arn": "arn:aws:mgn:us-east-1:123456789012:launch-configuration-template/lct-1234567890abcdef0",
+  "launchDisposition": "STOPPED",
+  "targetInstanceTypeRightSizingMethod": "BASIC",
+  "copyPrivateIp": false,
+  "copyTags": false,
+  "licensing": "example-string",
+  "bootMode": "USE_SOURCE",
+  "tags": {}
+}

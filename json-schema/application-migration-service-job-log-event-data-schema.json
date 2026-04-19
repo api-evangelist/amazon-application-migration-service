@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-job-log-event-data-schema.json",
+  "title": "JobLogEventData",
+  "description": "Data associated with a job log event",
+  "type": "object",
+  "properties": {
+    "sourceServerID": {
+      "type": "string",
+      "description": "Source server ID"
+    },
+    "conversionServerID": {
+      "type": "string",
+      "description": "Conversion server ID"
+    },
+    "targetInstanceID": {
+      "type": "string",
+      "description": "Target EC2 instance ID"
+    },
+    "rawError": {
+      "type": "string",
+      "description": "Raw error message if applicable"
+    }
+  }
+}

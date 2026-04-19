@@ -1,0 +1,289 @@
+vocabulary:
+  label: Amazon Application Migration Service Vocabulary
+  description: Core terms, actions, and workflows for the AWS Application Migration Service API.
+  tags:
+    - Amazon Application Migration Service
+    - Migration
+    - Lift And Shift
+    - AWS
+    - Cloud Migration
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+resources:
+  - name: SourceServer
+    description: An on-premises or cloud server registered with MGN for replication and migration to AWS.
+    properties:
+      - sourceServerID
+      - arn
+      - isArchived
+      - tags
+      - lifeCycle
+      - dataReplicationInfo
+      - sourceProperties
+      - launchedInstance
+      - applicationID
+      - replicationType
+    related:
+      - Application
+      - Job
+
+  - name: ReplicationConfiguration
+    description: Configuration settings for replicating a source server to AWS staging area.
+    properties:
+      - sourceServerID
+      - stagingAreaSubnetId
+      - replicationServerInstanceType
+      - useLowBandwidthForReplication
+      - dataPlaneRouting
+      - defaultLargeStagingDiskType
+      - ebsEncryption
+      - bandwidthThrottling
+    related:
+      - ReplicationConfigurationTemplate
+      - SourceServer
+
+  - name: ReplicationConfigurationTemplate
+    description: Default replication configuration settings applied to new source servers.
+    properties:
+      - replicationConfigurationTemplateID
+      - arn
+      - stagingAreaSubnetId
+      - replicationServerInstanceType
+      - dataPlaneRouting
+      - ebsEncryption
+    related:
+      - ReplicationConfiguration
+
+  - name: LaunchConfiguration
+    description: Configuration settings for launching migrated instances in AWS.
+    properties:
+      - sourceServerID
+      - ec2LaunchTemplateID
+      - launchDisposition
+      - targetInstanceTypeRightSizingMethod
+      - copyPrivateIp
+      - copyTags
+      - licensing
+      - bootMode
+    related:
+      - LaunchConfigurationTemplate
+      - SourceServer
+
+  - name: LaunchConfigurationTemplate
+    description: Default launch configuration settings for new source servers.
+    properties:
+      - launchConfigurationTemplateID
+      - arn
+      - launchDisposition
+      - targetInstanceTypeRightSizingMethod
+      - copyPrivateIp
+      - copyTags
+      - licensing
+    related:
+      - LaunchConfiguration
+
+  - name: Job
+    description: A migration, test, or termination job executed by the Application Migration Service.
+    properties:
+      - jobID
+      - arn
+      - type
+      - initiatedBy
+      - creationDateTime
+      - endDateTime
+      - status
+      - participatingServers
+    related:
+      - SourceServer
+
+  - name: Application
+    description: A grouping of source servers representing an application being migrated.
+    properties:
+      - applicationID
+      - arn
+      - name
+      - description
+      - isArchived
+      - applicationAggregatedStatus
+      - waveID
+    related:
+      - SourceServer
+      - Wave
+
+  - name: Wave
+    description: A grouping of applications representing a migration wave or phase.
+    properties:
+      - waveID
+      - arn
+      - name
+      - description
+      - isArchived
+      - waveAggregatedStatus
+    related:
+      - Application
+
+  - name: VcenterClient
+    description: A VMware vCenter connector enabling agentless discovery and replication.
+    properties:
+      - vcenterClientID
+      - arn
+      - hostname
+      - vcenterUUID
+      - datacenterName
+      - lastSeenDatetime
+    related:
+      - SourceServer
+
+actions:
+  - name: DescribeSourceServers
+    description: List source servers with optional filtering by lifecycle state or application.
+    resource: SourceServer
+    method: POST
+    path: /DescribeSourceServers
+
+  - name: MarkAsArchived
+    description: Archive a source server to remove it from active migration workflows.
+    resource: SourceServer
+    method: POST
+    path: /MarkAsArchived
+
+  - name: DeleteSourceServer
+    description: Delete a disconnected source server from the service.
+    resource: SourceServer
+    method: POST
+    path: /DeleteSourceServer
+
+  - name: DisconnectFromService
+    description: Stop replication and disconnect a source server from MGN.
+    resource: SourceServer
+    method: POST
+    path: /DisconnectFromService
+
+  - name: RetryDataReplication
+    description: Retry data replication after a failure.
+    resource: ReplicationConfiguration
+    method: POST
+    path: /RetryDataReplication
+
+  - name: GetReplicationConfiguration
+    description: Retrieve the replication configuration for a source server.
+    resource: ReplicationConfiguration
+    method: POST
+    path: /GetReplicationConfiguration
+
+  - name: UpdateReplicationConfiguration
+    description: Modify replication settings for a source server.
+    resource: ReplicationConfiguration
+    method: POST
+    path: /UpdateReplicationConfiguration
+
+  - name: GetLaunchConfiguration
+    description: Retrieve the launch configuration for a source server.
+    resource: LaunchConfiguration
+    method: POST
+    path: /GetLaunchConfiguration
+
+  - name: UpdateLaunchConfiguration
+    description: Modify launch settings for a source server.
+    resource: LaunchConfiguration
+    method: POST
+    path: /UpdateLaunchConfiguration
+
+  - name: StartTest
+    description: Launch test instances to validate migration readiness without impacting production.
+    resource: Job
+    method: POST
+    path: /StartTest
+
+  - name: StartCutover
+    description: Execute the production cutover by launching migrated instances in AWS.
+    resource: Job
+    method: POST
+    path: /StartCutover
+
+  - name: FinalizeCutover
+    description: Complete the migration by finalizing the cutover and disconnecting replication.
+    resource: Job
+    method: POST
+    path: /FinalizeCutover
+
+  - name: TerminateTargetInstances
+    description: Terminate test or cutover instances to roll back or clean up.
+    resource: Job
+    method: POST
+    path: /TerminateTargetInstances
+
+  - name: DescribeJobs
+    description: List and monitor all migration jobs with filtering by date and job ID.
+    resource: Job
+    method: POST
+    path: /DescribeJobs
+
+  - name: ListApplications
+    description: List all migration application groupings.
+    resource: Application
+    method: POST
+    path: /ListApplications
+
+  - name: CreateApplication
+    description: Create a new application grouping for organizing source servers.
+    resource: Application
+    method: POST
+    path: /CreateApplication
+
+  - name: ListWaves
+    description: List all migration waves.
+    resource: Wave
+    method: POST
+    path: /ListWaves
+
+  - name: CreateWave
+    description: Create a new migration wave for phased migrations.
+    resource: Wave
+    method: POST
+    path: /CreateWave
+
+workflows:
+  - name: LiftAndShiftMigration
+    description: End-to-end workflow for migrating on-premises servers to AWS with minimal downtime.
+    steps:
+      - action: DescribeSourceServers
+        description: Verify all source servers are in READY_FOR_TEST state
+      - action: GetReplicationConfiguration
+        description: Review replication settings for staging area configuration
+      - action: GetLaunchConfiguration
+        description: Review launch settings for target instance sizing
+      - action: StartTest
+        description: Launch test instances to validate migration
+      - action: TerminateTargetInstances
+        description: Terminate test instances after validation
+      - action: StartCutover
+        description: Execute production cutover to AWS
+      - action: FinalizeCutover
+        description: Complete migration by finalizing cutover
+
+personas:
+  - name: Migration Engineer
+    description: Executes migration operations including replication setup, testing, and cutover.
+    actions:
+      - DescribeSourceServers
+      - GetReplicationConfiguration
+      - UpdateReplicationConfiguration
+      - GetLaunchConfiguration
+      - UpdateLaunchConfiguration
+      - StartTest
+      - TerminateTargetInstances
+      - StartCutover
+      - FinalizeCutover
+      - DescribeJobs
+
+  - name: Migration Project Manager
+    description: Tracks migration progress and manages applications and waves.
+    actions:
+      - DescribeSourceServers
+      - DescribeJobs
+      - ListApplications
+      - CreateApplication
+      - ListWaves
+      - CreateWave

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-post-launch-actions-status-structure.json",
+  "title": "PostLaunchActionsStatus",
+  "description": "Status of post-launch actions",
+  "type": "record",
+  "fields": {
+    "postLaunchActionsLaunchStatusList": {
+      "type": "array",
+      "description": "List of post-launch action statuses"
+    },
+    "ssmAgentDiscoveryDatetime": {
+      "type": "string",
+      "description": "Date/time SSM agent was discovered"
+    }
+  }
+}

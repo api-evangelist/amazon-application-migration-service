@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-list-applications-request-filters-schema.json",
+  "title": "ListApplicationsRequestFilters",
+  "description": "Filters for listing applications",
+  "type": "object",
+  "properties": {
+    "applicationIDs": {
+      "type": "array",
+      "description": "Filter by application IDs"
+    },
+    "isArchived": {
+      "type": "boolean",
+      "description": "Filter by archived status"
+    },
+    "waveIDs": {
+      "type": "array",
+      "description": "Filter by wave IDs"
+    }
+  }
+}

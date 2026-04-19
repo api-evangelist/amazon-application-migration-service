@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-replication-configuration-template-structure.json",
+  "title": "ReplicationConfigurationTemplate",
+  "description": "Template for default replication configuration settings",
+  "type": "record",
+  "fields": {
+    "replicationConfigurationTemplateID": {
+      "type": "string",
+      "description": "Template ID"
+    },
+    "arn": {
+      "type": "string",
+      "description": "ARN of the template"
+    },
+    "stagingAreaSubnetId": {
+      "type": "string",
+      "description": "Subnet ID for staging area"
+    },
+    "associateDefaultSecurityGroup": {
+      "type": "boolean",
+      "description": "Whether to associate default security group"
+    },
+    "replicationServersSecurityGroupsIDs": {
+      "type": "array",
+      "description": "Security group IDs"
+    },
+    "replicationServerInstanceType": {
+      "type": "string",
+      "description": "EC2 instance type for replication servers"
+    },
+    "useLowBandwidthForReplication": {
+      "type": "boolean",
+      "description": "Whether to use low bandwidth"
+    },
+    "dataPlaneRouting": {
+      "type": "string",
+      "description": "Data plane routing mode"
+    },
+    "createPublicIP": {
+      "type": "boolean",
+      "description": "Whether to create public IP"
+    },
+    "stagingAreaTags": {
+      "type": "object",
+      "description": "Tags for staging resources"
+    },
+    "bandwidthThrottling": {
+      "type": "integer",
+      "description": "Bandwidth throttling in Mbps"
+    },
+    "defaultLargeStagingDiskType": {
+      "type": "string",
+      "description": "Default disk type for large disks"
+    },
+    "ebsEncryption": {
+      "type": "string",
+      "description": "EBS encryption setting"
+    },
+    "tags": {
+      "type": "object",
+      "description": "Tags on the template"
+    }
+  }
+}

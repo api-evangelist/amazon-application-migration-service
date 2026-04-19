@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-data-replication-initiation-step-schema.json",
+  "title": "DataReplicationInitiationStep",
+  "description": "A single step in the replication initiation process",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Step name"
+    },
+    "status": {
+      "type": "string",
+      "description": "Step status"
+    }
+  }
+}

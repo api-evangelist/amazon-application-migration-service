@@ -1,0 +1,13 @@
+{
+  "state": "READY_FOR_CUTOVER",
+  "addedToServiceDateTime": "2026-04-01T00:00:00Z",
+  "firstByteDateTime": "2026-04-01T01:00:00Z",
+  "elapsedReplicationDuration": "PT24H",
+  "lastSeenByServiceDateTime": "2026-04-19T00:00:00Z",
+  "lastTestInitiated": "example-string",
+  "lastTestReverted": "example-string",
+  "lastTestFinalized": "example-string",
+  "lastCutoverInitiated": "example-string",
+  "lastCutoverReverted": "example-string",
+  "lastCutoverFinalized": "example-string"
+}

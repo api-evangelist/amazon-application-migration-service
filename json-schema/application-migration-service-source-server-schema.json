@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-source-server-schema.json",
+  "title": "SourceServer",
+  "description": "A source server registered with the Application Migration Service",
+  "type": "object",
+  "properties": {
+    "sourceServerID": {
+      "type": "string",
+      "description": "Unique identifier for the source server"
+    },
+    "arn": {
+      "type": "string",
+      "description": "ARN of the source server"
+    },
+    "isArchived": {
+      "type": "boolean",
+      "description": "Whether the source server is archived"
+    },
+    "tags": {
+      "type": "object",
+      "description": "Tags applied to the source server"
+    },
+    "lifeCycle": {
+      "type": "string",
+      "description": "lifeCycle"
+    },
+    "dataReplicationInfo": {
+      "type": "string",
+      "description": "dataReplicationInfo"
+    },
+    "sourceProperties": {
+      "type": "string",
+      "description": "sourceProperties"
+    },
+    "launchedInstance": {
+      "type": "string",
+      "description": "launchedInstance"
+    },
+    "applicationID": {
+      "type": "string",
+      "description": "ID of the application this server belongs to"
+    },
+    "vcenterClientID": {
+      "type": "string",
+      "description": "ID of the vCenter client this server was discovered from"
+    },
+    "replicationType": {
+      "type": "string",
+      "description": "Replication type for the source server"
+    },
+    "userProvidedID": {
+      "type": "string",
+      "description": "User-provided identifier for the source server"
+    },
+    "fqdnForActionFramework": {
+      "type": "string",
+      "description": "FQDN used for action framework connectivity"
+    }
+  }
+}

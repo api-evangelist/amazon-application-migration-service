@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-disconnect-from-service-request-structure.json",
+  "title": "DisconnectFromServiceRequest",
+  "description": "Request to disconnect a source server from the service",
+  "type": "record",
+  "fields": {
+    "sourceServerID": {
+      "type": "string",
+      "description": "Source server ID to disconnect"
+    },
+    "accountID": {
+      "type": "string",
+      "description": "Account ID for cross-account access"
+    }
+  }
+}

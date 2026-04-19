@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-list-source-server-actions-response-structure.json",
+  "title": "ListSourceServerActionsResponse",
+  "description": "Response with list of source server actions",
+  "type": "record",
+  "fields": {
+    "items": {
+      "type": "array",
+      "description": "List of actions"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    }
+  }
+}

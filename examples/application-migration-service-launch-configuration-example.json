@@ -1,0 +1,14 @@
+{
+  "sourceServerID": "s-1234567890abcdef0",
+  "name": "Default launch configuration",
+  "ec2LaunchTemplateID": "lt-1234567890abcdef0",
+  "launchDisposition": "STOPPED",
+  "targetInstanceTypeRightSizingMethod": "BASIC",
+  "copyPrivateIp": false,
+  "copyTags": false,
+  "licensing": "example-string",
+  "bootMode": "USE_SOURCE",
+  "postLaunchActions": "example-string",
+  "enableMapAutoTagging": false,
+  "mapAutoTaggingMpeID": ""
+}

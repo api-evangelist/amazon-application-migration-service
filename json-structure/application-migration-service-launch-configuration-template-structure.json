@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-launch-configuration-template-structure.json",
+  "title": "LaunchConfigurationTemplate",
+  "description": "Template for default launch configuration settings",
+  "type": "record",
+  "fields": {
+    "launchConfigurationTemplateID": {
+      "type": "string",
+      "description": "Template ID"
+    },
+    "arn": {
+      "type": "string",
+      "description": "ARN of the template"
+    },
+    "launchDisposition": {
+      "type": "string",
+      "description": "Default launch disposition"
+    },
+    "targetInstanceTypeRightSizingMethod": {
+      "type": "string",
+      "description": "Right-sizing method"
+    },
+    "copyPrivateIp": {
+      "type": "boolean",
+      "description": "Whether to copy private IP"
+    },
+    "copyTags": {
+      "type": "boolean",
+      "description": "Whether to copy tags"
+    },
+    "licensing": {
+      "type": "string",
+      "description": "licensing"
+    },
+    "bootMode": {
+      "type": "string",
+      "description": "Boot mode"
+    },
+    "tags": {
+      "type": "object",
+      "description": "Tags on the template"
+    }
+  }
+}

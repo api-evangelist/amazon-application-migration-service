@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-describe-launch-configuration-templates-response-structure.json",
+  "title": "DescribeLaunchConfigurationTemplatesResponse",
+  "description": "Response with launch configuration templates",
+  "type": "record",
+  "fields": {
+    "items": {
+      "type": "array",
+      "description": "List of launch configuration templates"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    }
+  }
+}

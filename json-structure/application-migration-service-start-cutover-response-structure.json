@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-start-cutover-response-structure.json",
+  "title": "StartCutoverResponse",
+  "description": "Response from starting a cutover job",
+  "type": "record",
+  "fields": {
+    "job": {
+      "type": "string",
+      "description": "job"
+    }
+  }
+}

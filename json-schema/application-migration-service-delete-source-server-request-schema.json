@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-delete-source-server-request-schema.json",
+  "title": "DeleteSourceServerRequest",
+  "description": "Request to delete a source server",
+  "type": "object",
+  "properties": {
+    "sourceServerID": {
+      "type": "string",
+      "description": "Source server ID to delete"
+    },
+    "accountID": {
+      "type": "string",
+      "description": "Account ID for cross-account access"
+    }
+  }
+}

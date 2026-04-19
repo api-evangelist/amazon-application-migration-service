@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-finalize-cutover-request-structure.json",
+  "title": "FinalizeCutoverRequest",
+  "description": "Request to finalize a cutover",
+  "type": "record",
+  "fields": {
+    "sourceServerID": {
+      "type": "string",
+      "description": "Source server ID to finalize cutover for"
+    },
+    "accountID": {
+      "type": "string",
+      "description": "Account ID for cross-account access"
+    }
+  }
+}

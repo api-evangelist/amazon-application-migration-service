@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-update-launch-configuration-request-schema.json",
+  "title": "UpdateLaunchConfigurationRequest",
+  "description": "Request to update launch configuration",
+  "type": "object",
+  "properties": {
+    "sourceServerID": {
+      "type": "string",
+      "description": "Source server ID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Configuration name"
+    },
+    "launchDisposition": {
+      "type": "string",
+      "description": "Launch disposition"
+    },
+    "targetInstanceTypeRightSizingMethod": {
+      "type": "string",
+      "description": "Right-sizing method"
+    },
+    "copyPrivateIp": {
+      "type": "boolean",
+      "description": "copyPrivateIp"
+    },
+    "copyTags": {
+      "type": "boolean",
+      "description": "copyTags"
+    },
+    "licensing": {
+      "type": "string",
+      "description": "licensing"
+    },
+    "accountID": {
+      "type": "string",
+      "description": "Account ID for cross-account access"
+    }
+  }
+}

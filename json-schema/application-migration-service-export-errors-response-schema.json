@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-export-errors-response-schema.json",
+  "title": "ExportErrorsResponse",
+  "description": "Response with export errors",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "description": "List of export errors"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    }
+  }
+}

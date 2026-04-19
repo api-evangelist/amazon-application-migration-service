@@ -1,0 +1,10 @@
+{
+  "sourceServerID": "s-1234567890abcdef0",
+  "name": "Updated configuration",
+  "launchDisposition": "STARTED",
+  "targetInstanceTypeRightSizingMethod": "BASIC",
+  "copyPrivateIp": false,
+  "copyTags": true,
+  "licensing": "example-string",
+  "accountID": "123456789012"
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-data-replication-initiation-schema.json",
+  "title": "DataReplicationInitiation",
+  "description": "Replication initiation steps and their status",
+  "type": "object",
+  "properties": {
+    "startDateTime": {
+      "type": "string",
+      "description": "Date/time replication initiation started"
+    },
+    "nextAttemptDateTime": {
+      "type": "string",
+      "description": "Date/time of next retry attempt"
+    },
+    "steps": {
+      "type": "array",
+      "description": "Initiation steps"
+    }
+  }
+}

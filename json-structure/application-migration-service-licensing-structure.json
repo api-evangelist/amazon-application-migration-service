@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-licensing-structure.json",
+  "title": "Licensing",
+  "description": "Licensing settings for the launched instance",
+  "type": "record",
+  "fields": {
+    "osByol": {
+      "type": "boolean",
+      "description": "Whether to use Bring Your Own License for the OS"
+    }
+  }
+}

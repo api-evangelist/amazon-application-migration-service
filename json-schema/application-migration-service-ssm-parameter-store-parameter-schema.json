@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-ssm-parameter-store-parameter-schema.json",
+  "title": "SsmParameterStoreParameter",
+  "description": "SSM Parameter Store parameter reference",
+  "type": "object",
+  "properties": {
+    "parameterName": {
+      "type": "string",
+      "description": "Parameter name"
+    },
+    "parameterType": {
+      "type": "string",
+      "description": "Parameter type"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "waveID": "wave-1234567890abcdef0",
+  "arn": "arn:aws:mgn:us-east-1:123456789012:wave/wave-1234567890abcdef0",
+  "name": "Wave 1",
+  "description": "First migration wave",
+  "isArchived": false,
+  "waveAggregatedStatus": "example-string",
+  "creationDateTime": "2026-04-19T00:00:00Z",
+  "lastModifiedDateTime": "2026-04-19T00:00:00Z",
+  "tags": {}
+}

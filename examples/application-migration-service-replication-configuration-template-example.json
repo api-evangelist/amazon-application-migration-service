@@ -1,0 +1,16 @@
+{
+  "replicationConfigurationTemplateID": "rct-1234567890abcdef0",
+  "arn": "arn:aws:mgn:us-east-1:123456789012:replication-configuration-template/rct-1234567890abcdef0",
+  "stagingAreaSubnetId": "subnet-1234567890abcdef0",
+  "associateDefaultSecurityGroup": true,
+  "replicationServersSecurityGroupsIDs": [],
+  "replicationServerInstanceType": "t3.small",
+  "useLowBandwidthForReplication": false,
+  "dataPlaneRouting": "PRIVATE_IP",
+  "createPublicIP": false,
+  "stagingAreaTags": {},
+  "bandwidthThrottling": 0,
+  "defaultLargeStagingDiskType": "GP2",
+  "ebsEncryption": "DEFAULT",
+  "tags": {}
+}

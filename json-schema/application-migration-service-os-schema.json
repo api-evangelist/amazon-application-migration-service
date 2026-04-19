@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-os-schema.json",
+  "title": "OS",
+  "description": "Operating system information",
+  "type": "object",
+  "properties": {
+    "fullString": {
+      "type": "string",
+      "description": "Full OS description string"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-ssm-parameter-store-parameter-structure.json",
+  "title": "SsmParameterStoreParameter",
+  "description": "SSM Parameter Store parameter reference",
+  "type": "record",
+  "fields": {
+    "parameterName": {
+      "type": "string",
+      "description": "Parameter name"
+    },
+    "parameterType": {
+      "type": "string",
+      "description": "Parameter type"
+    }
+  }
+}

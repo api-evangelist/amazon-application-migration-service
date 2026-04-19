@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-terminate-target-instances-request-schema.json",
+  "title": "TerminateTargetInstancesRequest",
+  "description": "Request to terminate test or cutover instances",
+  "type": "object",
+  "properties": {
+    "sourceServerIDs": {
+      "type": "array",
+      "description": "Source server IDs whose instances to terminate"
+    },
+    "tags": {
+      "type": "object",
+      "description": "Tags for the termination job"
+    },
+    "accountID": {
+      "type": "string",
+      "description": "Account ID for cross-account access"
+    }
+  }
+}

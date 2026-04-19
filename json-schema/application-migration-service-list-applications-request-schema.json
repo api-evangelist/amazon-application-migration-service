@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-list-applications-request-schema.json",
+  "title": "ListApplicationsRequest",
+  "description": "Request to list migration applications",
+  "type": "object",
+  "properties": {
+    "filters": {
+      "type": "string",
+      "description": "filters"
+    },
+    "maxResults": {
+      "type": "integer",
+      "description": "Maximum results to return"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    },
+    "accountID": {
+      "type": "string",
+      "description": "Account ID for cross-account access"
+    }
+  }
+}

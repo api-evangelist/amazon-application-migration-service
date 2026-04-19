@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-export-task-error-schema.json",
+  "title": "ExportTaskError",
+  "description": "An error from a source server export task",
+  "type": "object",
+  "properties": {
+    "errorData": {
+      "type": "string",
+      "description": "errorData"
+    },
+    "errorDateTime": {
+      "type": "string",
+      "description": "Date/time of the error"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-describe-source-servers-request-schema.json",
+  "title": "DescribeSourceServersRequest",
+  "description": "Request to describe source servers",
+  "type": "object",
+  "properties": {
+    "filters": {
+      "type": "string",
+      "description": "filters"
+    },
+    "maxResults": {
+      "type": "integer",
+      "description": "Maximum results to return"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    },
+    "accountID": {
+      "type": "string",
+      "description": "Account ID for cross-account access"
+    }
+  }
+}

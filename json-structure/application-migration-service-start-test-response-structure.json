@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-start-test-response-structure.json",
+  "title": "StartTestResponse",
+  "description": "Response from starting a test job",
+  "type": "record",
+  "fields": {
+    "job": {
+      "type": "string",
+      "description": "job"
+    }
+  }
+}

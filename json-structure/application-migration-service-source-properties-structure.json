@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-source-properties-structure.json",
+  "title": "SourceProperties",
+  "description": "Discovered properties of the source server",
+  "type": "record",
+  "fields": {
+    "lastUpdatedDateTime": {
+      "type": "string",
+      "description": "Date/time properties were last updated"
+    },
+    "recommendedInstanceType": {
+      "type": "string",
+      "description": "AWS instance type recommended for this server"
+    },
+    "identificationHints": {
+      "type": "string",
+      "description": "identificationHints"
+    },
+    "networkInterfaces": {
+      "type": "array",
+      "description": "Network interfaces on the source server"
+    },
+    "disks": {
+      "type": "array",
+      "description": "Disks on the source server"
+    },
+    "cpus": {
+      "type": "array",
+      "description": "CPUs on the source server"
+    },
+    "ramBytes": {
+      "type": "integer",
+      "description": "RAM in bytes"
+    },
+    "os": {
+      "type": "string",
+      "description": "os"
+    }
+  }
+}

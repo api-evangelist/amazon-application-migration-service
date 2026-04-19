@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-create-wave-request-structure.json",
+  "title": "CreateWaveRequest",
+  "description": "Request to create a migration wave",
+  "type": "record",
+  "fields": {
+    "name": {
+      "type": "string",
+      "description": "Wave name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Wave description"
+    },
+    "tags": {
+      "type": "object",
+      "description": "Tags for the wave"
+    },
+    "accountID": {
+      "type": "string",
+      "description": "Account ID for cross-account access"
+    }
+  }
+}

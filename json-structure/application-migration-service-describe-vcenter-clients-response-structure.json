@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-describe-vcenter-clients-response-structure.json",
+  "title": "DescribeVcenterClientsResponse",
+  "description": "Response with list of vCenter clients",
+  "type": "record",
+  "fields": {
+    "items": {
+      "type": "array",
+      "description": "List of vCenter clients"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-wave-schema.json",
+  "title": "Wave",
+  "description": "A migration wave grouping applications",
+  "type": "object",
+  "properties": {
+    "waveID": {
+      "type": "string",
+      "description": "Wave ID"
+    },
+    "arn": {
+      "type": "string",
+      "description": "ARN of the wave"
+    },
+    "name": {
+      "type": "string",
+      "description": "Wave name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Wave description"
+    },
+    "isArchived": {
+      "type": "boolean",
+      "description": "Whether the wave is archived"
+    },
+    "waveAggregatedStatus": {
+      "type": "string",
+      "description": "waveAggregatedStatus"
+    },
+    "creationDateTime": {
+      "type": "string",
+      "description": "Creation date/time"
+    },
+    "lastModifiedDateTime": {
+      "type": "string",
+      "description": "Last modification date/time"
+    },
+    "tags": {
+      "type": "object",
+      "description": "Tags on the wave"
+    }
+  }
+}

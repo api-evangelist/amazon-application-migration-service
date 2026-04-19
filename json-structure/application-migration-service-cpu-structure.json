@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-cpu-structure.json",
+  "title": "CPU",
+  "description": "CPU information for a source server",
+  "type": "record",
+  "fields": {
+    "cores": {
+      "type": "integer",
+      "description": "Number of cores"
+    },
+    "modelName": {
+      "type": "string",
+      "description": "CPU model name"
+    }
+  }
+}

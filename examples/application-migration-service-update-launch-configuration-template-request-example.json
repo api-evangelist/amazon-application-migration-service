@@ -1,0 +1,7 @@
+{
+  "launchConfigurationTemplateID": "lct-1234567890abcdef0",
+  "launchDisposition": "STARTED",
+  "targetInstanceTypeRightSizingMethod": "BASIC",
+  "copyPrivateIp": false,
+  "copyTags": false
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-list-tags-for-resource-response-structure.json",
+  "title": "ListTagsForResourceResponse",
+  "description": "Response with resource tags",
+  "type": "record",
+  "fields": {
+    "tags": {
+      "type": "object",
+      "description": "Tags on the resource"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-wave-structure.json",
+  "title": "Wave",
+  "description": "A migration wave grouping applications",
+  "type": "record",
+  "fields": {
+    "waveID": {
+      "type": "string",
+      "description": "Wave ID"
+    },
+    "arn": {
+      "type": "string",
+      "description": "ARN of the wave"
+    },
+    "name": {
+      "type": "string",
+      "description": "Wave name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Wave description"
+    },
+    "isArchived": {
+      "type": "boolean",
+      "description": "Whether the wave is archived"
+    },
+    "waveAggregatedStatus": {
+      "type": "string",
+      "description": "waveAggregatedStatus"
+    },
+    "creationDateTime": {
+      "type": "string",
+      "description": "Creation date/time"
+    },
+    "lastModifiedDateTime": {
+      "type": "string",
+      "description": "Last modification date/time"
+    },
+    "tags": {
+      "type": "object",
+      "description": "Tags on the wave"
+    }
+  }
+}

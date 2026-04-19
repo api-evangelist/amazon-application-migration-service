@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-source-server-action-schema.json",
+  "title": "SourceServerAction",
+  "description": "A lifecycle action hook for a source server",
+  "type": "object",
+  "properties": {
+    "actionID": {
+      "type": "string",
+      "description": "Action ID"
+    },
+    "actionName": {
+      "type": "string",
+      "description": "Action name"
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether the action is active"
+    },
+    "category": {
+      "type": "string",
+      "description": "Action category"
+    },
+    "description": {
+      "type": "string",
+      "description": "Action description"
+    },
+    "documentIdentifier": {
+      "type": "string",
+      "description": "SSM document identifier"
+    },
+    "documentVersion": {
+      "type": "string",
+      "description": "SSM document version"
+    },
+    "externalParameters": {
+      "type": "object",
+      "description": "External parameters for the action"
+    },
+    "mustSucceedForCutover": {
+      "type": "boolean",
+      "description": "Whether action must succeed for cutover"
+    },
+    "order": {
+      "type": "integer",
+      "description": "Execution order"
+    },
+    "parameters": {
+      "type": "object",
+      "description": "Action parameters"
+    },
+    "timeoutSeconds": {
+      "type": "integer",
+      "description": "Timeout in seconds"
+    }
+  }
+}

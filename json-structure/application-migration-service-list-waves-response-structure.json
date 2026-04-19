@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-list-waves-response-structure.json",
+  "title": "ListWavesResponse",
+  "description": "Response with list of waves",
+  "type": "record",
+  "fields": {
+    "items": {
+      "type": "array",
+      "description": "List of waves"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    }
+  }
+}

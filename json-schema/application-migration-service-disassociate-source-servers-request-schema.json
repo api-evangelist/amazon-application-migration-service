@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-disassociate-source-servers-request-schema.json",
+  "title": "DisassociateSourceServersRequest",
+  "description": "Request to disassociate source servers from an application",
+  "type": "object",
+  "properties": {
+    "applicationID": {
+      "type": "string",
+      "description": "Application ID"
+    },
+    "sourceServerIDs": {
+      "type": "array",
+      "description": "Source server IDs to disassociate"
+    },
+    "accountID": {
+      "type": "string",
+      "description": "Account ID for cross-account access"
+    }
+  }
+}

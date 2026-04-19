@@ -1,0 +1,14 @@
+{
+  "stagingAreaSubnetId": "subnet-1234567890abcdef0",
+  "associateDefaultSecurityGroup": true,
+  "replicationServersSecurityGroupsIDs": [],
+  "replicationServerInstanceType": "t3.small",
+  "useLowBandwidthForReplication": false,
+  "dataPlaneRouting": "PRIVATE_IP",
+  "createPublicIP": false,
+  "stagingAreaTags": {},
+  "defaultLargeStagingDiskType": "GP2",
+  "ebsEncryption": "DEFAULT",
+  "bandwidthThrottling": 0,
+  "tags": {}
+}

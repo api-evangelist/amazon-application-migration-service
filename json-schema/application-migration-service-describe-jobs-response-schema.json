@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-describe-jobs-response-schema.json",
+  "title": "DescribeJobsResponse",
+  "description": "Response with list of jobs",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "description": "List of jobs"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-archive-application-request-structure.json",
+  "title": "ArchiveApplicationRequest",
+  "description": "Request to archive a migration application",
+  "type": "record",
+  "fields": {
+    "applicationID": {
+      "type": "string",
+      "description": "Application ID to archive"
+    },
+    "accountID": {
+      "type": "string",
+      "description": "Account ID for cross-account access"
+    }
+  }
+}

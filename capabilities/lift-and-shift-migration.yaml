@@ -1,0 +1,197 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: Lift And Shift Migration Workflow
+  description: Workflow capability for executing lift-and-shift migrations from on-premises to AWS using Application Migration Service.
+  tags:
+    - Amazon Application Migration Service
+    - Migration
+    - Lift And Shift
+    - AWS
+    - Cloud Migration
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+imports:
+  - namespace: mgn
+    from: shared/application-migration-service-api.yaml
+
+capability:
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: lift-shift-rest
+      resources:
+        - path: /v1/source-servers
+          name: source-servers
+          description: Source servers to migrate
+          operations:
+            - method: GET
+              name: describe-source-servers
+              description: List all source servers with lifecycle state
+              call: "mgn.describe-source-servers"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/test
+          name: test-migration
+          description: Test migration operations
+          operations:
+            - method: POST
+              name: start-test
+              description: Launch test instances for source servers
+              call: "mgn.start-test"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/cutover
+          name: cutover
+          description: Cutover migration operations
+          operations:
+            - method: POST
+              name: start-cutover
+              description: Start production cutover to AWS
+              call: "mgn.start-cutover"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/jobs
+          name: jobs
+          description: Migration jobs
+          operations:
+            - method: GET
+              name: describe-jobs
+              description: Monitor all migration jobs
+              call: "mgn.describe-jobs"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: lift-shift-mcp
+      transport: http
+      tools:
+        - name: describe-source-servers
+          description: List all source servers and their current migration lifecycle state to understand readiness.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mgn.describe-source-servers"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-replication-configuration
+          description: Review replication settings for a source server to ensure correct staging area configuration.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mgn.get-replication-configuration"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-launch-configuration
+          description: Review launch settings for a source server to verify target instance type and licensing.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mgn.get-launch-configuration"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: start-test
+          description: Launch test instances to validate migration without impacting production source servers.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "mgn.start-test"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: terminate-test-instances
+          description: Terminate test instances after validation to avoid unnecessary costs.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "mgn.terminate-target-instances"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: start-cutover
+          description: Execute the production cutover to migrate source servers to AWS with minimal downtime.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "mgn.start-cutover"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: finalize-cutover
+          description: Finalize the cutover to disconnect replication and complete the migration.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "mgn.finalize-cutover"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: describe-jobs
+          description: Monitor all migration jobs to track progress and identify any failures.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mgn.describe-jobs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-applications
+          description: Review migration application groupings to track which servers belong to each application.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mgn.list-applications"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-waves
+          description: Track migration progress at the wave level for large-scale migrations.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mgn.list-waves"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+personas:
+  - name: Migration Engineer
+    description: Executes day-to-day migration tasks including testing and cutover operations.
+    tools:
+      - describe-source-servers
+      - get-replication-configuration
+      - get-launch-configuration
+      - start-test
+      - terminate-test-instances
+      - start-cutover
+      - finalize-cutover
+      - describe-jobs
+
+  - name: Migration Project Manager
+    description: Oversees migration progress across applications and waves.
+    tools:
+      - describe-source-servers
+      - describe-jobs
+      - list-applications
+      - list-waves

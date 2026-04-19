@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-cpu-schema.json",
+  "title": "CPU",
+  "description": "CPU information for a source server",
+  "type": "object",
+  "properties": {
+    "cores": {
+      "type": "integer",
+      "description": "Number of cores"
+    },
+    "modelName": {
+      "type": "string",
+      "description": "CPU model name"
+    }
+  }
+}

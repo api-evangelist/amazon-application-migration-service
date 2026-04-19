@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-job-log-item-schema.json",
+  "title": "JobLogItem",
+  "description": "A log entry for a migration job",
+  "type": "object",
+  "properties": {
+    "logDateTime": {
+      "type": "string",
+      "description": "Date/time of the log entry"
+    },
+    "event": {
+      "type": "string",
+      "description": "Log event type"
+    },
+    "eventData": {
+      "type": "string",
+      "description": "eventData"
+    }
+  }
+}

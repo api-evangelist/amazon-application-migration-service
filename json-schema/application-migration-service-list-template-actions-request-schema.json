@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-list-template-actions-request-schema.json",
+  "title": "ListTemplateActionsRequest",
+  "description": "Request to list template lifecycle actions",
+  "type": "object",
+  "properties": {
+    "launchConfigurationTemplateID": {
+      "type": "string",
+      "description": "Launch configuration template ID"
+    },
+    "filters": {
+      "type": "object",
+      "description": "Action filters"
+    },
+    "maxResults": {
+      "type": "integer",
+      "description": "Maximum results to return"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    }
+  }
+}

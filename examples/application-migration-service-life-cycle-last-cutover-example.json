@@ -1,0 +1,6 @@
+{
+  "jobID": "mgnjob-1234567890abcdef0",
+  "initiatedDateTime": "2026-04-19T00:00:00Z",
+  "finalizedDateTime": "2026-04-19T01:00:00Z",
+  "revertedDateTime": ""
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-vcenter-client-schema.json",
+  "title": "VcenterClient",
+  "description": "A VMware vCenter client registered with the Application Migration Service",
+  "type": "object",
+  "properties": {
+    "vcenterClientID": {
+      "type": "string",
+      "description": "vCenter client ID"
+    },
+    "arn": {
+      "type": "string",
+      "description": "ARN of the vCenter client"
+    },
+    "hostname": {
+      "type": "string",
+      "description": "vCenter server hostname"
+    },
+    "vcenterUUID": {
+      "type": "string",
+      "description": "vCenter UUID"
+    },
+    "datacenterName": {
+      "type": "string",
+      "description": "Datacenter name"
+    },
+    "lastSeenDatetime": {
+      "type": "string",
+      "description": "Date/time client was last seen"
+    },
+    "sourceServerTags": {
+      "type": "object",
+      "description": "Tags applied to source servers discovered by this client"
+    },
+    "tags": {
+      "type": "object",
+      "description": "Tags on the vCenter client"
+    }
+  }
+}

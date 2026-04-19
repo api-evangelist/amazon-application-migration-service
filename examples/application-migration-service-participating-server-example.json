@@ -1,0 +1,6 @@
+{
+  "sourceServerID": "s-1234567890abcdef0",
+  "launchStatus": "LAUNCHED",
+  "launchedEc2InstanceID": "i-1234567890abcdef0",
+  "postLaunchActionsStatus": "example-string"
+}

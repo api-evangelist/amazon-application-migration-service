@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-replication-configuration-replicated-disk-schema.json",
+  "title": "ReplicationConfigurationReplicatedDisk",
+  "description": "Replication configuration for an individual disk",
+  "type": "object",
+  "properties": {
+    "deviceName": {
+      "type": "string",
+      "description": "Device name"
+    },
+    "isBootDisk": {
+      "type": "boolean",
+      "description": "Whether this is the boot disk"
+    },
+    "stagingDiskType": {
+      "type": "string",
+      "description": "EBS volume type for staging"
+    },
+    "iops": {
+      "type": "integer",
+      "description": "IOPS for the staging disk"
+    },
+    "throughput": {
+      "type": "integer",
+      "description": "Throughput for the staging disk in MB/s"
+    },
+    "optimizedStagingDiskType": {
+      "type": "string",
+      "description": "Optimized staging disk type recommendation"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-disk-structure.json",
+  "title": "Disk",
+  "description": "A disk on a source server",
+  "type": "record",
+  "fields": {
+    "deviceName": {
+      "type": "string",
+      "description": "Device name"
+    },
+    "bytes": {
+      "type": "integer",
+      "description": "Disk size in bytes"
+    }
+  }
+}

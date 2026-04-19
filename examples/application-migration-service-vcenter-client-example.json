@@ -1,0 +1,10 @@
+{
+  "vcenterClientID": "vcc-1234567890abcdef0",
+  "arn": "arn:aws:mgn:us-east-1:123456789012:vcenter-client/vcc-1234567890abcdef0",
+  "hostname": "vcenter.example.com",
+  "vcenterUUID": "12345678-1234-1234-1234-123456789012",
+  "datacenterName": "My Datacenter",
+  "lastSeenDatetime": "2026-04-19T00:00:00Z",
+  "sourceServerTags": {},
+  "tags": {}
+}

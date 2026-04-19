@@ -1,0 +1,5 @@
+{
+  "ec2InstanceID": "i-1234567890abcdef0",
+  "jobID": "mgnjob-1234567890abcdef0",
+  "firstBoot": "SUCCEEDED"
+}

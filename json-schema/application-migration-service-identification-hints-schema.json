@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-identification-hints-schema.json",
+  "title": "IdentificationHints",
+  "description": "Hints used to identify the source server",
+  "type": "object",
+  "properties": {
+    "fqdn": {
+      "type": "string",
+      "description": "Fully qualified domain name"
+    },
+    "hostname": {
+      "type": "string",
+      "description": "Hostname"
+    },
+    "vmWareUuid": {
+      "type": "string",
+      "description": "VMware UUID"
+    },
+    "awsInstanceID": {
+      "type": "string",
+      "description": "AWS instance ID if previously in AWS"
+    },
+    "vmPath": {
+      "type": "string",
+      "description": "VMware path"
+    }
+  }
+}

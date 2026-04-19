@@ -1,0 +1,415 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: Amazon Application Migration Service API
+  description: Shared capability definition for the AWS Application Migration Service API covering source servers, replication, launch, jobs, applications, and waves.
+  tags:
+    - Amazon Application Migration Service
+    - Migration
+    - Lift And Shift
+    - AWS
+    - Cloud Migration
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY
+      AWS_REGION: AWS_REGION
+
+capability:
+  consumes:
+    - type: http
+      namespace: mgn
+      baseUri: https://mgn.us-east-1.amazonaws.com
+      description: AWS Application Migration Service for lift-and-shift migrations to AWS.
+      authentication:
+        type: apikey
+        key: Authorization
+        value: "{{AWS_ACCESS_KEY_ID}}"
+        placement: header
+      resources:
+        - name: source-servers
+          path: /DescribeSourceServers
+          description: List and manage source servers being migrated.
+          operations:
+            - name: describe-source-servers
+              method: POST
+              description: Retrieves all source servers or filtered by lifecycle state.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: source-servers-archive
+          path: /MarkAsArchived
+          description: Archive a source server.
+          operations:
+            - name: mark-as-archived
+              method: POST
+              description: Archives a source server by its ID.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: source-servers-delete
+          path: /DeleteSourceServer
+          description: Delete a source server.
+          operations:
+            - name: delete-source-server
+              method: POST
+              description: Deletes a disconnected source server.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: source-servers-disconnect
+          path: /DisconnectFromService
+          description: Disconnect a source server.
+          operations:
+            - name: disconnect-from-service
+              method: POST
+              description: Disconnects a source server from the replication process.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: replication-configuration
+          path: /GetReplicationConfiguration
+          description: Get replication configuration for a source server.
+          operations:
+            - name: get-replication-configuration
+              method: POST
+              description: Retrieves replication configuration for a source server.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: replication-configuration-update
+          path: /UpdateReplicationConfiguration
+          description: Update replication configuration.
+          operations:
+            - name: update-replication-configuration
+              method: POST
+              description: Updates replication configuration for a source server.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: replication-templates
+          path: /DescribeReplicationConfigurationTemplates
+          description: List replication configuration templates.
+          operations:
+            - name: describe-replication-configuration-templates
+              method: POST
+              description: Retrieves all replication configuration templates.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: launch-configuration
+          path: /GetLaunchConfiguration
+          description: Get launch configuration for a source server.
+          operations:
+            - name: get-launch-configuration
+              method: POST
+              description: Retrieves launch configuration for a source server.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: launch-configuration-update
+          path: /UpdateLaunchConfiguration
+          description: Update launch configuration.
+          operations:
+            - name: update-launch-configuration
+              method: POST
+              description: Updates launch configuration for a source server.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: launch-templates
+          path: /DescribeLaunchConfigurationTemplates
+          description: List launch configuration templates.
+          operations:
+            - name: describe-launch-configuration-templates
+              method: POST
+              description: Retrieves all launch configuration templates.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: test-start
+          path: /StartTest
+          description: Start a test migration job.
+          operations:
+            - name: start-test
+              method: POST
+              description: Launches test instances for source servers.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: cutover-start
+          path: /StartCutover
+          description: Start a cutover migration job.
+          operations:
+            - name: start-cutover
+              method: POST
+              description: Launches cutover instances for source servers.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: cutover-finalize
+          path: /FinalizeCutover
+          description: Finalize the cutover process.
+          operations:
+            - name: finalize-cutover
+              method: POST
+              description: Finalizes the cutover for a source server.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: target-instances-terminate
+          path: /TerminateTargetInstances
+          description: Terminate launched test or cutover instances.
+          operations:
+            - name: terminate-target-instances
+              method: POST
+              description: Terminates previously launched target instances.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: jobs
+          path: /DescribeJobs
+          description: List migration jobs.
+          operations:
+            - name: describe-jobs
+              method: POST
+              description: Retrieves all migration jobs with optional filtering.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: applications
+          path: /ListApplications
+          description: List migration applications.
+          operations:
+            - name: list-applications
+              method: POST
+              description: Retrieves all migration application groupings.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: applications-create
+          path: /CreateApplication
+          description: Create a migration application.
+          operations:
+            - name: create-application
+              method: POST
+              description: Creates a new migration application grouping.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: waves
+          path: /ListWaves
+          description: List migration waves.
+          operations:
+            - name: list-waves
+              method: POST
+              description: Retrieves all migration waves.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: waves-create
+          path: /CreateWave
+          description: Create a migration wave.
+          operations:
+            - name: create-wave
+              method: POST
+              description: Creates a new migration wave.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: mgn-rest
+      resources:
+        - path: /v1/source-servers
+          name: source-servers
+          description: Source servers being migrated
+          operations:
+            - method: GET
+              name: describe-source-servers
+              description: List all source servers
+              call: "mgn.describe-source-servers"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/jobs
+          name: jobs
+          description: Migration jobs
+          operations:
+            - method: GET
+              name: describe-jobs
+              description: List all migration jobs
+              call: "mgn.describe-jobs"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/applications
+          name: applications
+          description: Migration application groupings
+          operations:
+            - method: GET
+              name: list-applications
+              description: List all migration applications
+              call: "mgn.list-applications"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: mgn-mcp
+      transport: http
+      tools:
+        - name: describe-source-servers
+          description: List all source servers registered with the Application Migration Service.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mgn.describe-source-servers"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-replication-configuration
+          description: Get replication settings for a specific source server.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mgn.get-replication-configuration"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-launch-configuration
+          description: Get launch settings for a specific source server.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mgn.get-launch-configuration"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: start-test
+          description: Launch test instances to validate migration readiness before cutover.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "mgn.start-test"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: start-cutover
+          description: Initiate the production cutover to migrate servers to AWS.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "mgn.start-cutover"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: finalize-cutover
+          description: Finalize the cutover to complete the migration of a source server.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "mgn.finalize-cutover"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: describe-jobs
+          description: List and monitor all migration and test jobs.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mgn.describe-jobs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-applications
+          description: List migration application groupings.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mgn.list-applications"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-waves
+          description: List migration waves for tracking large-scale migration progress.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "mgn.list-waves"
+          outputParameters:
+            - type: object
+              mapping: "$."

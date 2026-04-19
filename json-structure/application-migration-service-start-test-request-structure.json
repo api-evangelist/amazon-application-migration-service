@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-start-test-request-structure.json",
+  "title": "StartTestRequest",
+  "description": "Request to start a test migration job",
+  "type": "record",
+  "fields": {
+    "sourceServerIDs": {
+      "type": "array",
+      "description": "Source server IDs to test"
+    },
+    "tags": {
+      "type": "object",
+      "description": "Tags for the test job"
+    },
+    "accountID": {
+      "type": "string",
+      "description": "Account ID for cross-account access"
+    }
+  }
+}

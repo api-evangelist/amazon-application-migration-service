@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-describe-jobs-request-filters-structure.json",
+  "title": "DescribeJobsRequestFilters",
+  "description": "Filters for describing jobs",
+  "type": "record",
+  "fields": {
+    "jobIDs": {
+      "type": "array",
+      "description": "Filter by job IDs"
+    },
+    "fromDate": {
+      "type": "string",
+      "description": "Filter by start date"
+    },
+    "toDate": {
+      "type": "string",
+      "description": "Filter by end date"
+    }
+  }
+}

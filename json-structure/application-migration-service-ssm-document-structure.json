@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-ssm-document-structure.json",
+  "title": "SsmDocument",
+  "description": "An SSM document configuration for post-launch automation",
+  "type": "record",
+  "fields": {
+    "actionName": {
+      "type": "string",
+      "description": "Name of the SSM action"
+    },
+    "ssmDocumentName": {
+      "type": "string",
+      "description": "SSM document name"
+    },
+    "timeoutSeconds": {
+      "type": "integer",
+      "description": "Timeout in seconds"
+    },
+    "mustSucceedForCutover": {
+      "type": "boolean",
+      "description": "Whether this action must succeed for cutover to proceed"
+    },
+    "parameters": {
+      "type": "object",
+      "description": "SSM document parameters"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-describe-jobs-response-structure.json",
+  "title": "DescribeJobsResponse",
+  "description": "Response with list of jobs",
+  "type": "record",
+  "fields": {
+    "items": {
+      "type": "array",
+      "description": "List of jobs"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    }
+  }
+}

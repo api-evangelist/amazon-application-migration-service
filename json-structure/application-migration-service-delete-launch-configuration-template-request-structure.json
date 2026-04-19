@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-delete-launch-configuration-template-request-structure.json",
+  "title": "DeleteLaunchConfigurationTemplateRequest",
+  "description": "Request to delete a launch configuration template",
+  "type": "record",
+  "fields": {
+    "launchConfigurationTemplateID": {
+      "type": "string",
+      "description": "Template ID to delete"
+    }
+  }
+}

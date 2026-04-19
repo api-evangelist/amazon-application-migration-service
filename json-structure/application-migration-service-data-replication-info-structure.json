@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-data-replication-info-structure.json",
+  "title": "DataReplicationInfo",
+  "description": "Current data replication state and statistics for a source server",
+  "type": "record",
+  "fields": {
+    "lagDuration": {
+      "type": "string",
+      "description": "Replication lag duration"
+    },
+    "lastSnapshotDateTime": {
+      "type": "string",
+      "description": "Date/time of the last snapshot"
+    },
+    "replicatedDisks": {
+      "type": "array",
+      "description": "List of replicated disks"
+    },
+    "dataReplicationState": {
+      "type": "string",
+      "description": "Current replication state"
+    },
+    "dataReplicationInitiation": {
+      "type": "string",
+      "description": "dataReplicationInitiation"
+    },
+    "dataReplicationError": {
+      "type": "string",
+      "description": "dataReplicationError"
+    },
+    "stagingAvailabilityZone": {
+      "type": "string",
+      "description": "Availability zone used for staging"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "lagDuration": "PT0S",
+  "lastSnapshotDateTime": "2026-04-19T00:00:00Z",
+  "replicatedDisks": [],
+  "dataReplicationState": "CONTINUOUS",
+  "dataReplicationInitiation": "example-string",
+  "dataReplicationError": "example-string",
+  "stagingAvailabilityZone": "us-east-1a"
+}

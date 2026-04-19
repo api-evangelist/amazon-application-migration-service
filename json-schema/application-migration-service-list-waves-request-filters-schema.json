@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-list-waves-request-filters-schema.json",
+  "title": "ListWavesRequestFilters",
+  "description": "Filters for listing waves",
+  "type": "object",
+  "properties": {
+    "waveIDs": {
+      "type": "array",
+      "description": "Filter by wave IDs"
+    },
+    "isArchived": {
+      "type": "boolean",
+      "description": "Filter by archived status"
+    }
+  }
+}

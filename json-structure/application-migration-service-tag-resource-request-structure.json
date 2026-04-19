@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-tag-resource-request-structure.json",
+  "title": "TagResourceRequest",
+  "description": "Request to add tags to a resource",
+  "type": "record",
+  "fields": {
+    "tags": {
+      "type": "object",
+      "description": "Tags to add"
+    }
+  }
+}

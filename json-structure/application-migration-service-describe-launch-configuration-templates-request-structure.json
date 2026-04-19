@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-describe-launch-configuration-templates-request-structure.json",
+  "title": "DescribeLaunchConfigurationTemplatesRequest",
+  "description": "Request to describe launch configuration templates",
+  "type": "record",
+  "fields": {
+    "launchConfigurationTemplateIDs": {
+      "type": "array",
+      "description": "Filter by template IDs"
+    },
+    "maxResults": {
+      "type": "integer",
+      "description": "Maximum results to return"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    }
+  }
+}

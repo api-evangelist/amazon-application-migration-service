@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-get-launch-configuration-request-structure.json",
+  "title": "GetLaunchConfigurationRequest",
+  "description": "Request to get launch configuration",
+  "type": "record",
+  "fields": {
+    "sourceServerID": {
+      "type": "string",
+      "description": "Source server ID"
+    },
+    "accountID": {
+      "type": "string",
+      "description": "Account ID for cross-account access"
+    }
+  }
+}

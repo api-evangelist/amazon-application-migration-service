@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-update-launch-configuration-template-request-schema.json",
+  "title": "UpdateLaunchConfigurationTemplateRequest",
+  "description": "Request to update a launch configuration template",
+  "type": "object",
+  "properties": {
+    "launchConfigurationTemplateID": {
+      "type": "string",
+      "description": "Template ID to update"
+    },
+    "launchDisposition": {
+      "type": "string",
+      "description": "launchDisposition"
+    },
+    "targetInstanceTypeRightSizingMethod": {
+      "type": "string",
+      "description": "targetInstanceTypeRightSizingMethod"
+    },
+    "copyPrivateIp": {
+      "type": "boolean",
+      "description": "copyPrivateIp"
+    },
+    "copyTags": {
+      "type": "boolean",
+      "description": "copyTags"
+    }
+  }
+}

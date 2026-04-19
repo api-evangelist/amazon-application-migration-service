@@ -1,0 +1,7 @@
+{
+  "actionName": "InstallSoftware",
+  "ssmDocumentName": "AWS-RunShellScript",
+  "timeoutSeconds": 3600,
+  "mustSucceedForCutover": false,
+  "parameters": {}
+}

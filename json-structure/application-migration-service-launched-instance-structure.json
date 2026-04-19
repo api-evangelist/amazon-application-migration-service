@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-launched-instance-structure.json",
+  "title": "LaunchedInstance",
+  "description": "Details about the launched EC2 instance",
+  "type": "record",
+  "fields": {
+    "ec2InstanceID": {
+      "type": "string",
+      "description": "EC2 instance ID"
+    },
+    "jobID": {
+      "type": "string",
+      "description": "Job ID that launched this instance"
+    },
+    "firstBoot": {
+      "type": "string",
+      "description": "First boot status"
+    }
+  }
+}

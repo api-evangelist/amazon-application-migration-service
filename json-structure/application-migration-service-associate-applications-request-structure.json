@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-associate-applications-request-structure.json",
+  "title": "AssociateApplicationsRequest",
+  "description": "Request to associate applications with a wave",
+  "type": "record",
+  "fields": {
+    "waveID": {
+      "type": "string",
+      "description": "Wave ID"
+    },
+    "applicationIDs": {
+      "type": "array",
+      "description": "Application IDs to associate"
+    },
+    "accountID": {
+      "type": "string",
+      "description": "Account ID for cross-account access"
+    }
+  }
+}

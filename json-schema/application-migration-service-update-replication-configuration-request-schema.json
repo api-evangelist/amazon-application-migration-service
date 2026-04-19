@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-update-replication-configuration-request-schema.json",
+  "title": "UpdateReplicationConfigurationRequest",
+  "description": "Request to update replication configuration",
+  "type": "object",
+  "properties": {
+    "sourceServerID": {
+      "type": "string",
+      "description": "Source server ID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Configuration name"
+    },
+    "stagingAreaSubnetId": {
+      "type": "string",
+      "description": "Subnet ID for staging area"
+    },
+    "replicationServerInstanceType": {
+      "type": "string",
+      "description": "EC2 instance type for replication servers"
+    },
+    "useLowBandwidthForReplication": {
+      "type": "boolean",
+      "description": "Whether to use low bandwidth"
+    },
+    "bandwidthThrottling": {
+      "type": "integer",
+      "description": "Bandwidth throttling in Mbps"
+    },
+    "dataPlaneRouting": {
+      "type": "string",
+      "description": "Data plane routing mode"
+    },
+    "createPublicIP": {
+      "type": "boolean",
+      "description": "Whether to create public IP"
+    },
+    "accountID": {
+      "type": "string",
+      "description": "Account ID for cross-account access"
+    }
+  }
+}

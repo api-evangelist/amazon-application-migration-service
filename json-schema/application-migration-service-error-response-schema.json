@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-error-response-schema.json",
+  "title": "ErrorResponse",
+  "description": "Standard error response from the Application Migration Service API",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "Error message"
+    },
+    "code": {
+      "type": "string",
+      "description": "Error code"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-tag-resource-request-schema.json",
+  "title": "TagResourceRequest",
+  "description": "Request to add tags to a resource",
+  "type": "object",
+  "properties": {
+    "tags": {
+      "type": "object",
+      "description": "Tags to add"
+    }
+  }
+}

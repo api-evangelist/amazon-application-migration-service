@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-start-cutover-request-structure.json",
+  "title": "StartCutoverRequest",
+  "description": "Request to start a cutover migration job",
+  "type": "record",
+  "fields": {
+    "sourceServerIDs": {
+      "type": "array",
+      "description": "Source server IDs to cut over"
+    },
+    "tags": {
+      "type": "object",
+      "description": "Tags for the cutover job"
+    },
+    "accountID": {
+      "type": "string",
+      "description": "Account ID for cross-account access"
+    }
+  }
+}

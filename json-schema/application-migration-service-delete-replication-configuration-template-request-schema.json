@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-delete-replication-configuration-template-request-schema.json",
+  "title": "DeleteReplicationConfigurationTemplateRequest",
+  "description": "Request to delete a replication configuration template",
+  "type": "object",
+  "properties": {
+    "replicationConfigurationTemplateID": {
+      "type": "string",
+      "description": "Template ID to delete"
+    }
+  }
+}

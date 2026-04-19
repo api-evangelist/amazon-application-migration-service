@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-terminate-target-instances-response-structure.json",
+  "title": "TerminateTargetInstancesResponse",
+  "description": "Response from terminating target instances",
+  "type": "record",
+  "fields": {
+    "job": {
+      "type": "string",
+      "description": "job"
+    }
+  }
+}

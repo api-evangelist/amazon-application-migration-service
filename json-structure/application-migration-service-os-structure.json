@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-os-structure.json",
+  "title": "OS",
+  "description": "Operating system information",
+  "type": "record",
+  "fields": {
+    "fullString": {
+      "type": "string",
+      "description": "Full OS description string"
+    }
+  }
+}

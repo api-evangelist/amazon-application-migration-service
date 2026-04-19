@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-job-structure.json",
+  "title": "Job",
+  "description": "A migration or conversion job",
+  "type": "record",
+  "fields": {
+    "jobID": {
+      "type": "string",
+      "description": "Job ID"
+    },
+    "arn": {
+      "type": "string",
+      "description": "ARN of the job"
+    },
+    "type": {
+      "type": "string",
+      "description": "Job type"
+    },
+    "initiatedBy": {
+      "type": "string",
+      "description": "Who initiated the job"
+    },
+    "creationDateTime": {
+      "type": "string",
+      "description": "Date/time job was created"
+    },
+    "endDateTime": {
+      "type": "string",
+      "description": "Date/time job ended"
+    },
+    "status": {
+      "type": "string",
+      "description": "Job status"
+    },
+    "participatingServers": {
+      "type": "array",
+      "description": "Servers participating in the job"
+    },
+    "tags": {
+      "type": "object",
+      "description": "Tags on the job"
+    }
+  }
+}

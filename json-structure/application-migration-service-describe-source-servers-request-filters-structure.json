@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-describe-source-servers-request-filters-structure.json",
+  "title": "DescribeSourceServersRequestFilters",
+  "description": "Filters for describing source servers",
+  "type": "record",
+  "fields": {
+    "sourceServerIDs": {
+      "type": "array",
+      "description": "Filter by source server IDs"
+    },
+    "isArchived": {
+      "type": "boolean",
+      "description": "Filter by archived status"
+    },
+    "replicationTypes": {
+      "type": "array",
+      "description": "Filter by replication type"
+    },
+    "lifeCycleStates": {
+      "type": "array",
+      "description": "Filter by lifecycle states"
+    },
+    "applicationIDs": {
+      "type": "array",
+      "description": "Filter by application IDs"
+    }
+  }
+}

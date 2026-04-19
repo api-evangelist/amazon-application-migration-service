@@ -1,0 +1,8 @@
+{
+  "deviceName": "/dev/sda1",
+  "isBootDisk": true,
+  "stagingDiskType": "GP2",
+  "iops": 0,
+  "throughput": 0,
+  "optimizedStagingDiskType": "GP2"
+}

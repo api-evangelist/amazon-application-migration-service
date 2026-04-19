@@ -1,0 +1,10 @@
+{
+  "lastUpdatedDateTime": "2026-04-19T00:00:00Z",
+  "recommendedInstanceType": "t3.large",
+  "identificationHints": "example-string",
+  "networkInterfaces": [],
+  "disks": [],
+  "cpus": [],
+  "ramBytes": 8589934592,
+  "os": "example-string"
+}

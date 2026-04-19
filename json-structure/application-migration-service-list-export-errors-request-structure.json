@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-list-export-errors-request-structure.json",
+  "title": "ListExportErrorsRequest",
+  "description": "Request to list export errors",
+  "type": "record",
+  "fields": {
+    "exportID": {
+      "type": "string",
+      "description": "Export ID"
+    },
+    "maxResults": {
+      "type": "integer",
+      "description": "Maximum results to return"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    }
+  }
+}

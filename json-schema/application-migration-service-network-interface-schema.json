@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-network-interface-schema.json",
+  "title": "NetworkInterface",
+  "description": "Network interface on a source server",
+  "type": "object",
+  "properties": {
+    "macAddress": {
+      "type": "string",
+      "description": "MAC address"
+    },
+    "ips": {
+      "type": "array",
+      "description": "IP addresses"
+    },
+    "isPrimary": {
+      "type": "boolean",
+      "description": "Whether this is the primary interface"
+    }
+  }
+}

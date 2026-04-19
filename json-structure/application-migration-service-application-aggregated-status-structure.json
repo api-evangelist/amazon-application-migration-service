@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-application-aggregated-status-structure.json",
+  "title": "ApplicationAggregatedStatus",
+  "description": "Aggregated status of all source servers in an application",
+  "type": "record",
+  "fields": {
+    "lastUpdateDateTime": {
+      "type": "string",
+      "description": "Date/time of last status update"
+    },
+    "healthStatus": {
+      "type": "string",
+      "description": "Overall health status"
+    },
+    "progressStatus": {
+      "type": "string",
+      "description": "Overall progress status"
+    },
+    "totalSourceServers": {
+      "type": "integer",
+      "description": "Total number of source servers in the application"
+    }
+  }
+}

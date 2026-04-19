@@ -1,0 +1,7 @@
+{
+  "deployment": "TEST_AND_CUTOVER",
+  "s3LogBucket": "my-migration-logs",
+  "s3OutputKeyPrefix": "mgn-logs/",
+  "cloudWatchLogGroupName": "/aws/mgn/post-launch-actions",
+  "ssmDocuments": []
+}

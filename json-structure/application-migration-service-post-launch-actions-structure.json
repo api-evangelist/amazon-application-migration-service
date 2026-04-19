@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-post-launch-actions-structure.json",
+  "title": "PostLaunchActions",
+  "description": "Actions to execute after the instance launches",
+  "type": "record",
+  "fields": {
+    "deployment": {
+      "type": "string",
+      "description": "Deployment type for post-launch actions"
+    },
+    "s3LogBucket": {
+      "type": "string",
+      "description": "S3 bucket for action logs"
+    },
+    "s3OutputKeyPrefix": {
+      "type": "string",
+      "description": "S3 key prefix for action logs"
+    },
+    "cloudWatchLogGroupName": {
+      "type": "string",
+      "description": "CloudWatch log group name"
+    },
+    "ssmDocuments": {
+      "type": "array",
+      "description": "SSM documents to execute"
+    }
+  }
+}

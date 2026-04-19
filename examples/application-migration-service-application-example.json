@@ -1,0 +1,12 @@
+{
+  "applicationID": "app-1234567890abcdef0",
+  "arn": "arn:aws:mgn:us-east-1:123456789012:application/app-1234567890abcdef0",
+  "name": "My Application",
+  "description": "Primary business application",
+  "isArchived": false,
+  "applicationAggregatedStatus": "example-string",
+  "creationDateTime": "2026-04-19T00:00:00Z",
+  "lastModifiedDateTime": "2026-04-19T00:00:00Z",
+  "tags": {},
+  "waveID": "wave-1234567890abcdef0"
+}

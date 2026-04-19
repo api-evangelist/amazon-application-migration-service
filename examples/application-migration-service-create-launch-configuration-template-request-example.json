@@ -1,0 +1,8 @@
+{
+  "launchDisposition": "STOPPED",
+  "targetInstanceTypeRightSizingMethod": "BASIC",
+  "copyPrivateIp": false,
+  "copyTags": false,
+  "licensing": "example-string",
+  "tags": {}
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-error-response-structure.json",
+  "title": "ErrorResponse",
+  "description": "Standard error response from the Application Migration Service API",
+  "type": "record",
+  "fields": {
+    "message": {
+      "type": "string",
+      "description": "Error message"
+    },
+    "code": {
+      "type": "string",
+      "description": "Error code"
+    }
+  }
+}

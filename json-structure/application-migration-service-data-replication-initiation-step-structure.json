@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-data-replication-initiation-step-structure.json",
+  "title": "DataReplicationInitiationStep",
+  "description": "A single step in the replication initiation process",
+  "type": "record",
+  "fields": {
+    "name": {
+      "type": "string",
+      "description": "Step name"
+    },
+    "status": {
+      "type": "string",
+      "description": "Step status"
+    }
+  }
+}

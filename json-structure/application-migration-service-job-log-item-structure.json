@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-job-log-item-structure.json",
+  "title": "JobLogItem",
+  "description": "A log entry for a migration job",
+  "type": "record",
+  "fields": {
+    "logDateTime": {
+      "type": "string",
+      "description": "Date/time of the log entry"
+    },
+    "event": {
+      "type": "string",
+      "description": "Log event type"
+    },
+    "eventData": {
+      "type": "string",
+      "description": "eventData"
+    }
+  }
+}

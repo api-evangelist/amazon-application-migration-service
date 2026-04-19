@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-life-cycle-schema.json",
+  "title": "LifeCycle",
+  "description": "Lifecycle state of a source server",
+  "type": "object",
+  "properties": {
+    "state": {
+      "type": "string",
+      "description": "Current lifecycle state"
+    },
+    "addedToServiceDateTime": {
+      "type": "string",
+      "description": "Date/time the server was added to the service"
+    },
+    "firstByteDateTime": {
+      "type": "string",
+      "description": "Date/time the first replication byte was received"
+    },
+    "elapsedReplicationDuration": {
+      "type": "string",
+      "description": "Elapsed duration of replication"
+    },
+    "lastSeenByServiceDateTime": {
+      "type": "string",
+      "description": "Date/time the agent last communicated with the service"
+    },
+    "lastTestInitiated": {
+      "type": "string",
+      "description": "lastTestInitiated"
+    },
+    "lastTestReverted": {
+      "type": "string",
+      "description": "lastTestReverted"
+    },
+    "lastTestFinalized": {
+      "type": "string",
+      "description": "lastTestFinalized"
+    },
+    "lastCutoverInitiated": {
+      "type": "string",
+      "description": "lastCutoverInitiated"
+    },
+    "lastCutoverReverted": {
+      "type": "string",
+      "description": "lastCutoverReverted"
+    },
+    "lastCutoverFinalized": {
+      "type": "string",
+      "description": "lastCutoverFinalized"
+    }
+  }
+}

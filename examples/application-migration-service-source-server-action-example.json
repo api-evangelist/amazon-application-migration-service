@@ -1,0 +1,14 @@
+{
+  "actionID": "action-1234567890abcdef0",
+  "actionName": "InstallMonitoringAgent",
+  "active": true,
+  "category": "CONFIGURATION",
+  "description": "Installs monitoring agent on the launched instance",
+  "documentIdentifier": "AWS-RunShellScript",
+  "documentVersion": "1",
+  "externalParameters": {},
+  "mustSucceedForCutover": false,
+  "order": 1,
+  "parameters": {},
+  "timeoutSeconds": 3600
+}

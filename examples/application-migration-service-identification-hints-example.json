@@ -1,0 +1,7 @@
+{
+  "fqdn": "server.example.com",
+  "hostname": "my-server",
+  "vmWareUuid": "12345678-1234-1234-1234-123456789012",
+  "awsInstanceID": "i-1234567890abcdef0",
+  "vmPath": "/Datacenter/vm/my-server"
+}

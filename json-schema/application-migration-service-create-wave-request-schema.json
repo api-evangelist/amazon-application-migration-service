@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-schema/application-migration-service-create-wave-request-schema.json",
+  "title": "CreateWaveRequest",
+  "description": "Request to create a migration wave",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Wave name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Wave description"
+    },
+    "tags": {
+      "type": "object",
+      "description": "Tags for the wave"
+    },
+    "accountID": {
+      "type": "string",
+      "description": "Account ID for cross-account access"
+    }
+  }
+}

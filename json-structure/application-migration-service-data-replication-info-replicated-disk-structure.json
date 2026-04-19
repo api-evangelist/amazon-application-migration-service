@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-application-migration-service/json-structure/application-migration-service-data-replication-info-replicated-disk-structure.json",
+  "title": "DataReplicationInfoReplicatedDisk",
+  "description": "Replication status for an individual disk",
+  "type": "record",
+  "fields": {
+    "deviceName": {
+      "type": "string",
+      "description": "Device name of the disk"
+    },
+    "totalStorageBytes": {
+      "type": "integer",
+      "description": "Total storage in bytes"
+    },
+    "replicatedStorageBytes": {
+      "type": "integer",
+      "description": "Amount of storage replicated in bytes"
+    },
+    "rescannedStorageBytes": {
+      "type": "integer",
+      "description": "Amount rescanned in bytes"
+    },
+    "backloggedStorageBytes": {
+      "type": "integer",
+      "description": "Amount backlogged in bytes"
+    }
+  }
+}
