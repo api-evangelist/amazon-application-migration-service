@@ -1,0 +1,28 @@
+generated: '2026-06-20'
+method: searched
+source: >-
+  Probed the API base host (mgn.us-east-1.amazonaws.com) and the AWS corporate
+  host (aws.amazon.com) for /.well-known/ discovery documents.
+hosts:
+  - host: https://mgn.us-east-1.amazonaws.com
+    note: >-
+      The MGN service endpoint requires AWS SigV4 authentication and returns
+      403 for all unauthenticated /.well-known/ probes; no public discovery
+      documents are served.
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+      - path: /.well-known/openid-configuration
+        status: 403
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+      - path: /.well-known/api-catalog
+        status: 403
+      - path: /.well-known/ai-plugin.json
+        status: 403
+  - host: https://aws.amazon.com
+    note: AWS-wide vulnerability disclosure policy (RFC 9116), applies to MGN.
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: amazon-application-migration-service-security.txt

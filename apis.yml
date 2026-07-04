@@ -13,7 +13,7 @@ tags:
 url: >-
   https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/apis.yml
 created: '2026-03-16'
-modified: '2026-04-19'
+modified: '2026-06-20'
 specificationVersion: '0.19'
 apis:
   - aid: amazon-application-migration-service:amazon-application-migration-service-api
@@ -72,7 +72,25 @@ apis:
       - type: Example
         url: >-
           https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-job-example.json
+      - type: Packages
+        url: packages/amazon-application-migration-service-packages.yml
+      - type: MCPServer
+        url: mcp/amazon-application-migration-service-mcp.yml
+      - type: Overlay
+        url: overlays/amazon-application-migration-service-api-overlay.yaml
+      - type: ErrorCatalog
+        url: errors/amazon-application-migration-service-problem-types.yml
+      - type: Conformance
+        url: conformance/amazon-application-migration-service-conformance.yml
+      - type: Lifecycle
+        url: lifecycle/amazon-application-migration-service-lifecycle.yml
 common:
+  - type: WellKnown
+    url: well-known/amazon-application-migration-service-well-known.yml
+  - type: SecurityTxt
+    url: well-known/amazon-application-migration-service-security.txt
+  - type: LLMsTxt
+    url: llms/amazon-application-migration-service-llms.txt
   - type: Features
     data:
       - Continuous block-level replication with near-zero RPO

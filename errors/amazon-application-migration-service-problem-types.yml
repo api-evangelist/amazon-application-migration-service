@@ -1,0 +1,75 @@
+generated: '2026-06-20'
+method: derived
+source: >-
+  Derived from openapi/amazon-application-migration-service-openapi.yml (every
+  operation documents a 500 ErrorResponse with message + code) and enriched from
+  the AWS MGN API Reference Common Errors page.
+enriched_from: https://docs.aws.amazon.com/mgn/latest/APIReference/CommonErrors.html
+format: aws-json
+note: >-
+  Errors are returned as application/json with an ErrorResponse object
+  ({ message, code }); this is not RFC 9457 application/problem+json. The 500
+  entry is derived from the OpenAPI; the remaining entries are AWS service-wide
+  common errors documented in the API reference.
+problems:
+  - status: 500
+    code: InternalServerException
+    title: Internal server error
+    remediation: The request failed due to an internal server issue; retry later.
+    source_operation: openapi/amazon-application-migration-service-openapi.yml#* (all operations)
+  - status: 400
+    code: ValidationError
+    title: Input does not meet the required format or constraints
+    remediation: Check that all required parameters are included and values are valid.
+  - status: 400
+    code: ThrottlingException
+    title: Request rate is too high
+    remediation: Reduce request frequency; AWS SDKs retry this automatically.
+  - status: 400
+    code: MalformedHttpRequestException
+    title: Request body cannot be processed
+    remediation: Verify the content-encoding header matches the compression used.
+  - status: 400
+    code: RequestAbortedException
+    title: Request aborted before a response could be returned
+    remediation: Retry the request; typically caused by the client closing the connection.
+  - status: 401
+    code: NotAuthorized
+    title: Not authorized to perform this action
+    remediation: Verify that your IAM policy includes the required permissions.
+  - status: 403
+    code: AccessDeniedException
+    title: Access denied
+    remediation: Verify that your IAM policy includes the required permissions.
+  - status: 403
+    code: ExpiredTokenException
+    title: Security token has expired
+    remediation: Request a new security token and try again.
+  - status: 403
+    code: IncompleteSignature
+    title: Request signature does not conform to AWS standards
+    remediation: Use valid AWS credentials and ensure the SDK is up to date.
+  - status: 403
+    code: OptInRequired
+    title: AWS account needs a subscription for this service
+    remediation: Enable the service in your account.
+  - status: 403
+    code: UnrecognizedClientException
+    title: Access key ID or certificate not found
+    remediation: Verify that your credentials are valid and unexpired.
+  - status: 404
+    code: UnknownOperationException
+    title: Operation is not recognized
+    remediation: Verify the action name and that it is supported by the API version.
+  - status: 408
+    code: RequestTimeoutException
+    title: Request timed out
+    remediation: The complete request was not received in time; try again.
+  - status: 413
+    code: RequestEntityTooLargeException
+    title: Request entity is too large
+    remediation: Reduce the size of the request body and try again.
+  - status: 503
+    code: ServiceUnavailable
+    title: Service temporarily unavailable
+    remediation: Retry later.

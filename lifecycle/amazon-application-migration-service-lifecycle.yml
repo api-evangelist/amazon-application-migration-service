@@ -1,0 +1,28 @@
+generated: '2026-06-20'
+method: derived
+source: >-
+  Derived from openapi/amazon-application-migration-service-openapi.yml and AWS
+  service conventions; deprecation/versioning policy searched on AWS docs.
+versioning:
+  scheme: date-based-service-model
+  current: '2021-02-25'
+  note: >-
+    AWS MGN is a date-versioned JSON service (X-Amz-Target / service model
+    date), not a URI-path or header-versioned API. The version shown reflects
+    the info.version of the captured OpenAPI.
+  docs: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
+deprecation:
+  policy_url: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    AWS evolves services additively within a dated service model and does not
+    emit RFC 8594 Sunset/Deprecation headers for MGN operations.
+sla:
+  url: null
+  note: >-
+    No dedicated published SLA for Application Migration Service; the service
+    itself has no per-use charge (customers pay for the EC2/EBS resources it
+    provisions).
+status_page: https://health.aws.amazon.com/health/status
+deprecated_operations: []

@@ -1,0 +1,48 @@
+generated: '2026-06-20'
+method: derived
+source: >-
+  Derived from openapi/amazon-application-migration-service-openapi.yml
+  (security schemes, media types, response shapes) and AWS service conventions.
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      Authentication is AWS Signature Version 4 (awsAuth apiKey/Authorization
+      header), not OAuth2.
+  - id: oidc
+    conforms: false
+    evidence: No OpenID Connect discovery document is served on the endpoint.
+  - id: aws-sigv4
+    conforms: true
+    evidence: securitySchemes.awsAuth documents AWS Signature Version 4 authentication.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors use a custom application/json ErrorResponse object (message, code),
+      not application/problem+json.
+  - id: rfc9116-security-txt
+    conforms: true
+    evidence: https://aws.amazon.com/.well-known/security.txt returns 200 (AWS-wide VDP).
+  - id: json-api
+    conforms: false
+    evidence: Responses are plain JSON, not the JSON:API media type or envelope.
+  - id: fhir-r4
+    conforms: false
+  - id: scim2
+    conforms: false
+  - id: odata
+    conforms: false
+  - id: fapi
+    conforms: false
+  - id: psd2
+    conforms: false
+  - id: cursor-pagination
+    conforms: true
+    evidence: >-
+      List/describe operations use maxResults + nextToken cursor pagination
+      (e.g. describeSourceServers, describeJobs, listApplications, listWaves).
+  - id: tagging
+    conforms: true
+    evidence: >-
+      Resource tagging via tagResource/untagResource/listTagsForResource with
+      key/value string maps.

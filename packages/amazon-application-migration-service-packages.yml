@@ -1,0 +1,72 @@
+generated: '2026-06-20'
+method: searched
+source: >-
+  First-party AWS SDK service clients for Application Migration Service (mgn),
+  verified against public package registries.
+packages:
+  - language: javascript
+    registry: npm
+    name: "@aws-sdk/client-mgn"
+    version: 3.1079.0
+    url: https://www.npmjs.com/package/@aws-sdk/client-mgn
+    install: npm install @aws-sdk/client-mgn
+    repository: https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-mgn
+    license: Apache-2.0
+    official: true
+  - language: python
+    registry: pypi
+    name: boto3
+    version: 1.43.40
+    url: https://pypi.org/project/boto3/
+    install: pip install boto3
+    note: The mgn client is exposed via boto3.client('mgn') (backed by botocore).
+    license: Apache-2.0
+    official: true
+  - language: java
+    registry: maven
+    name: software.amazon.awssdk:mgn
+    version: 2.46.7
+    url: https://central.sonatype.com/artifact/software.amazon.awssdk/mgn
+    install: "implementation 'software.amazon.awssdk:mgn'"
+    license: Apache-2.0
+    official: true
+  - language: dotnet
+    registry: nuget
+    name: AWSSDK.Mgn
+    version: 4.0.100.2
+    url: https://www.nuget.org/packages/AWSSDK.Mgn
+    install: dotnet add package AWSSDK.Mgn
+    license: Apache-2.0
+    official: true
+  - language: go
+    registry: pkg.go.dev
+    name: github.com/aws/aws-sdk-go-v2/service/mgn
+    version: v1.46.2
+    url: https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/mgn
+    install: go get github.com/aws/aws-sdk-go-v2/service/mgn
+    license: Apache-2.0
+    official: true
+  - language: ruby
+    registry: rubygems
+    name: aws-sdk-mgn
+    version: 1.72.0
+    url: https://rubygems.org/gems/aws-sdk-mgn
+    install: gem install aws-sdk-mgn
+    license: Apache-2.0
+    official: true
+  - language: rust
+    registry: crates.io
+    name: aws-sdk-mgn
+    version: 1.107.0
+    url: https://crates.io/crates/aws-sdk-mgn
+    install: cargo add aws-sdk-mgn
+    repository: https://github.com/awslabs/aws-sdk-rust
+    license: Apache-2.0
+    official: true
+  - language: cli
+    registry: aws-cli
+    name: aws mgn
+    url: https://docs.aws.amazon.com/cli/latest/reference/mgn/index.html
+    install: "aws mgn <command>  # bundled with the AWS CLI v2"
+    license: Apache-2.0
+    official: true

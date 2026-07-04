@@ -1,0 +1,32 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Amazon Application Migration Service API
+  version: 1.0.0
+extends: openapi/amazon-application-migration-service-openapi.yml
+x-provenance:
+  generated: '2026-06-20'
+  method: generated
+  source: openapi/amazon-application-migration-service-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-slug: amazon-application-migration-service
+      x-apievangelist-tags:
+        - Migration
+        - Lift And Shift
+        - AWS
+        - Cloud Migration
+      x-authentication: AWS Signature Version 4 (SigV4)
+  - target: $.info
+    update:
+      x-artifacts:
+        packages: packages/amazon-application-migration-service-packages.yml
+        mcp: mcp/amazon-application-migration-service-mcp.yml
+        errors: errors/amazon-application-migration-service-problem-types.yml
+        conformance: conformance/amazon-application-migration-service-conformance.yml
+        lifecycle: lifecycle/amazon-application-migration-service-lifecycle.yml
+        llms: llms/amazon-application-migration-service-llms.txt
+  - target: $.externalDocs
+    update:
+      url: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
+      description: AWS Application Migration Service API Reference
