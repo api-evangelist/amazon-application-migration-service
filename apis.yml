@@ -85,6 +85,12 @@ apis:
       - type: Lifecycle
         url: lifecycle/amazon-application-migration-service-lifecycle.yml
 common:
+  - type: VulnerabilityDisclosure
+    url: security/amazon-application-migration-service-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/amazon-application-migration-service-domain-security.yml
+  - type: Authentication
+    url: authentication/amazon-application-migration-service-authentication.yml
   - type: WellKnown
     url: well-known/amazon-application-migration-service-well-known.yml
   - type: SecurityTxt
