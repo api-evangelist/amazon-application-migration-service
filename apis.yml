@@ -85,6 +85,8 @@ apis:
       - type: Lifecycle
         url: lifecycle/amazon-application-migration-service-lifecycle.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/amazon-application-migration-service-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/amazon-application-migration-service-vulnerability-disclosure.yml
   - type: DomainSecurity
