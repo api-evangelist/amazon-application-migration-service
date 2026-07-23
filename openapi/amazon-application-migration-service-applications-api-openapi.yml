@@ -1,0 +1,587 @@
+openapi: 3.1.0
+info:
+  title: Amazon Application Migration Service Applications API
+  description: AWS Application Migration Service (MGN) is the primary migration service recommended for lift-and-shift migrations to AWS. It allows organizations to quickly realize the benefits of migrating applications to the cloud without changes and with minimal downtime.
+  version: '2021-02-25'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://mgn.us-east-1.amazonaws.com
+  description: AWS Application Migration Service US East (N. Virginia)
+- url: https://mgn.eu-west-1.amazonaws.com
+  description: AWS Application Migration Service EU (Ireland)
+security:
+- awsAuth: []
+tags:
+- name: Applications
+  description: Application groupings for migration
+paths:
+  /ListApplications:
+    post:
+      operationId: listApplications
+      summary: Amazon Application Migration Service List Applications
+      description: Retrieves all migration applications or filters by wave or archived status.
+      tags:
+      - Applications
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListApplicationsRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  maxResults: 100
+      responses:
+        '200':
+          description: Applications retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListApplicationsResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - applicationID: app-1234567890abcdef0
+                      arn: arn:aws:mgn:us-east-1:123456789012:application/app-1234567890abcdef0
+                      name: My Application
+                      isArchived: false
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /CreateApplication:
+    post:
+      operationId: createApplication
+      summary: Amazon Application Migration Service Create Application
+      description: Creates a new migration application grouping.
+      tags:
+      - Applications
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateApplicationRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  name: My Application
+                  description: Primary business application
+      responses:
+        '201':
+          description: Application created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    applicationID: app-1234567890abcdef0
+                    arn: arn:aws:mgn:us-east-1:123456789012:application/app-1234567890abcdef0
+                    name: My Application
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /UpdateApplication:
+    post:
+      operationId: updateApplication
+      summary: Amazon Application Migration Service Update Application
+      description: Updates an existing migration application's name or description.
+      tags:
+      - Applications
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateApplicationRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  applicationID: app-1234567890abcdef0
+                  name: Updated Application Name
+      responses:
+        '200':
+          description: Application updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    applicationID: app-1234567890abcdef0
+                    name: Updated Application Name
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /DeleteApplication:
+    post:
+      operationId: deleteApplication
+      summary: Amazon Application Migration Service Delete Application
+      description: Deletes a migration application grouping by ID.
+      tags:
+      - Applications
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteApplicationRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  applicationID: app-1234567890abcdef0
+      responses:
+        '204':
+          description: Application deleted
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /ArchiveApplication:
+    post:
+      operationId: archiveApplication
+      summary: Amazon Application Migration Service Archive Application
+      description: Archives a migration application and all its associated source servers.
+      tags:
+      - Applications
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArchiveApplicationRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  applicationID: app-1234567890abcdef0
+      responses:
+        '204':
+          description: Application archived
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /UnarchiveApplication:
+    post:
+      operationId: unarchiveApplication
+      summary: Amazon Application Migration Service Unarchive Application
+      description: Unarchives a previously archived migration application.
+      tags:
+      - Applications
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UnarchiveApplicationRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  applicationID: app-1234567890abcdef0
+      responses:
+        '204':
+          description: Application unarchived
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /AssociateSourceServers:
+    post:
+      operationId: associateSourceServers
+      summary: Amazon Application Migration Service Associate Source Servers
+      description: Associates source servers with a migration application.
+      tags:
+      - Applications
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssociateSourceServersRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  applicationID: app-1234567890abcdef0
+                  sourceServerIDs:
+                  - s-1234567890abcdef0
+      responses:
+        '200':
+          description: Source servers associated
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /DisassociateSourceServers:
+    post:
+      operationId: disassociateSourceServers
+      summary: Amazon Application Migration Service Disassociate Source Servers
+      description: Removes source servers from a migration application.
+      tags:
+      - Applications
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DisassociateSourceServersRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  applicationID: app-1234567890abcdef0
+                  sourceServerIDs:
+                  - s-1234567890abcdef0
+      responses:
+        '200':
+          description: Source servers disassociated
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ArchiveApplicationRequest:
+      type: object
+      description: Request to archive a migration application
+      required:
+      - applicationID
+      properties:
+        applicationID:
+          type: string
+          description: Application ID to archive
+          example: app-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    ListApplicationsRequest:
+      type: object
+      description: Request to list migration applications
+      properties:
+        filters:
+          $ref: '#/components/schemas/ListApplicationsRequestFilters'
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    CreateApplicationRequest:
+      type: object
+      description: Request to create a migration application
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Application name
+          example: My Application
+        description:
+          type: string
+          description: Application description
+          example: Primary business application
+        tags:
+          type: object
+          description: Tags for the application
+          additionalProperties:
+            type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    ApplicationAggregatedStatus:
+      type: object
+      description: Aggregated status of all source servers in an application
+      properties:
+        lastUpdateDateTime:
+          type: string
+          description: Date/time of last status update
+          example: '2026-04-19T00:00:00Z'
+        healthStatus:
+          type: string
+          description: Overall health status
+          enum:
+          - HEALTHY
+          - LAGGING
+          - ERROR
+          example: HEALTHY
+        progressStatus:
+          type: string
+          description: Overall progress status
+          enum:
+          - NOT_STARTED
+          - IN_PROGRESS
+          - COMPLETED
+          - PAUSED
+          example: IN_PROGRESS
+        totalSourceServers:
+          type: integer
+          description: Total number of source servers in the application
+          example: 5
+    DisassociateSourceServersRequest:
+      type: object
+      description: Request to disassociate source servers from an application
+      required:
+      - applicationID
+      - sourceServerIDs
+      properties:
+        applicationID:
+          type: string
+          description: Application ID
+          example: app-1234567890abcdef0
+        sourceServerIDs:
+          type: array
+          description: Source server IDs to disassociate
+          items:
+            type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    UpdateApplicationRequest:
+      type: object
+      description: Request to update a migration application
+      required:
+      - applicationID
+      properties:
+        applicationID:
+          type: string
+          description: Application ID to update
+          example: app-1234567890abcdef0
+        name:
+          type: string
+          description: New application name
+          example: Updated Application Name
+        description:
+          type: string
+          description: New application description
+          example: Updated description
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    ListApplicationsResponse:
+      type: object
+      description: Response with list of applications
+      properties:
+        items:
+          type: array
+          description: List of applications
+          items:
+            $ref: '#/components/schemas/Application'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    UnarchiveApplicationRequest:
+      type: object
+      description: Request to unarchive a migration application
+      required:
+      - applicationID
+      properties:
+        applicationID:
+          type: string
+          description: Application ID to unarchive
+          example: app-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    ErrorResponse:
+      type: object
+      description: Standard error response from the Application Migration Service API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: An internal error occurred
+        code:
+          type: string
+          description: Error code
+          example: InternalServerException
+    ListApplicationsRequestFilters:
+      type: object
+      description: Filters for listing applications
+      properties:
+        applicationIDs:
+          type: array
+          description: Filter by application IDs
+          items:
+            type: string
+        isArchived:
+          type: boolean
+          description: Filter by archived status
+          example: false
+        waveIDs:
+          type: array
+          description: Filter by wave IDs
+          items:
+            type: string
+    AssociateSourceServersRequest:
+      type: object
+      description: Request to associate source servers with an application
+      required:
+      - applicationID
+      - sourceServerIDs
+      properties:
+        applicationID:
+          type: string
+          description: Application ID
+          example: app-1234567890abcdef0
+        sourceServerIDs:
+          type: array
+          description: Source server IDs to associate
+          items:
+            type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    Application:
+      type: object
+      description: A migration application grouping source servers
+      properties:
+        applicationID:
+          type: string
+          description: Application ID
+          example: app-1234567890abcdef0
+        arn:
+          type: string
+          description: ARN of the application
+          example: arn:aws:mgn:us-east-1:123456789012:application/app-1234567890abcdef0
+        name:
+          type: string
+          description: Application name
+          example: My Application
+        description:
+          type: string
+          description: Application description
+          example: Primary business application
+        isArchived:
+          type: boolean
+          description: Whether the application is archived
+          example: false
+        applicationAggregatedStatus:
+          $ref: '#/components/schemas/ApplicationAggregatedStatus'
+        creationDateTime:
+          type: string
+          description: Creation date/time
+          example: '2026-04-19T00:00:00Z'
+        lastModifiedDateTime:
+          type: string
+          description: Last modification date/time
+          example: '2026-04-19T00:00:00Z'
+        tags:
+          type: object
+          description: Tags on the application
+          additionalProperties:
+            type: string
+        waveID:
+          type: string
+          description: Wave ID this application belongs to
+          example: wave-1234567890abcdef0
+    DeleteApplicationRequest:
+      type: object
+      description: Request to delete a migration application
+      required:
+      - applicationID
+      properties:
+        applicationID:
+          type: string
+          description: Application ID to delete
+          example: app-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+  securitySchemes:
+    awsAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication

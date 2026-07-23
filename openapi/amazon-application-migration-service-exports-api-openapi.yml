@@ -1,0 +1,202 @@
+openapi: 3.1.0
+info:
+  title: Amazon Application Migration Service Applications Exports API
+  description: AWS Application Migration Service (MGN) is the primary migration service recommended for lift-and-shift migrations to AWS. It allows organizations to quickly realize the benefits of migrating applications to the cloud without changes and with minimal downtime.
+  version: '2021-02-25'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://mgn.us-east-1.amazonaws.com
+  description: AWS Application Migration Service US East (N. Virginia)
+- url: https://mgn.eu-west-1.amazonaws.com
+  description: AWS Application Migration Service EU (Ireland)
+security:
+- awsAuth: []
+tags:
+- name: Exports
+  description: Source server export tasks
+paths:
+  /ExportErrors:
+    post:
+      operationId: exportErrors
+      summary: Amazon Application Migration Service Export Errors
+      description: Retrieves errors from source server export tasks.
+      tags:
+      - Exports
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportErrorsRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  exportID: export-1234567890abcdef0
+      responses:
+        '200':
+          description: Export errors retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExportErrorsResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items: []
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /ListExportErrors:
+    post:
+      operationId: listExportErrors
+      summary: Amazon Application Migration Service List Export Errors
+      description: Retrieves a list of all source server export errors.
+      tags:
+      - Exports
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListExportErrorsRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  exportID: export-1234567890abcdef0
+      responses:
+        '200':
+          description: Export errors listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListExportErrorsResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items: []
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ExportErrorsRequest:
+      type: object
+      description: Request to get export errors
+      required:
+      - exportID
+      properties:
+        exportID:
+          type: string
+          description: Export ID to get errors for
+          example: export-1234567890abcdef0
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ExportTaskErrorData:
+      type: object
+      description: Data associated with an export task error
+      properties:
+        rawError:
+          type: string
+          description: Raw error message
+          example: Export failed due to insufficient permissions
+    ExportTaskError:
+      type: object
+      description: An error from a source server export task
+      properties:
+        errorData:
+          $ref: '#/components/schemas/ExportTaskErrorData'
+        errorDateTime:
+          type: string
+          description: Date/time of the error
+          example: '2026-04-19T00:00:00Z'
+    ErrorResponse:
+      type: object
+      description: Standard error response from the Application Migration Service API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: An internal error occurred
+        code:
+          type: string
+          description: Error code
+          example: InternalServerException
+    ListExportErrorsRequest:
+      type: object
+      description: Request to list export errors
+      required:
+      - exportID
+      properties:
+        exportID:
+          type: string
+          description: Export ID
+          example: export-1234567890abcdef0
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ExportErrorsResponse:
+      type: object
+      description: Response with export errors
+      properties:
+        items:
+          type: array
+          description: List of export errors
+          items:
+            $ref: '#/components/schemas/ExportTaskError'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ListExportErrorsResponse:
+      type: object
+      description: Response with list of export errors
+      properties:
+        items:
+          type: array
+          description: List of export errors
+          items:
+            $ref: '#/components/schemas/ExportTaskError'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+  securitySchemes:
+    awsAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication

@@ -1,0 +1,993 @@
+openapi: 3.1.0
+info:
+  title: Amazon Application Migration Service Applications Jobs API
+  description: AWS Application Migration Service (MGN) is the primary migration service recommended for lift-and-shift migrations to AWS. It allows organizations to quickly realize the benefits of migrating applications to the cloud without changes and with minimal downtime.
+  version: '2021-02-25'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://mgn.us-east-1.amazonaws.com
+  description: AWS Application Migration Service US East (N. Virginia)
+- url: https://mgn.eu-west-1.amazonaws.com
+  description: AWS Application Migration Service EU (Ireland)
+security:
+- awsAuth: []
+tags:
+- name: Jobs
+  description: Migration and conversion jobs
+paths:
+  /StartTest:
+    post:
+      operationId: startTest
+      summary: Amazon Application Migration Service Start Test
+      description: Launches a test instance for one or more source servers to validate migration readiness.
+      tags:
+      - Jobs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartTestRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerIDs:
+                  - s-1234567890abcdef0
+      responses:
+        '202':
+          description: Test job started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartTestResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    job:
+                      jobID: mgnjob-1234567890abcdef0
+                      type: TEST
+                      status: STARTED
+                      initiatedBy: START_TEST
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /StartCutover:
+    post:
+      operationId: startCutover
+      summary: Amazon Application Migration Service Start Cutover
+      description: Launches cutover instances for one or more source servers to complete migration.
+      tags:
+      - Jobs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartCutoverRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerIDs:
+                  - s-1234567890abcdef0
+      responses:
+        '202':
+          description: Cutover job started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartCutoverResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    job:
+                      jobID: mgnjob-1234567890abcdef0
+                      type: LAUNCH
+                      status: STARTED
+                      initiatedBy: START_CUTOVER
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /FinalizeCutover:
+    post:
+      operationId: finalizeCutover
+      summary: Amazon Application Migration Service Finalize Cutover
+      description: Finalizes the cutover for a source server, completing the migration process.
+      tags:
+      - Jobs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FinalizeCutoverRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerID: s-1234567890abcdef0
+      responses:
+        '200':
+          description: Cutover finalized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceServer'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    sourceServerID: s-1234567890abcdef0
+                    isArchived: false
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /TerminateTargetInstances:
+    post:
+      operationId: terminateTargetInstances
+      summary: Amazon Application Migration Service Terminate Target Instances
+      description: Terminates previously launched test or cutover instances for source servers.
+      tags:
+      - Jobs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TerminateTargetInstancesRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerIDs:
+                  - s-1234567890abcdef0
+      responses:
+        '202':
+          description: Termination job started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TerminateTargetInstancesResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    job:
+                      jobID: mgnjob-1234567890abcdef0
+                      type: TERMINATE
+                      status: STARTED
+                      initiatedBy: TERMINATE_AFTER_TESTING
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /DescribeJobs:
+    post:
+      operationId: describeJobs
+      summary: Amazon Application Migration Service Describe Jobs
+      description: Retrieves all migration jobs or filters by job ID and date range.
+      tags:
+      - Jobs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeJobsRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  maxResults: 100
+      responses:
+        '200':
+          description: Jobs retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeJobsResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - jobID: mgnjob-1234567890abcdef0
+                      type: LAUNCH
+                      status: COMPLETED
+                      initiatedBy: START_CUTOVER
+                      creationDateTime: '2026-04-19T00:00:00Z'
+                      endDateTime: '2026-04-19T01:00:00Z'
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /DescribeJobLogItems:
+    post:
+      operationId: describeJobLogItems
+      summary: Amazon Application Migration Service Describe Job Log Items
+      description: Retrieves log events for a specific migration job.
+      tags:
+      - Jobs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeJobLogItemsRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  jobID: mgnjob-1234567890abcdef0
+                  maxResults: 100
+      responses:
+        '200':
+          description: Job log items retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeJobLogItemsResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - logDateTime: '2026-04-19T00:00:00Z'
+                      event: JOB_START
+                      eventData:
+                        targetInstanceID: i-1234567890abcdef0
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    LaunchedInstance:
+      type: object
+      description: Details about the launched EC2 instance
+      properties:
+        ec2InstanceID:
+          type: string
+          description: EC2 instance ID
+          example: i-1234567890abcdef0
+        jobID:
+          type: string
+          description: Job ID that launched this instance
+          example: mgnjob-1234567890abcdef0
+        firstBoot:
+          type: string
+          description: First boot status
+          enum:
+          - WAITING
+          - SUCCEEDED
+          - UNKNOWN
+          - STOPPED
+          example: SUCCEEDED
+    DataReplicationInfo:
+      type: object
+      description: Current data replication state and statistics for a source server
+      properties:
+        lagDuration:
+          type: string
+          description: Replication lag duration
+          example: PT0S
+        lastSnapshotDateTime:
+          type: string
+          description: Date/time of the last snapshot
+          example: '2026-04-19T00:00:00Z'
+        replicatedDisks:
+          type: array
+          description: List of replicated disks
+          items:
+            $ref: '#/components/schemas/DataReplicationInfoReplicatedDisk'
+        dataReplicationState:
+          type: string
+          description: Current replication state
+          enum:
+          - STOPPED
+          - INITIATING
+          - INITIAL_SYNC
+          - BACKLOG
+          - CREATING_SNAPSHOT
+          - CONTINUOUS
+          - PAUSED
+          - RESCAN
+          - STALLED
+          - DISCONNECTED
+          - PENDING_SNAPSHOT_SHIPPING
+          - SNAPSHOT_SHIPPING
+          example: CONTINUOUS
+        dataReplicationInitiation:
+          $ref: '#/components/schemas/DataReplicationInitiation'
+        dataReplicationError:
+          $ref: '#/components/schemas/DataReplicationError'
+        stagingAvailabilityZone:
+          type: string
+          description: Availability zone used for staging
+          example: us-east-1a
+    DataReplicationInitiation:
+      type: object
+      description: Replication initiation steps and their status
+      properties:
+        startDateTime:
+          type: string
+          description: Date/time replication initiation started
+          example: '2026-04-01T00:00:00Z'
+        nextAttemptDateTime:
+          type: string
+          description: Date/time of next retry attempt
+          example: ''
+        steps:
+          type: array
+          description: Initiation steps
+          items:
+            $ref: '#/components/schemas/DataReplicationInitiationStep'
+    FinalizeCutoverRequest:
+      type: object
+      description: Request to finalize a cutover
+      required:
+      - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID to finalize cutover for
+          example: s-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    StartTestRequest:
+      type: object
+      description: Request to start a test migration job
+      required:
+      - sourceServerIDs
+      properties:
+        sourceServerIDs:
+          type: array
+          description: Source server IDs to test
+          items:
+            type: string
+        tags:
+          type: object
+          description: Tags for the test job
+          additionalProperties:
+            type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    SourceServer:
+      type: object
+      description: A source server registered with the Application Migration Service
+      properties:
+        sourceServerID:
+          type: string
+          description: Unique identifier for the source server
+          example: s-1234567890abcdef0
+        arn:
+          type: string
+          description: ARN of the source server
+          example: arn:aws:mgn:us-east-1:123456789012:source-server/s-1234567890abcdef0
+        isArchived:
+          type: boolean
+          description: Whether the source server is archived
+          example: false
+        tags:
+          type: object
+          description: Tags applied to the source server
+          additionalProperties:
+            type: string
+        lifeCycle:
+          $ref: '#/components/schemas/LifeCycle'
+        dataReplicationInfo:
+          $ref: '#/components/schemas/DataReplicationInfo'
+        sourceProperties:
+          $ref: '#/components/schemas/SourceProperties'
+        launchedInstance:
+          $ref: '#/components/schemas/LaunchedInstance'
+        applicationID:
+          type: string
+          description: ID of the application this server belongs to
+          example: app-1234567890abcdef0
+        vcenterClientID:
+          type: string
+          description: ID of the vCenter client this server was discovered from
+          example: vcc-1234567890abcdef0
+        replicationType:
+          type: string
+          description: Replication type for the source server
+          enum:
+          - AGENT_BASED
+          - SNAPSHOT_SHIPPING
+          example: AGENT_BASED
+        userProvidedID:
+          type: string
+          description: User-provided identifier for the source server
+          example: my-server-01
+        fqdnForActionFramework:
+          type: string
+          description: FQDN used for action framework connectivity
+          example: server.example.com
+    PostLaunchActionsStatus:
+      type: object
+      description: Status of post-launch actions
+      properties:
+        postLaunchActionsLaunchStatusList:
+          type: array
+          description: List of post-launch action statuses
+          items:
+            type: object
+        ssmAgentDiscoveryDatetime:
+          type: string
+          description: Date/time SSM agent was discovered
+          example: '2026-04-19T00:00:00Z'
+    JobLogItem:
+      type: object
+      description: A log entry for a migration job
+      properties:
+        logDateTime:
+          type: string
+          description: Date/time of the log entry
+          example: '2026-04-19T00:00:00Z'
+        event:
+          type: string
+          description: Log event type
+          example: JOB_START
+        eventData:
+          $ref: '#/components/schemas/JobLogEventData'
+    StartCutoverResponse:
+      type: object
+      description: Response from starting a cutover job
+      properties:
+        job:
+          $ref: '#/components/schemas/Job'
+    StartCutoverRequest:
+      type: object
+      description: Request to start a cutover migration job
+      required:
+      - sourceServerIDs
+      properties:
+        sourceServerIDs:
+          type: array
+          description: Source server IDs to cut over
+          items:
+            type: string
+        tags:
+          type: object
+          description: Tags for the cutover job
+          additionalProperties:
+            type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    LifeCycleLastTest:
+      type: object
+      description: Details about the last test lifecycle event
+      properties:
+        jobID:
+          type: string
+          description: Job ID of the last test
+          example: mgnjob-1234567890abcdef0
+        initiatedDateTime:
+          type: string
+          description: Date/time the test was initiated
+          example: '2026-04-19T00:00:00Z'
+        finalizedDateTime:
+          type: string
+          description: Date/time the test was finalized
+          example: '2026-04-19T01:00:00Z'
+        revertedDateTime:
+          type: string
+          description: Date/time the test was reverted
+          example: ''
+    ErrorResponse:
+      type: object
+      description: Standard error response from the Application Migration Service API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: An internal error occurred
+        code:
+          type: string
+          description: Error code
+          example: InternalServerException
+    LifeCycleLastCutover:
+      type: object
+      description: Details about the last cutover lifecycle event
+      properties:
+        jobID:
+          type: string
+          description: Job ID of the last cutover
+          example: mgnjob-1234567890abcdef0
+        initiatedDateTime:
+          type: string
+          description: Date/time the cutover was initiated
+          example: '2026-04-19T00:00:00Z'
+        finalizedDateTime:
+          type: string
+          description: Date/time the cutover was finalized
+          example: '2026-04-19T01:00:00Z'
+        revertedDateTime:
+          type: string
+          description: Date/time the cutover was reverted
+          example: ''
+    DataReplicationError:
+      type: object
+      description: Replication error details
+      properties:
+        error:
+          type: string
+          description: Error type
+          example: SNAPSHOTS_FAILURE
+        rawError:
+          type: string
+          description: Raw error message
+          example: Snapshot creation failed
+    NetworkInterface:
+      type: object
+      description: Network interface on a source server
+      properties:
+        macAddress:
+          type: string
+          description: MAC address
+          example: 00:11:22:33:44:55
+        ips:
+          type: array
+          description: IP addresses
+          items:
+            type: string
+          example:
+          - 192.168.1.100
+        isPrimary:
+          type: boolean
+          description: Whether this is the primary interface
+          example: true
+    OS:
+      type: object
+      description: Operating system information
+      properties:
+        fullString:
+          type: string
+          description: Full OS description string
+          example: Microsoft Windows Server 2019 Standard
+    Job:
+      type: object
+      description: A migration or conversion job
+      properties:
+        jobID:
+          type: string
+          description: Job ID
+          example: mgnjob-1234567890abcdef0
+        arn:
+          type: string
+          description: ARN of the job
+          example: arn:aws:mgn:us-east-1:123456789012:job/mgnjob-1234567890abcdef0
+        type:
+          type: string
+          description: Job type
+          enum:
+          - LAUNCH
+          - TERMINATE
+          - CREATE_CONVERTED_SNAPSHOT
+          example: LAUNCH
+        initiatedBy:
+          type: string
+          description: Who initiated the job
+          enum:
+          - START_TEST
+          - START_CUTOVER
+          - DIAGNOSTIC
+          - TERMINATE_AFTER_TESTING
+          - FINALIZE_RECOVERY
+          - START_RECOVERY
+          - LAUNCH_DEFAULT
+          - BACK_PRIVATE_KEY
+          example: START_CUTOVER
+        creationDateTime:
+          type: string
+          description: Date/time job was created
+          example: '2026-04-19T00:00:00Z'
+        endDateTime:
+          type: string
+          description: Date/time job ended
+          example: '2026-04-19T01:00:00Z'
+        status:
+          type: string
+          description: Job status
+          enum:
+          - PENDING
+          - STARTED
+          - COMPLETED
+          example: COMPLETED
+        participatingServers:
+          type: array
+          description: Servers participating in the job
+          items:
+            $ref: '#/components/schemas/ParticipatingServer'
+        tags:
+          type: object
+          description: Tags on the job
+          additionalProperties:
+            type: string
+    SourceProperties:
+      type: object
+      description: Discovered properties of the source server
+      properties:
+        lastUpdatedDateTime:
+          type: string
+          description: Date/time properties were last updated
+          example: '2026-04-19T00:00:00Z'
+        recommendedInstanceType:
+          type: string
+          description: AWS instance type recommended for this server
+          example: t3.large
+        identificationHints:
+          $ref: '#/components/schemas/IdentificationHints'
+        networkInterfaces:
+          type: array
+          description: Network interfaces on the source server
+          items:
+            $ref: '#/components/schemas/NetworkInterface'
+        disks:
+          type: array
+          description: Disks on the source server
+          items:
+            $ref: '#/components/schemas/Disk'
+        cpus:
+          type: array
+          description: CPUs on the source server
+          items:
+            $ref: '#/components/schemas/CPU'
+        ramBytes:
+          type: integer
+          description: RAM in bytes
+          example: 8589934592
+        os:
+          $ref: '#/components/schemas/OS'
+    DataReplicationInfoReplicatedDisk:
+      type: object
+      description: Replication status for an individual disk
+      properties:
+        deviceName:
+          type: string
+          description: Device name of the disk
+          example: /dev/sda1
+        totalStorageBytes:
+          type: integer
+          description: Total storage in bytes
+          example: 107374182400
+        replicatedStorageBytes:
+          type: integer
+          description: Amount of storage replicated in bytes
+          example: 107374182400
+        rescannedStorageBytes:
+          type: integer
+          description: Amount rescanned in bytes
+          example: 0
+        backloggedStorageBytes:
+          type: integer
+          description: Amount backlogged in bytes
+          example: 0
+    DataReplicationInitiationStep:
+      type: object
+      description: A single step in the replication initiation process
+      properties:
+        name:
+          type: string
+          description: Step name
+          example: WAIT
+        status:
+          type: string
+          description: Step status
+          enum:
+          - NOT_STARTED
+          - IN_PROGRESS
+          - SUCCEEDED
+          - FAILED
+          - SKIPPED
+          example: SUCCEEDED
+    TerminateTargetInstancesResponse:
+      type: object
+      description: Response from terminating target instances
+      properties:
+        job:
+          $ref: '#/components/schemas/Job'
+    DescribeJobsRequestFilters:
+      type: object
+      description: Filters for describing jobs
+      properties:
+        jobIDs:
+          type: array
+          description: Filter by job IDs
+          items:
+            type: string
+        fromDate:
+          type: string
+          description: Filter by start date
+          example: '2026-04-01T00:00:00Z'
+        toDate:
+          type: string
+          description: Filter by end date
+          example: '2026-04-30T00:00:00Z'
+    StartTestResponse:
+      type: object
+      description: Response from starting a test job
+      properties:
+        job:
+          $ref: '#/components/schemas/Job'
+    Disk:
+      type: object
+      description: A disk on a source server
+      properties:
+        deviceName:
+          type: string
+          description: Device name
+          example: /dev/sda1
+        bytes:
+          type: integer
+          description: Disk size in bytes
+          example: 107374182400
+    DescribeJobLogItemsResponse:
+      type: object
+      description: Response with job log items
+      properties:
+        items:
+          type: array
+          description: List of job log items
+          items:
+            $ref: '#/components/schemas/JobLogItem'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    LifeCycle:
+      type: object
+      description: Lifecycle state of a source server
+      properties:
+        state:
+          type: string
+          description: Current lifecycle state
+          enum:
+          - STOPPED
+          - NOT_READY
+          - READY_FOR_TEST
+          - TESTING
+          - READY_FOR_CUTOVER
+          - CUTTING_OVER
+          - CUTOVER
+          - DISCONNECTED
+          - DISCOVERED
+          - PENDING_INSTALLATION
+          example: READY_FOR_CUTOVER
+        addedToServiceDateTime:
+          type: string
+          description: Date/time the server was added to the service
+          example: '2026-04-01T00:00:00Z'
+        firstByteDateTime:
+          type: string
+          description: Date/time the first replication byte was received
+          example: '2026-04-01T01:00:00Z'
+        elapsedReplicationDuration:
+          type: string
+          description: Elapsed duration of replication
+          example: PT24H
+        lastSeenByServiceDateTime:
+          type: string
+          description: Date/time the agent last communicated with the service
+          example: '2026-04-19T00:00:00Z'
+        lastTestInitiated:
+          $ref: '#/components/schemas/LifeCycleLastTest'
+        lastTestReverted:
+          $ref: '#/components/schemas/LifeCycleLastTest'
+        lastTestFinalized:
+          $ref: '#/components/schemas/LifeCycleLastTest'
+        lastCutoverInitiated:
+          $ref: '#/components/schemas/LifeCycleLastCutover'
+        lastCutoverReverted:
+          $ref: '#/components/schemas/LifeCycleLastCutover'
+        lastCutoverFinalized:
+          $ref: '#/components/schemas/LifeCycleLastCutover'
+    IdentificationHints:
+      type: object
+      description: Hints used to identify the source server
+      properties:
+        fqdn:
+          type: string
+          description: Fully qualified domain name
+          example: server.example.com
+        hostname:
+          type: string
+          description: Hostname
+          example: my-server
+        vmWareUuid:
+          type: string
+          description: VMware UUID
+          example: 12345678-1234-1234-1234-123456789012
+        awsInstanceID:
+          type: string
+          description: AWS instance ID if previously in AWS
+          example: i-1234567890abcdef0
+        vmPath:
+          type: string
+          description: VMware path
+          example: /Datacenter/vm/my-server
+    DescribeJobsRequest:
+      type: object
+      description: Request to describe migration jobs
+      properties:
+        filters:
+          $ref: '#/components/schemas/DescribeJobsRequestFilters'
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    ParticipatingServer:
+      type: object
+      description: A server participating in a migration job
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID
+          example: s-1234567890abcdef0
+        launchStatus:
+          type: string
+          description: Launch status
+          enum:
+          - WAITING
+          - IN_PROGRESS
+          - LAUNCHED
+          - FAILED
+          - TERMINATED
+          example: LAUNCHED
+        launchedEc2InstanceID:
+          type: string
+          description: Launched EC2 instance ID
+          example: i-1234567890abcdef0
+        postLaunchActionsStatus:
+          $ref: '#/components/schemas/PostLaunchActionsStatus'
+    DescribeJobsResponse:
+      type: object
+      description: Response with list of jobs
+      properties:
+        items:
+          type: array
+          description: List of jobs
+          items:
+            $ref: '#/components/schemas/Job'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    TerminateTargetInstancesRequest:
+      type: object
+      description: Request to terminate test or cutover instances
+      required:
+      - sourceServerIDs
+      properties:
+        sourceServerIDs:
+          type: array
+          description: Source server IDs whose instances to terminate
+          items:
+            type: string
+        tags:
+          type: object
+          description: Tags for the termination job
+          additionalProperties:
+            type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    DescribeJobLogItemsRequest:
+      type: object
+      description: Request to describe job log items
+      required:
+      - jobID
+      properties:
+        jobID:
+          type: string
+          description: Job ID to get log items for
+          example: mgnjob-1234567890abcdef0
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    CPU:
+      type: object
+      description: CPU information for a source server
+      properties:
+        cores:
+          type: integer
+          description: Number of cores
+          example: 4
+        modelName:
+          type: string
+          description: CPU model name
+          example: Intel Xeon E5-2676 v3
+    JobLogEventData:
+      type: object
+      description: Data associated with a job log event
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID
+          example: s-1234567890abcdef0
+        conversionServerID:
+          type: string
+          description: Conversion server ID
+          example: i-1234567890abcdef0
+        targetInstanceID:
+          type: string
+          description: Target EC2 instance ID
+          example: i-1234567890abcdef0
+        rawError:
+          type: string
+          description: Raw error message if applicable
+          example: ''
+  securitySchemes:
+    awsAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication

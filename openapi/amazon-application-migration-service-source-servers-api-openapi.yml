@@ -1,0 +1,735 @@
+openapi: 3.1.0
+info:
+  title: Amazon Application Migration Service Applications Source Servers API
+  description: AWS Application Migration Service (MGN) is the primary migration service recommended for lift-and-shift migrations to AWS. It allows organizations to quickly realize the benefits of migrating applications to the cloud without changes and with minimal downtime.
+  version: '2021-02-25'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://mgn.us-east-1.amazonaws.com
+  description: AWS Application Migration Service US East (N. Virginia)
+- url: https://mgn.eu-west-1.amazonaws.com
+  description: AWS Application Migration Service EU (Ireland)
+security:
+- awsAuth: []
+tags:
+- name: Source Servers
+  description: Manage source servers being migrated
+paths:
+  /DescribeSourceServers:
+    post:
+      operationId: describeSourceServers
+      summary: Amazon Application Migration Service Describe Source Servers
+      description: Retrieves all source servers or filtered by replication type and lifecycle state.
+      tags:
+      - Source Servers
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeSourceServersRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  filters:
+                    isArchived: false
+                  maxResults: 100
+      responses:
+        '200':
+          description: Successful response with list of source servers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeSourceServersResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - sourceServerID: s-1234567890abcdef0
+                      arn: arn:aws:mgn:us-east-1:123456789012:source-server/s-1234567890abcdef0
+                      isArchived: false
+                      tags: {}
+                      launchedInstance:
+                        ec2InstanceID: i-1234567890abcdef0
+                        firstBoot: SUCCESS
+                        jobID: mgnjob-1234567890abcdef0
+                      dataReplicationInfo:
+                        lagDuration: PT0S
+                        lastSnapshotDateTime: '2026-04-19T00:00:00Z'
+                        replicatedDisks: []
+                        dataReplicationState: CONTINUOUS
+                        dataReplicationInitiation:
+                          steps: []
+                      lifeCycle:
+                        state: READY_FOR_CUTOVER
+                      sourceProperties:
+                        os:
+                          fullString: Microsoft Windows Server 2019
+                        ramBytes: 8589934592
+                        cpus:
+                        - cores: 4
+                          modelName: Intel Xeon
+                        networkInterfaces: []
+                        recommendedInstanceType: t3.large
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /InitializeService:
+    post:
+      operationId: initializeService
+      summary: Amazon Application Migration Service Initialize Service
+      description: Initializes the Application Migration Service for a new AWS account.
+      tags:
+      - Source Servers
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+            examples:
+              default:
+                x-microcks-default: true
+                value: {}
+      responses:
+        '204':
+          description: Service initialized successfully
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /MarkAsArchived:
+    post:
+      operationId: markAsArchived
+      summary: Amazon Application Migration Service Mark As Archived
+      description: Archives or unarchives a source server by its ID.
+      tags:
+      - Source Servers
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarkAsArchivedRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerID: s-1234567890abcdef0
+      responses:
+        '200':
+          description: Source server archived successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceServer'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    sourceServerID: s-1234567890abcdef0
+                    isArchived: true
+                    arn: arn:aws:mgn:us-east-1:123456789012:source-server/s-1234567890abcdef0
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /DeleteSourceServer:
+    post:
+      operationId: deleteSourceServer
+      summary: Amazon Application Migration Service Delete Source Server
+      description: Deletes a single source server by ID. The source server must be disconnected.
+      tags:
+      - Source Servers
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteSourceServerRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerID: s-1234567890abcdef0
+      responses:
+        '204':
+          description: Source server deleted successfully
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /DisconnectFromService:
+    post:
+      operationId: disconnectFromService
+      summary: Amazon Application Migration Service Disconnect From Service
+      description: Disconnects a source server from the Application Migration Service replication process.
+      tags:
+      - Source Servers
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DisconnectFromServiceRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerID: s-1234567890abcdef0
+      responses:
+        '200':
+          description: Source server disconnected successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceServer'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    sourceServerID: s-1234567890abcdef0
+                    isArchived: false
+                    arn: arn:aws:mgn:us-east-1:123456789012:source-server/s-1234567890abcdef0
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    LaunchedInstance:
+      type: object
+      description: Details about the launched EC2 instance
+      properties:
+        ec2InstanceID:
+          type: string
+          description: EC2 instance ID
+          example: i-1234567890abcdef0
+        jobID:
+          type: string
+          description: Job ID that launched this instance
+          example: mgnjob-1234567890abcdef0
+        firstBoot:
+          type: string
+          description: First boot status
+          enum:
+          - WAITING
+          - SUCCEEDED
+          - UNKNOWN
+          - STOPPED
+          example: SUCCEEDED
+    DataReplicationInfo:
+      type: object
+      description: Current data replication state and statistics for a source server
+      properties:
+        lagDuration:
+          type: string
+          description: Replication lag duration
+          example: PT0S
+        lastSnapshotDateTime:
+          type: string
+          description: Date/time of the last snapshot
+          example: '2026-04-19T00:00:00Z'
+        replicatedDisks:
+          type: array
+          description: List of replicated disks
+          items:
+            $ref: '#/components/schemas/DataReplicationInfoReplicatedDisk'
+        dataReplicationState:
+          type: string
+          description: Current replication state
+          enum:
+          - STOPPED
+          - INITIATING
+          - INITIAL_SYNC
+          - BACKLOG
+          - CREATING_SNAPSHOT
+          - CONTINUOUS
+          - PAUSED
+          - RESCAN
+          - STALLED
+          - DISCONNECTED
+          - PENDING_SNAPSHOT_SHIPPING
+          - SNAPSHOT_SHIPPING
+          example: CONTINUOUS
+        dataReplicationInitiation:
+          $ref: '#/components/schemas/DataReplicationInitiation'
+        dataReplicationError:
+          $ref: '#/components/schemas/DataReplicationError'
+        stagingAvailabilityZone:
+          type: string
+          description: Availability zone used for staging
+          example: us-east-1a
+    DataReplicationInitiation:
+      type: object
+      description: Replication initiation steps and their status
+      properties:
+        startDateTime:
+          type: string
+          description: Date/time replication initiation started
+          example: '2026-04-01T00:00:00Z'
+        nextAttemptDateTime:
+          type: string
+          description: Date/time of next retry attempt
+          example: ''
+        steps:
+          type: array
+          description: Initiation steps
+          items:
+            $ref: '#/components/schemas/DataReplicationInitiationStep'
+    DisconnectFromServiceRequest:
+      type: object
+      description: Request to disconnect a source server from the service
+      required:
+      - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID to disconnect
+          example: s-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    SourceServer:
+      type: object
+      description: A source server registered with the Application Migration Service
+      properties:
+        sourceServerID:
+          type: string
+          description: Unique identifier for the source server
+          example: s-1234567890abcdef0
+        arn:
+          type: string
+          description: ARN of the source server
+          example: arn:aws:mgn:us-east-1:123456789012:source-server/s-1234567890abcdef0
+        isArchived:
+          type: boolean
+          description: Whether the source server is archived
+          example: false
+        tags:
+          type: object
+          description: Tags applied to the source server
+          additionalProperties:
+            type: string
+        lifeCycle:
+          $ref: '#/components/schemas/LifeCycle'
+        dataReplicationInfo:
+          $ref: '#/components/schemas/DataReplicationInfo'
+        sourceProperties:
+          $ref: '#/components/schemas/SourceProperties'
+        launchedInstance:
+          $ref: '#/components/schemas/LaunchedInstance'
+        applicationID:
+          type: string
+          description: ID of the application this server belongs to
+          example: app-1234567890abcdef0
+        vcenterClientID:
+          type: string
+          description: ID of the vCenter client this server was discovered from
+          example: vcc-1234567890abcdef0
+        replicationType:
+          type: string
+          description: Replication type for the source server
+          enum:
+          - AGENT_BASED
+          - SNAPSHOT_SHIPPING
+          example: AGENT_BASED
+        userProvidedID:
+          type: string
+          description: User-provided identifier for the source server
+          example: my-server-01
+        fqdnForActionFramework:
+          type: string
+          description: FQDN used for action framework connectivity
+          example: server.example.com
+    DescribeSourceServersResponse:
+      type: object
+      description: Response with list of source servers
+      properties:
+        items:
+          type: array
+          description: List of source servers
+          items:
+            $ref: '#/components/schemas/SourceServer'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    LifeCycleLastTest:
+      type: object
+      description: Details about the last test lifecycle event
+      properties:
+        jobID:
+          type: string
+          description: Job ID of the last test
+          example: mgnjob-1234567890abcdef0
+        initiatedDateTime:
+          type: string
+          description: Date/time the test was initiated
+          example: '2026-04-19T00:00:00Z'
+        finalizedDateTime:
+          type: string
+          description: Date/time the test was finalized
+          example: '2026-04-19T01:00:00Z'
+        revertedDateTime:
+          type: string
+          description: Date/time the test was reverted
+          example: ''
+    ErrorResponse:
+      type: object
+      description: Standard error response from the Application Migration Service API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: An internal error occurred
+        code:
+          type: string
+          description: Error code
+          example: InternalServerException
+    LifeCycleLastCutover:
+      type: object
+      description: Details about the last cutover lifecycle event
+      properties:
+        jobID:
+          type: string
+          description: Job ID of the last cutover
+          example: mgnjob-1234567890abcdef0
+        initiatedDateTime:
+          type: string
+          description: Date/time the cutover was initiated
+          example: '2026-04-19T00:00:00Z'
+        finalizedDateTime:
+          type: string
+          description: Date/time the cutover was finalized
+          example: '2026-04-19T01:00:00Z'
+        revertedDateTime:
+          type: string
+          description: Date/time the cutover was reverted
+          example: ''
+    MarkAsArchivedRequest:
+      type: object
+      description: Request to mark a source server as archived
+      required:
+      - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID to archive
+          example: s-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    DataReplicationError:
+      type: object
+      description: Replication error details
+      properties:
+        error:
+          type: string
+          description: Error type
+          example: SNAPSHOTS_FAILURE
+        rawError:
+          type: string
+          description: Raw error message
+          example: Snapshot creation failed
+    NetworkInterface:
+      type: object
+      description: Network interface on a source server
+      properties:
+        macAddress:
+          type: string
+          description: MAC address
+          example: 00:11:22:33:44:55
+        ips:
+          type: array
+          description: IP addresses
+          items:
+            type: string
+          example:
+          - 192.168.1.100
+        isPrimary:
+          type: boolean
+          description: Whether this is the primary interface
+          example: true
+    DescribeSourceServersRequestFilters:
+      type: object
+      description: Filters for describing source servers
+      properties:
+        sourceServerIDs:
+          type: array
+          description: Filter by source server IDs
+          items:
+            type: string
+        isArchived:
+          type: boolean
+          description: Filter by archived status
+          example: false
+        replicationTypes:
+          type: array
+          description: Filter by replication type
+          items:
+            type: string
+        lifeCycleStates:
+          type: array
+          description: Filter by lifecycle states
+          items:
+            type: string
+        applicationIDs:
+          type: array
+          description: Filter by application IDs
+          items:
+            type: string
+    OS:
+      type: object
+      description: Operating system information
+      properties:
+        fullString:
+          type: string
+          description: Full OS description string
+          example: Microsoft Windows Server 2019 Standard
+    SourceProperties:
+      type: object
+      description: Discovered properties of the source server
+      properties:
+        lastUpdatedDateTime:
+          type: string
+          description: Date/time properties were last updated
+          example: '2026-04-19T00:00:00Z'
+        recommendedInstanceType:
+          type: string
+          description: AWS instance type recommended for this server
+          example: t3.large
+        identificationHints:
+          $ref: '#/components/schemas/IdentificationHints'
+        networkInterfaces:
+          type: array
+          description: Network interfaces on the source server
+          items:
+            $ref: '#/components/schemas/NetworkInterface'
+        disks:
+          type: array
+          description: Disks on the source server
+          items:
+            $ref: '#/components/schemas/Disk'
+        cpus:
+          type: array
+          description: CPUs on the source server
+          items:
+            $ref: '#/components/schemas/CPU'
+        ramBytes:
+          type: integer
+          description: RAM in bytes
+          example: 8589934592
+        os:
+          $ref: '#/components/schemas/OS'
+    DataReplicationInfoReplicatedDisk:
+      type: object
+      description: Replication status for an individual disk
+      properties:
+        deviceName:
+          type: string
+          description: Device name of the disk
+          example: /dev/sda1
+        totalStorageBytes:
+          type: integer
+          description: Total storage in bytes
+          example: 107374182400
+        replicatedStorageBytes:
+          type: integer
+          description: Amount of storage replicated in bytes
+          example: 107374182400
+        rescannedStorageBytes:
+          type: integer
+          description: Amount rescanned in bytes
+          example: 0
+        backloggedStorageBytes:
+          type: integer
+          description: Amount backlogged in bytes
+          example: 0
+    DataReplicationInitiationStep:
+      type: object
+      description: A single step in the replication initiation process
+      properties:
+        name:
+          type: string
+          description: Step name
+          example: WAIT
+        status:
+          type: string
+          description: Step status
+          enum:
+          - NOT_STARTED
+          - IN_PROGRESS
+          - SUCCEEDED
+          - FAILED
+          - SKIPPED
+          example: SUCCEEDED
+    DescribeSourceServersRequest:
+      type: object
+      description: Request to describe source servers
+      properties:
+        filters:
+          $ref: '#/components/schemas/DescribeSourceServersRequestFilters'
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    DeleteSourceServerRequest:
+      type: object
+      description: Request to delete a source server
+      required:
+      - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID to delete
+          example: s-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    Disk:
+      type: object
+      description: A disk on a source server
+      properties:
+        deviceName:
+          type: string
+          description: Device name
+          example: /dev/sda1
+        bytes:
+          type: integer
+          description: Disk size in bytes
+          example: 107374182400
+    LifeCycle:
+      type: object
+      description: Lifecycle state of a source server
+      properties:
+        state:
+          type: string
+          description: Current lifecycle state
+          enum:
+          - STOPPED
+          - NOT_READY
+          - READY_FOR_TEST
+          - TESTING
+          - READY_FOR_CUTOVER
+          - CUTTING_OVER
+          - CUTOVER
+          - DISCONNECTED
+          - DISCOVERED
+          - PENDING_INSTALLATION
+          example: READY_FOR_CUTOVER
+        addedToServiceDateTime:
+          type: string
+          description: Date/time the server was added to the service
+          example: '2026-04-01T00:00:00Z'
+        firstByteDateTime:
+          type: string
+          description: Date/time the first replication byte was received
+          example: '2026-04-01T01:00:00Z'
+        elapsedReplicationDuration:
+          type: string
+          description: Elapsed duration of replication
+          example: PT24H
+        lastSeenByServiceDateTime:
+          type: string
+          description: Date/time the agent last communicated with the service
+          example: '2026-04-19T00:00:00Z'
+        lastTestInitiated:
+          $ref: '#/components/schemas/LifeCycleLastTest'
+        lastTestReverted:
+          $ref: '#/components/schemas/LifeCycleLastTest'
+        lastTestFinalized:
+          $ref: '#/components/schemas/LifeCycleLastTest'
+        lastCutoverInitiated:
+          $ref: '#/components/schemas/LifeCycleLastCutover'
+        lastCutoverReverted:
+          $ref: '#/components/schemas/LifeCycleLastCutover'
+        lastCutoverFinalized:
+          $ref: '#/components/schemas/LifeCycleLastCutover'
+    IdentificationHints:
+      type: object
+      description: Hints used to identify the source server
+      properties:
+        fqdn:
+          type: string
+          description: Fully qualified domain name
+          example: server.example.com
+        hostname:
+          type: string
+          description: Hostname
+          example: my-server
+        vmWareUuid:
+          type: string
+          description: VMware UUID
+          example: 12345678-1234-1234-1234-123456789012
+        awsInstanceID:
+          type: string
+          description: AWS instance ID if previously in AWS
+          example: i-1234567890abcdef0
+        vmPath:
+          type: string
+          description: VMware path
+          example: /Datacenter/vm/my-server
+    CPU:
+      type: object
+      description: CPU information for a source server
+      properties:
+        cores:
+          type: integer
+          description: Number of cores
+          example: 4
+        modelName:
+          type: string
+          description: CPU model name
+          example: Intel Xeon E5-2676 v3
+  securitySchemes:
+    awsAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication

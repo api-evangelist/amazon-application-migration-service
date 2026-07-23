@@ -1,0 +1,138 @@
+openapi: 3.1.0
+info:
+  title: Amazon Application Migration Service Applications Vcenter Clients API
+  description: AWS Application Migration Service (MGN) is the primary migration service recommended for lift-and-shift migrations to AWS. It allows organizations to quickly realize the benefits of migrating applications to the cloud without changes and with minimal downtime.
+  version: '2021-02-25'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://mgn.us-east-1.amazonaws.com
+  description: AWS Application Migration Service US East (N. Virginia)
+- url: https://mgn.eu-west-1.amazonaws.com
+  description: AWS Application Migration Service EU (Ireland)
+security:
+- awsAuth: []
+tags:
+- name: Vcenter Clients
+  description: VMware vCenter client management
+paths:
+  /DescribeVcenterClients:
+    get:
+      operationId: describeVcenterClients
+      summary: Amazon Application Migration Service Describe vCenter Clients
+      description: Returns a list of all vCenter clients that were previously installed on an on-premises environment.
+      tags:
+      - Vcenter Clients
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: maxResults
+        in: query
+        description: Maximum number of results to return
+        schema:
+          type: integer
+      - name: nextToken
+        in: query
+        description: Pagination token
+        schema:
+          type: string
+      responses:
+        '200':
+          description: vCenter clients retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeVcenterClientsResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - vcenterClientID: vcc-1234567890abcdef0
+                      arn: arn:aws:mgn:us-east-1:123456789012:vcenter-client/vcc-1234567890abcdef0
+                      hostname: vcenter.example.com
+                      vcenterUUID: 12345678-1234-1234-1234-123456789012
+                      lastSeenDatetime: '2026-04-19T00:00:00Z'
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    DescribeVcenterClientsResponse:
+      type: object
+      description: Response with list of vCenter clients
+      properties:
+        items:
+          type: array
+          description: List of vCenter clients
+          items:
+            $ref: '#/components/schemas/VcenterClient'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ErrorResponse:
+      type: object
+      description: Standard error response from the Application Migration Service API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: An internal error occurred
+        code:
+          type: string
+          description: Error code
+          example: InternalServerException
+    VcenterClient:
+      type: object
+      description: A VMware vCenter client registered with the Application Migration Service
+      properties:
+        vcenterClientID:
+          type: string
+          description: vCenter client ID
+          example: vcc-1234567890abcdef0
+        arn:
+          type: string
+          description: ARN of the vCenter client
+          example: arn:aws:mgn:us-east-1:123456789012:vcenter-client/vcc-1234567890abcdef0
+        hostname:
+          type: string
+          description: vCenter server hostname
+          example: vcenter.example.com
+        vcenterUUID:
+          type: string
+          description: vCenter UUID
+          example: 12345678-1234-1234-1234-123456789012
+        datacenterName:
+          type: string
+          description: Datacenter name
+          example: My Datacenter
+        lastSeenDatetime:
+          type: string
+          description: Date/time client was last seen
+          example: '2026-04-19T00:00:00Z'
+        sourceServerTags:
+          type: object
+          description: Tags applied to source servers discovered by this client
+          additionalProperties:
+            type: string
+        tags:
+          type: object
+          description: Tags on the vCenter client
+          additionalProperties:
+            type: string
+  securitySchemes:
+    awsAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication

@@ -1,0 +1,430 @@
+openapi: 3.1.0
+info:
+  title: Amazon Application Migration Service Applications Waves API
+  description: AWS Application Migration Service (MGN) is the primary migration service recommended for lift-and-shift migrations to AWS. It allows organizations to quickly realize the benefits of migrating applications to the cloud without changes and with minimal downtime.
+  version: '2021-02-25'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://mgn.us-east-1.amazonaws.com
+  description: AWS Application Migration Service US East (N. Virginia)
+- url: https://mgn.eu-west-1.amazonaws.com
+  description: AWS Application Migration Service EU (Ireland)
+security:
+- awsAuth: []
+tags:
+- name: Waves
+  description: Wave-based migration orchestration
+paths:
+  /ListWaves:
+    post:
+      operationId: listWaves
+      summary: Amazon Application Migration Service List Waves
+      description: Retrieves all migration waves or filters by archived status.
+      tags:
+      - Waves
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListWavesRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  maxResults: 100
+      responses:
+        '200':
+          description: Waves retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListWavesResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - waveID: wave-1234567890abcdef0
+                      arn: arn:aws:mgn:us-east-1:123456789012:wave/wave-1234567890abcdef0
+                      name: Wave 1
+                      isArchived: false
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /CreateWave:
+    post:
+      operationId: createWave
+      summary: Amazon Application Migration Service Create Wave
+      description: Creates a new migration wave for grouping applications.
+      tags:
+      - Waves
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWaveRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  name: Wave 1
+                  description: First migration wave
+      responses:
+        '201':
+          description: Wave created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wave'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    waveID: wave-1234567890abcdef0
+                    arn: arn:aws:mgn:us-east-1:123456789012:wave/wave-1234567890abcdef0
+                    name: Wave 1
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /UpdateWave:
+    post:
+      operationId: updateWave
+      summary: Amazon Application Migration Service Update Wave
+      description: Updates an existing migration wave's name or description.
+      tags:
+      - Waves
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWaveRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  waveID: wave-1234567890abcdef0
+                  name: Updated Wave Name
+      responses:
+        '200':
+          description: Wave updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wave'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    waveID: wave-1234567890abcdef0
+                    name: Updated Wave Name
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /DeleteWave:
+    post:
+      operationId: deleteWave
+      summary: Amazon Application Migration Service Delete Wave
+      description: Deletes a migration wave by ID.
+      tags:
+      - Waves
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteWaveRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  waveID: wave-1234567890abcdef0
+      responses:
+        '204':
+          description: Wave deleted
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /AssociateApplications:
+    post:
+      operationId: associateApplications
+      summary: Amazon Application Migration Service Associate Applications
+      description: Associates applications with a migration wave.
+      tags:
+      - Waves
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssociateApplicationsRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  waveID: wave-1234567890abcdef0
+                  applicationIDs:
+                  - app-1234567890abcdef0
+      responses:
+        '200':
+          description: Applications associated with wave
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    WaveAggregatedStatus:
+      type: object
+      description: Aggregated status of all applications in a wave
+      properties:
+        lastUpdateDateTime:
+          type: string
+          description: Date/time of last status update
+          example: '2026-04-19T00:00:00Z'
+        healthStatus:
+          type: string
+          description: Overall health status
+          enum:
+          - HEALTHY
+          - LAGGING
+          - ERROR
+          example: HEALTHY
+        progressStatus:
+          type: string
+          description: Overall progress status
+          enum:
+          - NOT_STARTED
+          - IN_PROGRESS
+          - COMPLETED
+          - PAUSED
+          example: IN_PROGRESS
+        totalApplications:
+          type: integer
+          description: Total number of applications in the wave
+          example: 3
+    ListWavesRequestFilters:
+      type: object
+      description: Filters for listing waves
+      properties:
+        waveIDs:
+          type: array
+          description: Filter by wave IDs
+          items:
+            type: string
+        isArchived:
+          type: boolean
+          description: Filter by archived status
+          example: false
+    UpdateWaveRequest:
+      type: object
+      description: Request to update a migration wave
+      required:
+      - waveID
+      properties:
+        waveID:
+          type: string
+          description: Wave ID to update
+          example: wave-1234567890abcdef0
+        name:
+          type: string
+          description: New wave name
+          example: Updated Wave Name
+        description:
+          type: string
+          description: New wave description
+          example: Updated description
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    ListWavesResponse:
+      type: object
+      description: Response with list of waves
+      properties:
+        items:
+          type: array
+          description: List of waves
+          items:
+            $ref: '#/components/schemas/Wave'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    DeleteWaveRequest:
+      type: object
+      description: Request to delete a migration wave
+      required:
+      - waveID
+      properties:
+        waveID:
+          type: string
+          description: Wave ID to delete
+          example: wave-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    ErrorResponse:
+      type: object
+      description: Standard error response from the Application Migration Service API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: An internal error occurred
+        code:
+          type: string
+          description: Error code
+          example: InternalServerException
+    AssociateApplicationsRequest:
+      type: object
+      description: Request to associate applications with a wave
+      required:
+      - waveID
+      - applicationIDs
+      properties:
+        waveID:
+          type: string
+          description: Wave ID
+          example: wave-1234567890abcdef0
+        applicationIDs:
+          type: array
+          description: Application IDs to associate
+          items:
+            type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    ListWavesRequest:
+      type: object
+      description: Request to list migration waves
+      properties:
+        filters:
+          $ref: '#/components/schemas/ListWavesRequestFilters'
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    Wave:
+      type: object
+      description: A migration wave grouping applications
+      properties:
+        waveID:
+          type: string
+          description: Wave ID
+          example: wave-1234567890abcdef0
+        arn:
+          type: string
+          description: ARN of the wave
+          example: arn:aws:mgn:us-east-1:123456789012:wave/wave-1234567890abcdef0
+        name:
+          type: string
+          description: Wave name
+          example: Wave 1
+        description:
+          type: string
+          description: Wave description
+          example: First migration wave
+        isArchived:
+          type: boolean
+          description: Whether the wave is archived
+          example: false
+        waveAggregatedStatus:
+          $ref: '#/components/schemas/WaveAggregatedStatus'
+        creationDateTime:
+          type: string
+          description: Creation date/time
+          example: '2026-04-19T00:00:00Z'
+        lastModifiedDateTime:
+          type: string
+          description: Last modification date/time
+          example: '2026-04-19T00:00:00Z'
+        tags:
+          type: object
+          description: Tags on the wave
+          additionalProperties:
+            type: string
+    CreateWaveRequest:
+      type: object
+      description: Request to create a migration wave
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Wave name
+          example: Wave 1
+        description:
+          type: string
+          description: Wave description
+          example: First migration wave
+        tags:
+          type: object
+          description: Tags for the wave
+          additionalProperties:
+            type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+  securitySchemes:
+    awsAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication

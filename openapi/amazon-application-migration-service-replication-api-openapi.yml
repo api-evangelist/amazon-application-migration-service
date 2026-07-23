@@ -1,0 +1,1109 @@
+openapi: 3.1.0
+info:
+  title: Amazon Application Migration Service Applications Replication API
+  description: AWS Application Migration Service (MGN) is the primary migration service recommended for lift-and-shift migrations to AWS. It allows organizations to quickly realize the benefits of migrating applications to the cloud without changes and with minimal downtime.
+  version: '2021-02-25'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://mgn.us-east-1.amazonaws.com
+  description: AWS Application Migration Service US East (N. Virginia)
+- url: https://mgn.eu-west-1.amazonaws.com
+  description: AWS Application Migration Service EU (Ireland)
+security:
+- awsAuth: []
+tags:
+- name: Replication
+  description: Replication configuration and templates
+paths:
+  /RetryDataReplication:
+    post:
+      operationId: retryDataReplication
+      summary: Amazon Application Migration Service Retry Data Replication
+      description: Retries data replication for a source server after a replication failure.
+      tags:
+      - Replication
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetryDataReplicationRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerID: s-1234567890abcdef0
+      responses:
+        '200':
+          description: Data replication retry initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceServer'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    sourceServerID: s-1234567890abcdef0
+                    isArchived: false
+                    arn: arn:aws:mgn:us-east-1:123456789012:source-server/s-1234567890abcdef0
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /GetReplicationConfiguration:
+    post:
+      operationId: getReplicationConfiguration
+      summary: Amazon Application Migration Service Get Replication Configuration
+      description: Retrieves the replication configuration for a specific source server.
+      tags:
+      - Replication
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetReplicationConfigurationRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerID: s-1234567890abcdef0
+      responses:
+        '200':
+          description: Replication configuration retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplicationConfiguration'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    sourceServerID: s-1234567890abcdef0
+                    name: Default replication configuration
+                    stagingAreaSubnetId: subnet-1234567890abcdef0
+                    associateDefaultSecurityGroup: true
+                    replicationServersSecurityGroupsIDs: []
+                    replicationServerInstanceType: t3.small
+                    useLowBandwidthForReplication: false
+                    dataPlaneRouting: PRIVATE_IP
+                    createPublicIP: false
+                    stagingAreaTags: {}
+                    replicatedDisks: []
+                    bandwidthThrottling: 0
+                    defaultLargeStagingDiskType: GP2
+                    ebsEncryption: DEFAULT
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /UpdateReplicationConfiguration:
+    post:
+      operationId: updateReplicationConfiguration
+      summary: Amazon Application Migration Service Update Replication Configuration
+      description: Updates the replication configuration for a specific source server.
+      tags:
+      - Replication
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReplicationConfigurationRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerID: s-1234567890abcdef0
+                  replicationServerInstanceType: t3.small
+                  useLowBandwidthForReplication: false
+      responses:
+        '200':
+          description: Replication configuration updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplicationConfiguration'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    sourceServerID: s-1234567890abcdef0
+                    name: Updated configuration
+                    replicationServerInstanceType: t3.small
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /DescribeReplicationConfigurationTemplates:
+    post:
+      operationId: describeReplicationConfigurationTemplates
+      summary: Amazon Application Migration Service Describe Replication Configuration Templates
+      description: Retrieves replication configuration templates with optional filtering.
+      tags:
+      - Replication
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeReplicationConfigurationTemplatesRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  maxResults: 100
+      responses:
+        '200':
+          description: Replication configuration templates retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeReplicationConfigurationTemplatesResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - replicationConfigurationTemplateID: rct-1234567890abcdef0
+                      arn: arn:aws:mgn:us-east-1:123456789012:replication-configuration-template/rct-1234567890abcdef0
+                      stagingAreaSubnetId: subnet-1234567890abcdef0
+                      associateDefaultSecurityGroup: true
+                      replicationServerInstanceType: t3.small
+                      useLowBandwidthForReplication: false
+                      dataPlaneRouting: PRIVATE_IP
+                      createPublicIP: false
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /CreateReplicationConfigurationTemplate:
+    post:
+      operationId: createReplicationConfigurationTemplate
+      summary: Amazon Application Migration Service Create Replication Configuration Template
+      description: Creates a new replication configuration template used as default settings for new source servers.
+      tags:
+      - Replication
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReplicationConfigurationTemplateRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  stagingAreaSubnetId: subnet-1234567890abcdef0
+                  associateDefaultSecurityGroup: true
+                  replicationServersSecurityGroupsIDs: []
+                  replicationServerInstanceType: t3.small
+                  useLowBandwidthForReplication: false
+                  dataPlaneRouting: PRIVATE_IP
+                  createPublicIP: false
+                  stagingAreaTags: {}
+                  defaultLargeStagingDiskType: GP2
+                  ebsEncryption: DEFAULT
+                  bandwidthThrottling: 0
+      responses:
+        '201':
+          description: Replication configuration template created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplicationConfigurationTemplate'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    replicationConfigurationTemplateID: rct-1234567890abcdef0
+                    arn: arn:aws:mgn:us-east-1:123456789012:replication-configuration-template/rct-1234567890abcdef0
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /UpdateReplicationConfigurationTemplate:
+    post:
+      operationId: updateReplicationConfigurationTemplate
+      summary: Amazon Application Migration Service Update Replication Configuration Template
+      description: Updates an existing replication configuration template.
+      tags:
+      - Replication
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReplicationConfigurationTemplateRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  replicationConfigurationTemplateID: rct-1234567890abcdef0
+                  replicationServerInstanceType: t3.medium
+      responses:
+        '200':
+          description: Replication configuration template updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplicationConfigurationTemplate'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    replicationConfigurationTemplateID: rct-1234567890abcdef0
+                    arn: arn:aws:mgn:us-east-1:123456789012:replication-configuration-template/rct-1234567890abcdef0
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /DeleteReplicationConfigurationTemplate:
+    post:
+      operationId: deleteReplicationConfigurationTemplate
+      summary: Amazon Application Migration Service Delete Replication Configuration Template
+      description: Deletes a replication configuration template by ID.
+      tags:
+      - Replication
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteReplicationConfigurationTemplateRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  replicationConfigurationTemplateID: rct-1234567890abcdef0
+      responses:
+        '204':
+          description: Replication configuration template deleted
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    LaunchedInstance:
+      type: object
+      description: Details about the launched EC2 instance
+      properties:
+        ec2InstanceID:
+          type: string
+          description: EC2 instance ID
+          example: i-1234567890abcdef0
+        jobID:
+          type: string
+          description: Job ID that launched this instance
+          example: mgnjob-1234567890abcdef0
+        firstBoot:
+          type: string
+          description: First boot status
+          enum:
+          - WAITING
+          - SUCCEEDED
+          - UNKNOWN
+          - STOPPED
+          example: SUCCEEDED
+    DataReplicationInfo:
+      type: object
+      description: Current data replication state and statistics for a source server
+      properties:
+        lagDuration:
+          type: string
+          description: Replication lag duration
+          example: PT0S
+        lastSnapshotDateTime:
+          type: string
+          description: Date/time of the last snapshot
+          example: '2026-04-19T00:00:00Z'
+        replicatedDisks:
+          type: array
+          description: List of replicated disks
+          items:
+            $ref: '#/components/schemas/DataReplicationInfoReplicatedDisk'
+        dataReplicationState:
+          type: string
+          description: Current replication state
+          enum:
+          - STOPPED
+          - INITIATING
+          - INITIAL_SYNC
+          - BACKLOG
+          - CREATING_SNAPSHOT
+          - CONTINUOUS
+          - PAUSED
+          - RESCAN
+          - STALLED
+          - DISCONNECTED
+          - PENDING_SNAPSHOT_SHIPPING
+          - SNAPSHOT_SHIPPING
+          example: CONTINUOUS
+        dataReplicationInitiation:
+          $ref: '#/components/schemas/DataReplicationInitiation'
+        dataReplicationError:
+          $ref: '#/components/schemas/DataReplicationError'
+        stagingAvailabilityZone:
+          type: string
+          description: Availability zone used for staging
+          example: us-east-1a
+    DataReplicationInitiation:
+      type: object
+      description: Replication initiation steps and their status
+      properties:
+        startDateTime:
+          type: string
+          description: Date/time replication initiation started
+          example: '2026-04-01T00:00:00Z'
+        nextAttemptDateTime:
+          type: string
+          description: Date/time of next retry attempt
+          example: ''
+        steps:
+          type: array
+          description: Initiation steps
+          items:
+            $ref: '#/components/schemas/DataReplicationInitiationStep'
+    RetryDataReplicationRequest:
+      type: object
+      description: Request to retry data replication
+      required:
+      - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID to retry replication for
+          example: s-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    UpdateReplicationConfigurationRequest:
+      type: object
+      description: Request to update replication configuration
+      required:
+      - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID
+          example: s-1234567890abcdef0
+        name:
+          type: string
+          description: Configuration name
+          example: Updated configuration
+        stagingAreaSubnetId:
+          type: string
+          description: Subnet ID for staging area
+          example: subnet-1234567890abcdef0
+        replicationServerInstanceType:
+          type: string
+          description: EC2 instance type for replication servers
+          example: t3.small
+        useLowBandwidthForReplication:
+          type: boolean
+          description: Whether to use low bandwidth
+          example: false
+        bandwidthThrottling:
+          type: integer
+          description: Bandwidth throttling in Mbps
+          example: 0
+        dataPlaneRouting:
+          type: string
+          description: Data plane routing mode
+          example: PRIVATE_IP
+        createPublicIP:
+          type: boolean
+          description: Whether to create public IP
+          example: false
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    SourceServer:
+      type: object
+      description: A source server registered with the Application Migration Service
+      properties:
+        sourceServerID:
+          type: string
+          description: Unique identifier for the source server
+          example: s-1234567890abcdef0
+        arn:
+          type: string
+          description: ARN of the source server
+          example: arn:aws:mgn:us-east-1:123456789012:source-server/s-1234567890abcdef0
+        isArchived:
+          type: boolean
+          description: Whether the source server is archived
+          example: false
+        tags:
+          type: object
+          description: Tags applied to the source server
+          additionalProperties:
+            type: string
+        lifeCycle:
+          $ref: '#/components/schemas/LifeCycle'
+        dataReplicationInfo:
+          $ref: '#/components/schemas/DataReplicationInfo'
+        sourceProperties:
+          $ref: '#/components/schemas/SourceProperties'
+        launchedInstance:
+          $ref: '#/components/schemas/LaunchedInstance'
+        applicationID:
+          type: string
+          description: ID of the application this server belongs to
+          example: app-1234567890abcdef0
+        vcenterClientID:
+          type: string
+          description: ID of the vCenter client this server was discovered from
+          example: vcc-1234567890abcdef0
+        replicationType:
+          type: string
+          description: Replication type for the source server
+          enum:
+          - AGENT_BASED
+          - SNAPSHOT_SHIPPING
+          example: AGENT_BASED
+        userProvidedID:
+          type: string
+          description: User-provided identifier for the source server
+          example: my-server-01
+        fqdnForActionFramework:
+          type: string
+          description: FQDN used for action framework connectivity
+          example: server.example.com
+    UpdateReplicationConfigurationTemplateRequest:
+      type: object
+      description: Request to update a replication configuration template
+      required:
+      - replicationConfigurationTemplateID
+      properties:
+        replicationConfigurationTemplateID:
+          type: string
+          description: Template ID to update
+          example: rct-1234567890abcdef0
+        stagingAreaSubnetId:
+          type: string
+          example: subnet-1234567890abcdef0
+        associateDefaultSecurityGroup:
+          type: boolean
+          example: true
+        replicationServerInstanceType:
+          type: string
+          example: t3.medium
+        useLowBandwidthForReplication:
+          type: boolean
+          example: false
+        dataPlaneRouting:
+          type: string
+          example: PRIVATE_IP
+        createPublicIP:
+          type: boolean
+          example: false
+    LifeCycleLastTest:
+      type: object
+      description: Details about the last test lifecycle event
+      properties:
+        jobID:
+          type: string
+          description: Job ID of the last test
+          example: mgnjob-1234567890abcdef0
+        initiatedDateTime:
+          type: string
+          description: Date/time the test was initiated
+          example: '2026-04-19T00:00:00Z'
+        finalizedDateTime:
+          type: string
+          description: Date/time the test was finalized
+          example: '2026-04-19T01:00:00Z'
+        revertedDateTime:
+          type: string
+          description: Date/time the test was reverted
+          example: ''
+    ErrorResponse:
+      type: object
+      description: Standard error response from the Application Migration Service API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: An internal error occurred
+        code:
+          type: string
+          description: Error code
+          example: InternalServerException
+    GetReplicationConfigurationRequest:
+      type: object
+      description: Request to get replication configuration
+      required:
+      - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID
+          example: s-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    LifeCycleLastCutover:
+      type: object
+      description: Details about the last cutover lifecycle event
+      properties:
+        jobID:
+          type: string
+          description: Job ID of the last cutover
+          example: mgnjob-1234567890abcdef0
+        initiatedDateTime:
+          type: string
+          description: Date/time the cutover was initiated
+          example: '2026-04-19T00:00:00Z'
+        finalizedDateTime:
+          type: string
+          description: Date/time the cutover was finalized
+          example: '2026-04-19T01:00:00Z'
+        revertedDateTime:
+          type: string
+          description: Date/time the cutover was reverted
+          example: ''
+    DataReplicationError:
+      type: object
+      description: Replication error details
+      properties:
+        error:
+          type: string
+          description: Error type
+          example: SNAPSHOTS_FAILURE
+        rawError:
+          type: string
+          description: Raw error message
+          example: Snapshot creation failed
+    NetworkInterface:
+      type: object
+      description: Network interface on a source server
+      properties:
+        macAddress:
+          type: string
+          description: MAC address
+          example: 00:11:22:33:44:55
+        ips:
+          type: array
+          description: IP addresses
+          items:
+            type: string
+          example:
+          - 192.168.1.100
+        isPrimary:
+          type: boolean
+          description: Whether this is the primary interface
+          example: true
+    ReplicationConfigurationReplicatedDisk:
+      type: object
+      description: Replication configuration for an individual disk
+      properties:
+        deviceName:
+          type: string
+          description: Device name
+          example: /dev/sda1
+        isBootDisk:
+          type: boolean
+          description: Whether this is the boot disk
+          example: true
+        stagingDiskType:
+          type: string
+          description: EBS volume type for staging
+          enum:
+          - AUTO
+          - GP2
+          - IO1
+          - SC1
+          - ST1
+          - STANDARD
+          - SSD
+          - GP3
+          - IO2
+          example: GP2
+        iops:
+          type: integer
+          description: IOPS for the staging disk
+          example: 0
+        throughput:
+          type: integer
+          description: Throughput for the staging disk in MB/s
+          example: 0
+        optimizedStagingDiskType:
+          type: string
+          description: Optimized staging disk type recommendation
+          example: GP2
+    ReplicationConfiguration:
+      type: object
+      description: Replication configuration for a source server
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID
+          example: s-1234567890abcdef0
+        name:
+          type: string
+          description: Configuration name
+          example: Default replication configuration
+        stagingAreaSubnetId:
+          type: string
+          description: Subnet ID for staging area
+          example: subnet-1234567890abcdef0
+        associateDefaultSecurityGroup:
+          type: boolean
+          description: Whether to associate default security group
+          example: true
+        replicationServersSecurityGroupsIDs:
+          type: array
+          description: Security group IDs for replication servers
+          items:
+            type: string
+        replicationServerInstanceType:
+          type: string
+          description: EC2 instance type for replication servers
+          example: t3.small
+        useLowBandwidthForReplication:
+          type: boolean
+          description: Whether to use low bandwidth for replication
+          example: false
+        dataPlaneRouting:
+          type: string
+          description: Data plane routing mode
+          enum:
+          - PRIVATE_IP
+          - PUBLIC_IP
+          example: PRIVATE_IP
+        createPublicIP:
+          type: boolean
+          description: Whether to create public IP for replication servers
+          example: false
+        stagingAreaTags:
+          type: object
+          description: Tags for staging area resources
+          additionalProperties:
+            type: string
+        replicatedDisks:
+          type: array
+          description: Replicated disk configurations
+          items:
+            $ref: '#/components/schemas/ReplicationConfigurationReplicatedDisk'
+        bandwidthThrottling:
+          type: integer
+          description: Bandwidth throttling in Mbps (0 for unlimited)
+          example: 0
+        defaultLargeStagingDiskType:
+          type: string
+          description: Default EBS volume type for large staging disks
+          enum:
+          - GP2
+          - ST1
+          - SSD
+          - AUTO
+          - GP3
+          example: GP2
+        ebsEncryption:
+          type: string
+          description: EBS encryption setting
+          enum:
+          - DEFAULT
+          - CUSTOM
+          - NONE
+          example: DEFAULT
+        ebsEncryptionKeyArn:
+          type: string
+          description: KMS key ARN for EBS encryption
+          example: arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012
+    OS:
+      type: object
+      description: Operating system information
+      properties:
+        fullString:
+          type: string
+          description: Full OS description string
+          example: Microsoft Windows Server 2019 Standard
+    ReplicationConfigurationTemplate:
+      type: object
+      description: Template for default replication configuration settings
+      properties:
+        replicationConfigurationTemplateID:
+          type: string
+          description: Template ID
+          example: rct-1234567890abcdef0
+        arn:
+          type: string
+          description: ARN of the template
+          example: arn:aws:mgn:us-east-1:123456789012:replication-configuration-template/rct-1234567890abcdef0
+        stagingAreaSubnetId:
+          type: string
+          description: Subnet ID for staging area
+          example: subnet-1234567890abcdef0
+        associateDefaultSecurityGroup:
+          type: boolean
+          description: Whether to associate default security group
+          example: true
+        replicationServersSecurityGroupsIDs:
+          type: array
+          description: Security group IDs
+          items:
+            type: string
+        replicationServerInstanceType:
+          type: string
+          description: EC2 instance type for replication servers
+          example: t3.small
+        useLowBandwidthForReplication:
+          type: boolean
+          description: Whether to use low bandwidth
+          example: false
+        dataPlaneRouting:
+          type: string
+          description: Data plane routing mode
+          enum:
+          - PRIVATE_IP
+          - PUBLIC_IP
+          example: PRIVATE_IP
+        createPublicIP:
+          type: boolean
+          description: Whether to create public IP
+          example: false
+        stagingAreaTags:
+          type: object
+          description: Tags for staging resources
+          additionalProperties:
+            type: string
+        bandwidthThrottling:
+          type: integer
+          description: Bandwidth throttling in Mbps
+          example: 0
+        defaultLargeStagingDiskType:
+          type: string
+          description: Default disk type for large disks
+          example: GP2
+        ebsEncryption:
+          type: string
+          description: EBS encryption setting
+          example: DEFAULT
+        tags:
+          type: object
+          description: Tags on the template
+          additionalProperties:
+            type: string
+    SourceProperties:
+      type: object
+      description: Discovered properties of the source server
+      properties:
+        lastUpdatedDateTime:
+          type: string
+          description: Date/time properties were last updated
+          example: '2026-04-19T00:00:00Z'
+        recommendedInstanceType:
+          type: string
+          description: AWS instance type recommended for this server
+          example: t3.large
+        identificationHints:
+          $ref: '#/components/schemas/IdentificationHints'
+        networkInterfaces:
+          type: array
+          description: Network interfaces on the source server
+          items:
+            $ref: '#/components/schemas/NetworkInterface'
+        disks:
+          type: array
+          description: Disks on the source server
+          items:
+            $ref: '#/components/schemas/Disk'
+        cpus:
+          type: array
+          description: CPUs on the source server
+          items:
+            $ref: '#/components/schemas/CPU'
+        ramBytes:
+          type: integer
+          description: RAM in bytes
+          example: 8589934592
+        os:
+          $ref: '#/components/schemas/OS'
+    DataReplicationInfoReplicatedDisk:
+      type: object
+      description: Replication status for an individual disk
+      properties:
+        deviceName:
+          type: string
+          description: Device name of the disk
+          example: /dev/sda1
+        totalStorageBytes:
+          type: integer
+          description: Total storage in bytes
+          example: 107374182400
+        replicatedStorageBytes:
+          type: integer
+          description: Amount of storage replicated in bytes
+          example: 107374182400
+        rescannedStorageBytes:
+          type: integer
+          description: Amount rescanned in bytes
+          example: 0
+        backloggedStorageBytes:
+          type: integer
+          description: Amount backlogged in bytes
+          example: 0
+    DataReplicationInitiationStep:
+      type: object
+      description: A single step in the replication initiation process
+      properties:
+        name:
+          type: string
+          description: Step name
+          example: WAIT
+        status:
+          type: string
+          description: Step status
+          enum:
+          - NOT_STARTED
+          - IN_PROGRESS
+          - SUCCEEDED
+          - FAILED
+          - SKIPPED
+          example: SUCCEEDED
+    CreateReplicationConfigurationTemplateRequest:
+      type: object
+      description: Request to create a replication configuration template
+      required:
+      - stagingAreaSubnetId
+      - associateDefaultSecurityGroup
+      - replicationServersSecurityGroupsIDs
+      - replicationServerInstanceType
+      - useLowBandwidthForReplication
+      - dataPlaneRouting
+      - createPublicIP
+      - stagingAreaTags
+      - defaultLargeStagingDiskType
+      - ebsEncryption
+      - bandwidthThrottling
+      properties:
+        stagingAreaSubnetId:
+          type: string
+          description: Subnet ID
+          example: subnet-1234567890abcdef0
+        associateDefaultSecurityGroup:
+          type: boolean
+          description: Associate default security group
+          example: true
+        replicationServersSecurityGroupsIDs:
+          type: array
+          items:
+            type: string
+        replicationServerInstanceType:
+          type: string
+          example: t3.small
+        useLowBandwidthForReplication:
+          type: boolean
+          example: false
+        dataPlaneRouting:
+          type: string
+          example: PRIVATE_IP
+        createPublicIP:
+          type: boolean
+          example: false
+        stagingAreaTags:
+          type: object
+          additionalProperties:
+            type: string
+        defaultLargeStagingDiskType:
+          type: string
+          example: GP2
+        ebsEncryption:
+          type: string
+          example: DEFAULT
+        bandwidthThrottling:
+          type: integer
+          example: 0
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+    Disk:
+      type: object
+      description: A disk on a source server
+      properties:
+        deviceName:
+          type: string
+          description: Device name
+          example: /dev/sda1
+        bytes:
+          type: integer
+          description: Disk size in bytes
+          example: 107374182400
+    DescribeReplicationConfigurationTemplatesResponse:
+      type: object
+      description: Response with replication configuration templates
+      properties:
+        items:
+          type: array
+          description: List of templates
+          items:
+            $ref: '#/components/schemas/ReplicationConfigurationTemplate'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    DescribeReplicationConfigurationTemplatesRequest:
+      type: object
+      description: Request to describe replication configuration templates
+      properties:
+        replicationConfigurationTemplateIDs:
+          type: array
+          description: Filter by template IDs
+          items:
+            type: string
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    LifeCycle:
+      type: object
+      description: Lifecycle state of a source server
+      properties:
+        state:
+          type: string
+          description: Current lifecycle state
+          enum:
+          - STOPPED
+          - NOT_READY
+          - READY_FOR_TEST
+          - TESTING
+          - READY_FOR_CUTOVER
+          - CUTTING_OVER
+          - CUTOVER
+          - DISCONNECTED
+          - DISCOVERED
+          - PENDING_INSTALLATION
+          example: READY_FOR_CUTOVER
+        addedToServiceDateTime:
+          type: string
+          description: Date/time the server was added to the service
+          example: '2026-04-01T00:00:00Z'
+        firstByteDateTime:
+          type: string
+          description: Date/time the first replication byte was received
+          example: '2026-04-01T01:00:00Z'
+        elapsedReplicationDuration:
+          type: string
+          description: Elapsed duration of replication
+          example: PT24H
+        lastSeenByServiceDateTime:
+          type: string
+          description: Date/time the agent last communicated with the service
+          example: '2026-04-19T00:00:00Z'
+        lastTestInitiated:
+          $ref: '#/components/schemas/LifeCycleLastTest'
+        lastTestReverted:
+          $ref: '#/components/schemas/LifeCycleLastTest'
+        lastTestFinalized:
+          $ref: '#/components/schemas/LifeCycleLastTest'
+        lastCutoverInitiated:
+          $ref: '#/components/schemas/LifeCycleLastCutover'
+        lastCutoverReverted:
+          $ref: '#/components/schemas/LifeCycleLastCutover'
+        lastCutoverFinalized:
+          $ref: '#/components/schemas/LifeCycleLastCutover'
+    DeleteReplicationConfigurationTemplateRequest:
+      type: object
+      description: Request to delete a replication configuration template
+      required:
+      - replicationConfigurationTemplateID
+      properties:
+        replicationConfigurationTemplateID:
+          type: string
+          description: Template ID to delete
+          example: rct-1234567890abcdef0
+    IdentificationHints:
+      type: object
+      description: Hints used to identify the source server
+      properties:
+        fqdn:
+          type: string
+          description: Fully qualified domain name
+          example: server.example.com
+        hostname:
+          type: string
+          description: Hostname
+          example: my-server
+        vmWareUuid:
+          type: string
+          description: VMware UUID
+          example: 12345678-1234-1234-1234-123456789012
+        awsInstanceID:
+          type: string
+          description: AWS instance ID if previously in AWS
+          example: i-1234567890abcdef0
+        vmPath:
+          type: string
+          description: VMware path
+          example: /Datacenter/vm/my-server
+    CPU:
+      type: object
+      description: CPU information for a source server
+      properties:
+        cores:
+          type: integer
+          description: Number of cores
+          example: 4
+        modelName:
+          type: string
+          description: CPU model name
+          example: Intel Xeon E5-2676 v3
+  securitySchemes:
+    awsAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication

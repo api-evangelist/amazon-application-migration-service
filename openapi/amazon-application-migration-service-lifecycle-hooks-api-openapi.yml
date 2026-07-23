@@ -1,0 +1,275 @@
+openapi: 3.1.0
+info:
+  title: Amazon Application Migration Service Applications Lifecycle Hooks API
+  description: AWS Application Migration Service (MGN) is the primary migration service recommended for lift-and-shift migrations to AWS. It allows organizations to quickly realize the benefits of migrating applications to the cloud without changes and with minimal downtime.
+  version: '2021-02-25'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://mgn.us-east-1.amazonaws.com
+  description: AWS Application Migration Service US East (N. Virginia)
+- url: https://mgn.eu-west-1.amazonaws.com
+  description: AWS Application Migration Service EU (Ireland)
+security:
+- awsAuth: []
+tags:
+- name: Lifecycle Hooks
+  description: Lifecycle action hooks for automated workflows
+paths:
+  /ListSourceServerActions:
+    post:
+      operationId: listSourceServerActions
+      summary: Amazon Application Migration Service List Source Server Actions
+      description: Lists all lifecycle action hooks for a specific source server.
+      tags:
+      - Lifecycle Hooks
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListSourceServerActionsRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerID: s-1234567890abcdef0
+      responses:
+        '200':
+          description: Source server actions retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSourceServerActionsResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items: []
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /ListTemplateActions:
+    post:
+      operationId: listTemplateActions
+      summary: Amazon Application Migration Service List Template Actions
+      description: Lists all lifecycle action hooks defined in a launch configuration template.
+      tags:
+      - Lifecycle Hooks
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListTemplateActionsRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  launchConfigurationTemplateID: lct-1234567890abcdef0
+      responses:
+        '200':
+          description: Template actions retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTemplateActionsResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items: []
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    SsmParameterStoreParameter:
+      type: object
+      description: SSM Parameter Store parameter reference
+      properties:
+        parameterName:
+          type: string
+          description: Parameter name
+          example: /my/parameter
+        parameterType:
+          type: string
+          description: Parameter type
+          enum:
+          - STRING
+          example: STRING
+    ListTemplateActionsRequest:
+      type: object
+      description: Request to list template lifecycle actions
+      required:
+      - launchConfigurationTemplateID
+      properties:
+        launchConfigurationTemplateID:
+          type: string
+          description: Launch configuration template ID
+          example: lct-1234567890abcdef0
+        filters:
+          type: object
+          description: Action filters
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ListSourceServerActionsResponse:
+      type: object
+      description: Response with list of source server actions
+      properties:
+        items:
+          type: array
+          description: List of actions
+          items:
+            $ref: '#/components/schemas/SourceServerAction'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ListSourceServerActionsRequest:
+      type: object
+      description: Request to list source server lifecycle actions
+      required:
+      - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID
+          example: s-1234567890abcdef0
+        filters:
+          type: object
+          description: Action filters
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    ListTemplateActionsResponse:
+      type: object
+      description: Response with list of template actions
+      properties:
+        items:
+          type: array
+          description: List of template actions
+          items:
+            $ref: '#/components/schemas/SourceServerAction'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ErrorResponse:
+      type: object
+      description: Standard error response from the Application Migration Service API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: An internal error occurred
+        code:
+          type: string
+          description: Error code
+          example: InternalServerException
+    SourceServerAction:
+      type: object
+      description: A lifecycle action hook for a source server
+      properties:
+        actionID:
+          type: string
+          description: Action ID
+          example: action-1234567890abcdef0
+        actionName:
+          type: string
+          description: Action name
+          example: InstallMonitoringAgent
+        active:
+          type: boolean
+          description: Whether the action is active
+          example: true
+        category:
+          type: string
+          description: Action category
+          enum:
+          - DISASTER_RECOVERY
+          - OPERATING_SYSTEM
+          - LICENSE_AND_SUBSCRIPTION
+          - VALIDATION
+          - OBSERVABILITY
+          - SECURITY
+          - NETWORKING
+          - CONFIGURATION
+          - BACKUP
+          - OTHER
+          example: CONFIGURATION
+        description:
+          type: string
+          description: Action description
+          example: Installs monitoring agent on the launched instance
+        documentIdentifier:
+          type: string
+          description: SSM document identifier
+          example: AWS-RunShellScript
+        documentVersion:
+          type: string
+          description: SSM document version
+          example: '1'
+        externalParameters:
+          type: object
+          description: External parameters for the action
+          additionalProperties:
+            type: object
+        mustSucceedForCutover:
+          type: boolean
+          description: Whether action must succeed for cutover
+          example: false
+        order:
+          type: integer
+          description: Execution order
+          example: 1
+        parameters:
+          type: object
+          description: Action parameters
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/SsmParameterStoreParameter'
+        timeoutSeconds:
+          type: integer
+          description: Timeout in seconds
+          example: 3600
+  securitySchemes:
+    awsAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication

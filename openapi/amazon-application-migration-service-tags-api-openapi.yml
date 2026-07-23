@@ -1,0 +1,185 @@
+openapi: 3.1.0
+info:
+  title: Amazon Application Migration Service Applications Tags API
+  description: AWS Application Migration Service (MGN) is the primary migration service recommended for lift-and-shift migrations to AWS. It allows organizations to quickly realize the benefits of migrating applications to the cloud without changes and with minimal downtime.
+  version: '2021-02-25'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://mgn.us-east-1.amazonaws.com
+  description: AWS Application Migration Service US East (N. Virginia)
+- url: https://mgn.eu-west-1.amazonaws.com
+  description: AWS Application Migration Service EU (Ireland)
+security:
+- awsAuth: []
+tags:
+- name: Tags
+  description: Resource tagging operations
+paths:
+  /tags/{resourceArn}:
+    get:
+      operationId: listTagsForResource
+      summary: Amazon Application Migration Service List Tags For Resource
+      description: Lists all tags applied to a specific Application Migration Service resource.
+      tags:
+      - Tags
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: resourceArn
+        in: path
+        required: true
+        description: The ARN of the resource
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Tags retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTagsForResourceResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    tags:
+                      Environment: Production
+                      Project: Migration2026
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: tagResource
+      summary: Amazon Application Migration Service Tag Resource
+      description: Adds or overwrites tags on an Application Migration Service resource.
+      tags:
+      - Tags
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: resourceArn
+        in: path
+        required: true
+        description: The ARN of the resource to tag
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagResourceRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  tags:
+                    Environment: Production
+      responses:
+        '200':
+          description: Tags added to resource
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: untagResource
+      summary: Amazon Application Migration Service Untag Resource
+      description: Removes tags from an Application Migration Service resource.
+      tags:
+      - Tags
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: resourceArn
+        in: path
+        required: true
+        description: The ARN of the resource to untag
+        schema:
+          type: string
+      - name: tagKeys
+        in: query
+        required: true
+        description: List of tag keys to remove
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: Tags removed from resource
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    TagResourceRequest:
+      type: object
+      description: Request to add tags to a resource
+      required:
+      - tags
+      properties:
+        tags:
+          type: object
+          description: Tags to add
+          additionalProperties:
+            type: string
+    ErrorResponse:
+      type: object
+      description: Standard error response from the Application Migration Service API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: An internal error occurred
+        code:
+          type: string
+          description: Error code
+          example: InternalServerException
+    ListTagsForResourceResponse:
+      type: object
+      description: Response with resource tags
+      properties:
+        tags:
+          type: object
+          description: Tags on the resource
+          additionalProperties:
+            type: string
+  securitySchemes:
+    awsAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication
