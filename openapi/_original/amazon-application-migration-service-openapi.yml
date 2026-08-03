@@ -1,0 +1,4014 @@
+openapi: 3.1.0
+info:
+  title: Amazon Application Migration Service API
+  description: >-
+    AWS Application Migration Service (MGN) is the primary migration service recommended for lift-and-shift migrations to AWS. It allows organizations to quickly realize the benefits of migrating applications to the cloud without changes and with minimal downtime.
+  version: '2021-02-25'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+  - url: https://mgn.us-east-1.amazonaws.com
+    description: AWS Application Migration Service US East (N. Virginia)
+  - url: https://mgn.eu-west-1.amazonaws.com
+    description: AWS Application Migration Service EU (Ireland)
+security:
+  - awsAuth: []
+tags:
+  - name: Source Servers
+    description: Manage source servers being migrated
+  - name: Replication
+    description: Replication configuration and templates
+  - name: Launch
+    description: Launch configuration and templates
+  - name: Jobs
+    description: Migration and conversion jobs
+  - name: Applications
+    description: Application groupings for migration
+  - name: Waves
+    description: Wave-based migration orchestration
+  - name: Connectors
+    description: On-premises connectors for agentless discovery
+  - name: Lifecycle Hooks
+    description: Lifecycle action hooks for automated workflows
+  - name: Exports
+    description: Source server export tasks
+  - name: Imports
+    description: Migration data imports
+  - name: Tags
+    description: Resource tagging operations
+  - name: Vcenter Clients
+    description: VMware vCenter client management
+paths:
+  /DescribeSourceServers:
+    post:
+      operationId: describeSourceServers
+      summary: Amazon Application Migration Service Describe Source Servers
+      description: Retrieves all source servers or filtered by replication type and lifecycle state.
+      tags:
+        - Source Servers
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeSourceServersRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  filters:
+                    isArchived: false
+                  maxResults: 100
+      responses:
+        '200':
+          description: Successful response with list of source servers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeSourceServersResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items:
+                      - sourceServerID: s-1234567890abcdef0
+                        arn: arn:aws:mgn:us-east-1:123456789012:source-server/s-1234567890abcdef0
+                        isArchived: false
+                        tags: {}
+                        launchedInstance:
+                          ec2InstanceID: i-1234567890abcdef0
+                          firstBoot: SUCCESS
+                          jobID: mgnjob-1234567890abcdef0
+                        dataReplicationInfo:
+                          lagDuration: PT0S
+                          lastSnapshotDateTime: '2026-04-19T00:00:00Z'
+                          replicatedDisks: []
+                          dataReplicationState: CONTINUOUS
+                          dataReplicationInitiation:
+                            steps: []
+                        lifeCycle:
+                          state: READY_FOR_CUTOVER
+                        sourceProperties:
+                          os:
+                            fullString: Microsoft Windows Server 2019
+                          ramBytes: 8589934592
+                          cpus:
+                            - cores: 4
+                              modelName: Intel Xeon
+                          networkInterfaces: []
+                          recommendedInstanceType: t3.large
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /InitializeService:
+    post:
+      operationId: initializeService
+      summary: Amazon Application Migration Service Initialize Service
+      description: Initializes the Application Migration Service for a new AWS account.
+      tags:
+        - Source Servers
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+            examples:
+              default:
+                x-microcks-default: true
+                value: {}
+      responses:
+        '204':
+          description: Service initialized successfully
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /MarkAsArchived:
+    post:
+      operationId: markAsArchived
+      summary: Amazon Application Migration Service Mark As Archived
+      description: Archives or unarchives a source server by its ID.
+      tags:
+        - Source Servers
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarkAsArchivedRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerID: s-1234567890abcdef0
+      responses:
+        '200':
+          description: Source server archived successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceServer'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    sourceServerID: s-1234567890abcdef0
+                    isArchived: true
+                    arn: arn:aws:mgn:us-east-1:123456789012:source-server/s-1234567890abcdef0
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /DeleteSourceServer:
+    post:
+      operationId: deleteSourceServer
+      summary: Amazon Application Migration Service Delete Source Server
+      description: Deletes a single source server by ID. The source server must be disconnected.
+      tags:
+        - Source Servers
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteSourceServerRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerID: s-1234567890abcdef0
+      responses:
+        '204':
+          description: Source server deleted successfully
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /DisconnectFromService:
+    post:
+      operationId: disconnectFromService
+      summary: Amazon Application Migration Service Disconnect From Service
+      description: Disconnects a source server from the Application Migration Service replication process.
+      tags:
+        - Source Servers
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DisconnectFromServiceRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerID: s-1234567890abcdef0
+      responses:
+        '200':
+          description: Source server disconnected successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceServer'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    sourceServerID: s-1234567890abcdef0
+                    isArchived: false
+                    arn: arn:aws:mgn:us-east-1:123456789012:source-server/s-1234567890abcdef0
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /RetryDataReplication:
+    post:
+      operationId: retryDataReplication
+      summary: Amazon Application Migration Service Retry Data Replication
+      description: Retries data replication for a source server after a replication failure.
+      tags:
+        - Replication
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetryDataReplicationRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerID: s-1234567890abcdef0
+      responses:
+        '200':
+          description: Data replication retry initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceServer'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    sourceServerID: s-1234567890abcdef0
+                    isArchived: false
+                    arn: arn:aws:mgn:us-east-1:123456789012:source-server/s-1234567890abcdef0
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /GetReplicationConfiguration:
+    post:
+      operationId: getReplicationConfiguration
+      summary: Amazon Application Migration Service Get Replication Configuration
+      description: Retrieves the replication configuration for a specific source server.
+      tags:
+        - Replication
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetReplicationConfigurationRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerID: s-1234567890abcdef0
+      responses:
+        '200':
+          description: Replication configuration retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplicationConfiguration'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    sourceServerID: s-1234567890abcdef0
+                    name: Default replication configuration
+                    stagingAreaSubnetId: subnet-1234567890abcdef0
+                    associateDefaultSecurityGroup: true
+                    replicationServersSecurityGroupsIDs: []
+                    replicationServerInstanceType: t3.small
+                    useLowBandwidthForReplication: false
+                    dataPlaneRouting: PRIVATE_IP
+                    createPublicIP: false
+                    stagingAreaTags: {}
+                    replicatedDisks: []
+                    bandwidthThrottling: 0
+                    defaultLargeStagingDiskType: GP2
+                    ebsEncryption: DEFAULT
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /UpdateReplicationConfiguration:
+    post:
+      operationId: updateReplicationConfiguration
+      summary: Amazon Application Migration Service Update Replication Configuration
+      description: Updates the replication configuration for a specific source server.
+      tags:
+        - Replication
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReplicationConfigurationRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerID: s-1234567890abcdef0
+                  replicationServerInstanceType: t3.small
+                  useLowBandwidthForReplication: false
+      responses:
+        '200':
+          description: Replication configuration updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplicationConfiguration'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    sourceServerID: s-1234567890abcdef0
+                    name: Updated configuration
+                    replicationServerInstanceType: t3.small
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /DescribeReplicationConfigurationTemplates:
+    post:
+      operationId: describeReplicationConfigurationTemplates
+      summary: Amazon Application Migration Service Describe Replication Configuration Templates
+      description: Retrieves replication configuration templates with optional filtering.
+      tags:
+        - Replication
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeReplicationConfigurationTemplatesRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  maxResults: 100
+      responses:
+        '200':
+          description: Replication configuration templates retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeReplicationConfigurationTemplatesResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items:
+                      - replicationConfigurationTemplateID: rct-1234567890abcdef0
+                        arn: arn:aws:mgn:us-east-1:123456789012:replication-configuration-template/rct-1234567890abcdef0
+                        stagingAreaSubnetId: subnet-1234567890abcdef0
+                        associateDefaultSecurityGroup: true
+                        replicationServerInstanceType: t3.small
+                        useLowBandwidthForReplication: false
+                        dataPlaneRouting: PRIVATE_IP
+                        createPublicIP: false
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /CreateReplicationConfigurationTemplate:
+    post:
+      operationId: createReplicationConfigurationTemplate
+      summary: Amazon Application Migration Service Create Replication Configuration Template
+      description: Creates a new replication configuration template used as default settings for new source servers.
+      tags:
+        - Replication
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReplicationConfigurationTemplateRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  stagingAreaSubnetId: subnet-1234567890abcdef0
+                  associateDefaultSecurityGroup: true
+                  replicationServersSecurityGroupsIDs: []
+                  replicationServerInstanceType: t3.small
+                  useLowBandwidthForReplication: false
+                  dataPlaneRouting: PRIVATE_IP
+                  createPublicIP: false
+                  stagingAreaTags: {}
+                  defaultLargeStagingDiskType: GP2
+                  ebsEncryption: DEFAULT
+                  bandwidthThrottling: 0
+      responses:
+        '201':
+          description: Replication configuration template created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplicationConfigurationTemplate'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    replicationConfigurationTemplateID: rct-1234567890abcdef0
+                    arn: arn:aws:mgn:us-east-1:123456789012:replication-configuration-template/rct-1234567890abcdef0
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /UpdateReplicationConfigurationTemplate:
+    post:
+      operationId: updateReplicationConfigurationTemplate
+      summary: Amazon Application Migration Service Update Replication Configuration Template
+      description: Updates an existing replication configuration template.
+      tags:
+        - Replication
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReplicationConfigurationTemplateRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  replicationConfigurationTemplateID: rct-1234567890abcdef0
+                  replicationServerInstanceType: t3.medium
+      responses:
+        '200':
+          description: Replication configuration template updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplicationConfigurationTemplate'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    replicationConfigurationTemplateID: rct-1234567890abcdef0
+                    arn: arn:aws:mgn:us-east-1:123456789012:replication-configuration-template/rct-1234567890abcdef0
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /DeleteReplicationConfigurationTemplate:
+    post:
+      operationId: deleteReplicationConfigurationTemplate
+      summary: Amazon Application Migration Service Delete Replication Configuration Template
+      description: Deletes a replication configuration template by ID.
+      tags:
+        - Replication
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteReplicationConfigurationTemplateRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  replicationConfigurationTemplateID: rct-1234567890abcdef0
+      responses:
+        '204':
+          description: Replication configuration template deleted
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /GetLaunchConfiguration:
+    post:
+      operationId: getLaunchConfiguration
+      summary: Amazon Application Migration Service Get Launch Configuration
+      description: Retrieves the launch configuration for a specific source server.
+      tags:
+        - Launch
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetLaunchConfigurationRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerID: s-1234567890abcdef0
+      responses:
+        '200':
+          description: Launch configuration retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LaunchConfiguration'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    sourceServerID: s-1234567890abcdef0
+                    name: Default launch configuration
+                    ec2LaunchTemplateID: lt-1234567890abcdef0
+                    launchDisposition: STOPPED
+                    targetInstanceTypeRightSizingMethod: BASIC
+                    copyPrivateIp: false
+                    copyTags: false
+                    licensing:
+                      osByol: false
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /UpdateLaunchConfiguration:
+    post:
+      operationId: updateLaunchConfiguration
+      summary: Amazon Application Migration Service Update Launch Configuration
+      description: Updates the launch configuration for a specific source server.
+      tags:
+        - Launch
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLaunchConfigurationRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerID: s-1234567890abcdef0
+                  launchDisposition: STARTED
+                  copyTags: true
+      responses:
+        '200':
+          description: Launch configuration updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LaunchConfiguration'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    sourceServerID: s-1234567890abcdef0
+                    name: Updated launch configuration
+                    launchDisposition: STARTED
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /DescribeLaunchConfigurationTemplates:
+    post:
+      operationId: describeLaunchConfigurationTemplates
+      summary: Amazon Application Migration Service Describe Launch Configuration Templates
+      description: Retrieves all launch configuration templates or specific ones by ID.
+      tags:
+        - Launch
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeLaunchConfigurationTemplatesRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  maxResults: 100
+      responses:
+        '200':
+          description: Launch configuration templates retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeLaunchConfigurationTemplatesResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items:
+                      - launchConfigurationTemplateID: lct-1234567890abcdef0
+                        arn: arn:aws:mgn:us-east-1:123456789012:launch-configuration-template/lct-1234567890abcdef0
+                        launchDisposition: STOPPED
+                        targetInstanceTypeRightSizingMethod: BASIC
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /CreateLaunchConfigurationTemplate:
+    post:
+      operationId: createLaunchConfigurationTemplate
+      summary: Amazon Application Migration Service Create Launch Configuration Template
+      description: Creates a new launch configuration template.
+      tags:
+        - Launch
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLaunchConfigurationTemplateRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  launchDisposition: STOPPED
+                  targetInstanceTypeRightSizingMethod: BASIC
+                  copyPrivateIp: false
+                  copyTags: false
+      responses:
+        '201':
+          description: Launch configuration template created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LaunchConfigurationTemplate'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    launchConfigurationTemplateID: lct-1234567890abcdef0
+                    arn: arn:aws:mgn:us-east-1:123456789012:launch-configuration-template/lct-1234567890abcdef0
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /UpdateLaunchConfigurationTemplate:
+    post:
+      operationId: updateLaunchConfigurationTemplate
+      summary: Amazon Application Migration Service Update Launch Configuration Template
+      description: Updates an existing launch configuration template.
+      tags:
+        - Launch
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLaunchConfigurationTemplateRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  launchConfigurationTemplateID: lct-1234567890abcdef0
+                  launchDisposition: STARTED
+      responses:
+        '200':
+          description: Launch configuration template updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LaunchConfigurationTemplate'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    launchConfigurationTemplateID: lct-1234567890abcdef0
+                    arn: arn:aws:mgn:us-east-1:123456789012:launch-configuration-template/lct-1234567890abcdef0
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /DeleteLaunchConfigurationTemplate:
+    post:
+      operationId: deleteLaunchConfigurationTemplate
+      summary: Amazon Application Migration Service Delete Launch Configuration Template
+      description: Deletes a launch configuration template by ID.
+      tags:
+        - Launch
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteLaunchConfigurationTemplateRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  launchConfigurationTemplateID: lct-1234567890abcdef0
+      responses:
+        '204':
+          description: Launch configuration template deleted
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /StartTest:
+    post:
+      operationId: startTest
+      summary: Amazon Application Migration Service Start Test
+      description: Launches a test instance for one or more source servers to validate migration readiness.
+      tags:
+        - Jobs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartTestRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerIDs:
+                    - s-1234567890abcdef0
+      responses:
+        '202':
+          description: Test job started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartTestResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    job:
+                      jobID: mgnjob-1234567890abcdef0
+                      type: TEST
+                      status: STARTED
+                      initiatedBy: START_TEST
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /StartCutover:
+    post:
+      operationId: startCutover
+      summary: Amazon Application Migration Service Start Cutover
+      description: Launches cutover instances for one or more source servers to complete migration.
+      tags:
+        - Jobs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartCutoverRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerIDs:
+                    - s-1234567890abcdef0
+      responses:
+        '202':
+          description: Cutover job started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartCutoverResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    job:
+                      jobID: mgnjob-1234567890abcdef0
+                      type: LAUNCH
+                      status: STARTED
+                      initiatedBy: START_CUTOVER
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /FinalizeCutover:
+    post:
+      operationId: finalizeCutover
+      summary: Amazon Application Migration Service Finalize Cutover
+      description: Finalizes the cutover for a source server, completing the migration process.
+      tags:
+        - Jobs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FinalizeCutoverRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerID: s-1234567890abcdef0
+      responses:
+        '200':
+          description: Cutover finalized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceServer'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    sourceServerID: s-1234567890abcdef0
+                    isArchived: false
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /TerminateTargetInstances:
+    post:
+      operationId: terminateTargetInstances
+      summary: Amazon Application Migration Service Terminate Target Instances
+      description: Terminates previously launched test or cutover instances for source servers.
+      tags:
+        - Jobs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TerminateTargetInstancesRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerIDs:
+                    - s-1234567890abcdef0
+      responses:
+        '202':
+          description: Termination job started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TerminateTargetInstancesResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    job:
+                      jobID: mgnjob-1234567890abcdef0
+                      type: TERMINATE
+                      status: STARTED
+                      initiatedBy: TERMINATE_AFTER_TESTING
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /DescribeJobs:
+    post:
+      operationId: describeJobs
+      summary: Amazon Application Migration Service Describe Jobs
+      description: Retrieves all migration jobs or filters by job ID and date range.
+      tags:
+        - Jobs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeJobsRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  maxResults: 100
+      responses:
+        '200':
+          description: Jobs retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeJobsResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items:
+                      - jobID: mgnjob-1234567890abcdef0
+                        type: LAUNCH
+                        status: COMPLETED
+                        initiatedBy: START_CUTOVER
+                        creationDateTime: '2026-04-19T00:00:00Z'
+                        endDateTime: '2026-04-19T01:00:00Z'
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /DescribeJobLogItems:
+    post:
+      operationId: describeJobLogItems
+      summary: Amazon Application Migration Service Describe Job Log Items
+      description: Retrieves log events for a specific migration job.
+      tags:
+        - Jobs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeJobLogItemsRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  jobID: mgnjob-1234567890abcdef0
+                  maxResults: 100
+      responses:
+        '200':
+          description: Job log items retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeJobLogItemsResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items:
+                      - logDateTime: '2026-04-19T00:00:00Z'
+                        event: JOB_START
+                        eventData:
+                          targetInstanceID: i-1234567890abcdef0
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /ListApplications:
+    post:
+      operationId: listApplications
+      summary: Amazon Application Migration Service List Applications
+      description: Retrieves all migration applications or filters by wave or archived status.
+      tags:
+        - Applications
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListApplicationsRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  maxResults: 100
+      responses:
+        '200':
+          description: Applications retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListApplicationsResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items:
+                      - applicationID: app-1234567890abcdef0
+                        arn: arn:aws:mgn:us-east-1:123456789012:application/app-1234567890abcdef0
+                        name: My Application
+                        isArchived: false
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /CreateApplication:
+    post:
+      operationId: createApplication
+      summary: Amazon Application Migration Service Create Application
+      description: Creates a new migration application grouping.
+      tags:
+        - Applications
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateApplicationRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  name: My Application
+                  description: Primary business application
+      responses:
+        '201':
+          description: Application created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    applicationID: app-1234567890abcdef0
+                    arn: arn:aws:mgn:us-east-1:123456789012:application/app-1234567890abcdef0
+                    name: My Application
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /UpdateApplication:
+    post:
+      operationId: updateApplication
+      summary: Amazon Application Migration Service Update Application
+      description: Updates an existing migration application's name or description.
+      tags:
+        - Applications
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateApplicationRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  applicationID: app-1234567890abcdef0
+                  name: Updated Application Name
+      responses:
+        '200':
+          description: Application updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    applicationID: app-1234567890abcdef0
+                    name: Updated Application Name
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /DeleteApplication:
+    post:
+      operationId: deleteApplication
+      summary: Amazon Application Migration Service Delete Application
+      description: Deletes a migration application grouping by ID.
+      tags:
+        - Applications
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteApplicationRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  applicationID: app-1234567890abcdef0
+      responses:
+        '204':
+          description: Application deleted
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /ArchiveApplication:
+    post:
+      operationId: archiveApplication
+      summary: Amazon Application Migration Service Archive Application
+      description: Archives a migration application and all its associated source servers.
+      tags:
+        - Applications
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArchiveApplicationRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  applicationID: app-1234567890abcdef0
+      responses:
+        '204':
+          description: Application archived
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /UnarchiveApplication:
+    post:
+      operationId: unarchiveApplication
+      summary: Amazon Application Migration Service Unarchive Application
+      description: Unarchives a previously archived migration application.
+      tags:
+        - Applications
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UnarchiveApplicationRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  applicationID: app-1234567890abcdef0
+      responses:
+        '204':
+          description: Application unarchived
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /AssociateSourceServers:
+    post:
+      operationId: associateSourceServers
+      summary: Amazon Application Migration Service Associate Source Servers
+      description: Associates source servers with a migration application.
+      tags:
+        - Applications
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssociateSourceServersRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  applicationID: app-1234567890abcdef0
+                  sourceServerIDs:
+                    - s-1234567890abcdef0
+      responses:
+        '200':
+          description: Source servers associated
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /DisassociateSourceServers:
+    post:
+      operationId: disassociateSourceServers
+      summary: Amazon Application Migration Service Disassociate Source Servers
+      description: Removes source servers from a migration application.
+      tags:
+        - Applications
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DisassociateSourceServersRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  applicationID: app-1234567890abcdef0
+                  sourceServerIDs:
+                    - s-1234567890abcdef0
+      responses:
+        '200':
+          description: Source servers disassociated
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /ListWaves:
+    post:
+      operationId: listWaves
+      summary: Amazon Application Migration Service List Waves
+      description: Retrieves all migration waves or filters by archived status.
+      tags:
+        - Waves
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListWavesRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  maxResults: 100
+      responses:
+        '200':
+          description: Waves retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListWavesResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items:
+                      - waveID: wave-1234567890abcdef0
+                        arn: arn:aws:mgn:us-east-1:123456789012:wave/wave-1234567890abcdef0
+                        name: Wave 1
+                        isArchived: false
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /CreateWave:
+    post:
+      operationId: createWave
+      summary: Amazon Application Migration Service Create Wave
+      description: Creates a new migration wave for grouping applications.
+      tags:
+        - Waves
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWaveRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  name: Wave 1
+                  description: First migration wave
+      responses:
+        '201':
+          description: Wave created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wave'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    waveID: wave-1234567890abcdef0
+                    arn: arn:aws:mgn:us-east-1:123456789012:wave/wave-1234567890abcdef0
+                    name: Wave 1
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /UpdateWave:
+    post:
+      operationId: updateWave
+      summary: Amazon Application Migration Service Update Wave
+      description: Updates an existing migration wave's name or description.
+      tags:
+        - Waves
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWaveRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  waveID: wave-1234567890abcdef0
+                  name: Updated Wave Name
+      responses:
+        '200':
+          description: Wave updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wave'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    waveID: wave-1234567890abcdef0
+                    name: Updated Wave Name
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /DeleteWave:
+    post:
+      operationId: deleteWave
+      summary: Amazon Application Migration Service Delete Wave
+      description: Deletes a migration wave by ID.
+      tags:
+        - Waves
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteWaveRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  waveID: wave-1234567890abcdef0
+      responses:
+        '204':
+          description: Wave deleted
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /AssociateApplications:
+    post:
+      operationId: associateApplications
+      summary: Amazon Application Migration Service Associate Applications
+      description: Associates applications with a migration wave.
+      tags:
+        - Waves
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssociateApplicationsRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  waveID: wave-1234567890abcdef0
+                  applicationIDs:
+                    - app-1234567890abcdef0
+      responses:
+        '200':
+          description: Applications associated with wave
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /ExportErrors:
+    post:
+      operationId: exportErrors
+      summary: Amazon Application Migration Service Export Errors
+      description: Retrieves errors from source server export tasks.
+      tags:
+        - Exports
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportErrorsRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  exportID: export-1234567890abcdef0
+      responses:
+        '200':
+          description: Export errors retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExportErrorsResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items: []
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /ListExportErrors:
+    post:
+      operationId: listExportErrors
+      summary: Amazon Application Migration Service List Export Errors
+      description: Retrieves a list of all source server export errors.
+      tags:
+        - Exports
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListExportErrorsRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  exportID: export-1234567890abcdef0
+      responses:
+        '200':
+          description: Export errors listed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListExportErrorsResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items: []
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /ListSourceServerActions:
+    post:
+      operationId: listSourceServerActions
+      summary: Amazon Application Migration Service List Source Server Actions
+      description: Lists all lifecycle action hooks for a specific source server.
+      tags:
+        - Lifecycle Hooks
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListSourceServerActionsRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  sourceServerID: s-1234567890abcdef0
+      responses:
+        '200':
+          description: Source server actions retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSourceServerActionsResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items: []
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /ListTemplateActions:
+    post:
+      operationId: listTemplateActions
+      summary: Amazon Application Migration Service List Template Actions
+      description: Lists all lifecycle action hooks defined in a launch configuration template.
+      tags:
+        - Lifecycle Hooks
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListTemplateActionsRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  launchConfigurationTemplateID: lct-1234567890abcdef0
+      responses:
+        '200':
+          description: Template actions retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTemplateActionsResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items: []
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /DescribeVcenterClients:
+    get:
+      operationId: describeVcenterClients
+      summary: Amazon Application Migration Service Describe vCenter Clients
+      description: Returns a list of all vCenter clients that were previously installed on an on-premises environment.
+      tags:
+        - Vcenter Clients
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: maxResults
+          in: query
+          description: Maximum number of results to return
+          schema:
+            type: integer
+        - name: nextToken
+          in: query
+          description: Pagination token
+          schema:
+            type: string
+      responses:
+        '200':
+          description: vCenter clients retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeVcenterClientsResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    items:
+                      - vcenterClientID: vcc-1234567890abcdef0
+                        arn: arn:aws:mgn:us-east-1:123456789012:vcenter-client/vcc-1234567890abcdef0
+                        hostname: vcenter.example.com
+                        vcenterUUID: 12345678-1234-1234-1234-123456789012
+                        lastSeenDatetime: '2026-04-19T00:00:00Z'
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /tags/{resourceArn}:
+    get:
+      operationId: listTagsForResource
+      summary: Amazon Application Migration Service List Tags For Resource
+      description: Lists all tags applied to a specific Application Migration Service resource.
+      tags:
+        - Tags
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: resourceArn
+          in: path
+          required: true
+          description: The ARN of the resource
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tags retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTagsForResourceResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    tags:
+                      Environment: Production
+                      Project: Migration2026
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: tagResource
+      summary: Amazon Application Migration Service Tag Resource
+      description: Adds or overwrites tags on an Application Migration Service resource.
+      tags:
+        - Tags
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: resourceArn
+          in: path
+          required: true
+          description: The ARN of the resource to tag
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagResourceRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  tags:
+                    Environment: Production
+      responses:
+        '200':
+          description: Tags added to resource
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: untagResource
+      summary: Amazon Application Migration Service Untag Resource
+      description: Removes tags from an Application Migration Service resource.
+      tags:
+        - Tags
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: resourceArn
+          in: path
+          required: true
+          description: The ARN of the resource to untag
+          schema:
+            type: string
+        - name: tagKeys
+          in: query
+          required: true
+          description: List of tag keys to remove
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: Tags removed from resource
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    awsAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication
+  schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response from the Application Migration Service API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: An internal error occurred
+        code:
+          type: string
+          description: Error code
+          example: InternalServerException
+    SourceServer:
+      type: object
+      description: A source server registered with the Application Migration Service
+      properties:
+        sourceServerID:
+          type: string
+          description: Unique identifier for the source server
+          example: s-1234567890abcdef0
+        arn:
+          type: string
+          description: ARN of the source server
+          example: arn:aws:mgn:us-east-1:123456789012:source-server/s-1234567890abcdef0
+        isArchived:
+          type: boolean
+          description: Whether the source server is archived
+          example: false
+        tags:
+          type: object
+          description: Tags applied to the source server
+          additionalProperties:
+            type: string
+        lifeCycle:
+          $ref: '#/components/schemas/LifeCycle'
+        dataReplicationInfo:
+          $ref: '#/components/schemas/DataReplicationInfo'
+        sourceProperties:
+          $ref: '#/components/schemas/SourceProperties'
+        launchedInstance:
+          $ref: '#/components/schemas/LaunchedInstance'
+        applicationID:
+          type: string
+          description: ID of the application this server belongs to
+          example: app-1234567890abcdef0
+        vcenterClientID:
+          type: string
+          description: ID of the vCenter client this server was discovered from
+          example: vcc-1234567890abcdef0
+        replicationType:
+          type: string
+          description: Replication type for the source server
+          enum: [AGENT_BASED, SNAPSHOT_SHIPPING]
+          example: AGENT_BASED
+        userProvidedID:
+          type: string
+          description: User-provided identifier for the source server
+          example: my-server-01
+        fqdnForActionFramework:
+          type: string
+          description: FQDN used for action framework connectivity
+          example: server.example.com
+    LifeCycle:
+      type: object
+      description: Lifecycle state of a source server
+      properties:
+        state:
+          type: string
+          description: Current lifecycle state
+          enum: [STOPPED, NOT_READY, READY_FOR_TEST, TESTING, READY_FOR_CUTOVER, CUTTING_OVER, CUTOVER, DISCONNECTED, DISCOVERED, PENDING_INSTALLATION]
+          example: READY_FOR_CUTOVER
+        addedToServiceDateTime:
+          type: string
+          description: Date/time the server was added to the service
+          example: '2026-04-01T00:00:00Z'
+        firstByteDateTime:
+          type: string
+          description: Date/time the first replication byte was received
+          example: '2026-04-01T01:00:00Z'
+        elapsedReplicationDuration:
+          type: string
+          description: Elapsed duration of replication
+          example: PT24H
+        lastSeenByServiceDateTime:
+          type: string
+          description: Date/time the agent last communicated with the service
+          example: '2026-04-19T00:00:00Z'
+        lastTestInitiated:
+          $ref: '#/components/schemas/LifeCycleLastTest'
+        lastTestReverted:
+          $ref: '#/components/schemas/LifeCycleLastTest'
+        lastTestFinalized:
+          $ref: '#/components/schemas/LifeCycleLastTest'
+        lastCutoverInitiated:
+          $ref: '#/components/schemas/LifeCycleLastCutover'
+        lastCutoverReverted:
+          $ref: '#/components/schemas/LifeCycleLastCutover'
+        lastCutoverFinalized:
+          $ref: '#/components/schemas/LifeCycleLastCutover'
+    LifeCycleLastTest:
+      type: object
+      description: Details about the last test lifecycle event
+      properties:
+        jobID:
+          type: string
+          description: Job ID of the last test
+          example: mgnjob-1234567890abcdef0
+        initiatedDateTime:
+          type: string
+          description: Date/time the test was initiated
+          example: '2026-04-19T00:00:00Z'
+        finalizedDateTime:
+          type: string
+          description: Date/time the test was finalized
+          example: '2026-04-19T01:00:00Z'
+        revertedDateTime:
+          type: string
+          description: Date/time the test was reverted
+          example: ''
+    LifeCycleLastCutover:
+      type: object
+      description: Details about the last cutover lifecycle event
+      properties:
+        jobID:
+          type: string
+          description: Job ID of the last cutover
+          example: mgnjob-1234567890abcdef0
+        initiatedDateTime:
+          type: string
+          description: Date/time the cutover was initiated
+          example: '2026-04-19T00:00:00Z'
+        finalizedDateTime:
+          type: string
+          description: Date/time the cutover was finalized
+          example: '2026-04-19T01:00:00Z'
+        revertedDateTime:
+          type: string
+          description: Date/time the cutover was reverted
+          example: ''
+    DataReplicationInfo:
+      type: object
+      description: Current data replication state and statistics for a source server
+      properties:
+        lagDuration:
+          type: string
+          description: Replication lag duration
+          example: PT0S
+        lastSnapshotDateTime:
+          type: string
+          description: Date/time of the last snapshot
+          example: '2026-04-19T00:00:00Z'
+        replicatedDisks:
+          type: array
+          description: List of replicated disks
+          items:
+            $ref: '#/components/schemas/DataReplicationInfoReplicatedDisk'
+        dataReplicationState:
+          type: string
+          description: Current replication state
+          enum: [STOPPED, INITIATING, INITIAL_SYNC, BACKLOG, CREATING_SNAPSHOT, CONTINUOUS, PAUSED, RESCAN, STALLED, DISCONNECTED, PENDING_SNAPSHOT_SHIPPING, SNAPSHOT_SHIPPING]
+          example: CONTINUOUS
+        dataReplicationInitiation:
+          $ref: '#/components/schemas/DataReplicationInitiation'
+        dataReplicationError:
+          $ref: '#/components/schemas/DataReplicationError'
+        stagingAvailabilityZone:
+          type: string
+          description: Availability zone used for staging
+          example: us-east-1a
+    DataReplicationInfoReplicatedDisk:
+      type: object
+      description: Replication status for an individual disk
+      properties:
+        deviceName:
+          type: string
+          description: Device name of the disk
+          example: /dev/sda1
+        totalStorageBytes:
+          type: integer
+          description: Total storage in bytes
+          example: 107374182400
+        replicatedStorageBytes:
+          type: integer
+          description: Amount of storage replicated in bytes
+          example: 107374182400
+        rescannedStorageBytes:
+          type: integer
+          description: Amount rescanned in bytes
+          example: 0
+        backloggedStorageBytes:
+          type: integer
+          description: Amount backlogged in bytes
+          example: 0
+    DataReplicationInitiation:
+      type: object
+      description: Replication initiation steps and their status
+      properties:
+        startDateTime:
+          type: string
+          description: Date/time replication initiation started
+          example: '2026-04-01T00:00:00Z'
+        nextAttemptDateTime:
+          type: string
+          description: Date/time of next retry attempt
+          example: ''
+        steps:
+          type: array
+          description: Initiation steps
+          items:
+            $ref: '#/components/schemas/DataReplicationInitiationStep'
+    DataReplicationInitiationStep:
+      type: object
+      description: A single step in the replication initiation process
+      properties:
+        name:
+          type: string
+          description: Step name
+          example: WAIT
+        status:
+          type: string
+          description: Step status
+          enum: [NOT_STARTED, IN_PROGRESS, SUCCEEDED, FAILED, SKIPPED]
+          example: SUCCEEDED
+    DataReplicationError:
+      type: object
+      description: Replication error details
+      properties:
+        error:
+          type: string
+          description: Error type
+          example: SNAPSHOTS_FAILURE
+        rawError:
+          type: string
+          description: Raw error message
+          example: Snapshot creation failed
+    SourceProperties:
+      type: object
+      description: Discovered properties of the source server
+      properties:
+        lastUpdatedDateTime:
+          type: string
+          description: Date/time properties were last updated
+          example: '2026-04-19T00:00:00Z'
+        recommendedInstanceType:
+          type: string
+          description: AWS instance type recommended for this server
+          example: t3.large
+        identificationHints:
+          $ref: '#/components/schemas/IdentificationHints'
+        networkInterfaces:
+          type: array
+          description: Network interfaces on the source server
+          items:
+            $ref: '#/components/schemas/NetworkInterface'
+        disks:
+          type: array
+          description: Disks on the source server
+          items:
+            $ref: '#/components/schemas/Disk'
+        cpus:
+          type: array
+          description: CPUs on the source server
+          items:
+            $ref: '#/components/schemas/CPU'
+        ramBytes:
+          type: integer
+          description: RAM in bytes
+          example: 8589934592
+        os:
+          $ref: '#/components/schemas/OS'
+    IdentificationHints:
+      type: object
+      description: Hints used to identify the source server
+      properties:
+        fqdn:
+          type: string
+          description: Fully qualified domain name
+          example: server.example.com
+        hostname:
+          type: string
+          description: Hostname
+          example: my-server
+        vmWareUuid:
+          type: string
+          description: VMware UUID
+          example: 12345678-1234-1234-1234-123456789012
+        awsInstanceID:
+          type: string
+          description: AWS instance ID if previously in AWS
+          example: i-1234567890abcdef0
+        vmPath:
+          type: string
+          description: VMware path
+          example: /Datacenter/vm/my-server
+    NetworkInterface:
+      type: object
+      description: Network interface on a source server
+      properties:
+        macAddress:
+          type: string
+          description: MAC address
+          example: 00:11:22:33:44:55
+        ips:
+          type: array
+          description: IP addresses
+          items:
+            type: string
+          example:
+            - 192.168.1.100
+        isPrimary:
+          type: boolean
+          description: Whether this is the primary interface
+          example: true
+    Disk:
+      type: object
+      description: A disk on a source server
+      properties:
+        deviceName:
+          type: string
+          description: Device name
+          example: /dev/sda1
+        bytes:
+          type: integer
+          description: Disk size in bytes
+          example: 107374182400
+    CPU:
+      type: object
+      description: CPU information for a source server
+      properties:
+        cores:
+          type: integer
+          description: Number of cores
+          example: 4
+        modelName:
+          type: string
+          description: CPU model name
+          example: Intel Xeon E5-2676 v3
+    OS:
+      type: object
+      description: Operating system information
+      properties:
+        fullString:
+          type: string
+          description: Full OS description string
+          example: Microsoft Windows Server 2019 Standard
+    LaunchedInstance:
+      type: object
+      description: Details about the launched EC2 instance
+      properties:
+        ec2InstanceID:
+          type: string
+          description: EC2 instance ID
+          example: i-1234567890abcdef0
+        jobID:
+          type: string
+          description: Job ID that launched this instance
+          example: mgnjob-1234567890abcdef0
+        firstBoot:
+          type: string
+          description: First boot status
+          enum: [WAITING, SUCCEEDED, UNKNOWN, STOPPED]
+          example: SUCCEEDED
+    ReplicationConfiguration:
+      type: object
+      description: Replication configuration for a source server
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID
+          example: s-1234567890abcdef0
+        name:
+          type: string
+          description: Configuration name
+          example: Default replication configuration
+        stagingAreaSubnetId:
+          type: string
+          description: Subnet ID for staging area
+          example: subnet-1234567890abcdef0
+        associateDefaultSecurityGroup:
+          type: boolean
+          description: Whether to associate default security group
+          example: true
+        replicationServersSecurityGroupsIDs:
+          type: array
+          description: Security group IDs for replication servers
+          items:
+            type: string
+        replicationServerInstanceType:
+          type: string
+          description: EC2 instance type for replication servers
+          example: t3.small
+        useLowBandwidthForReplication:
+          type: boolean
+          description: Whether to use low bandwidth for replication
+          example: false
+        dataPlaneRouting:
+          type: string
+          description: Data plane routing mode
+          enum: [PRIVATE_IP, PUBLIC_IP]
+          example: PRIVATE_IP
+        createPublicIP:
+          type: boolean
+          description: Whether to create public IP for replication servers
+          example: false
+        stagingAreaTags:
+          type: object
+          description: Tags for staging area resources
+          additionalProperties:
+            type: string
+        replicatedDisks:
+          type: array
+          description: Replicated disk configurations
+          items:
+            $ref: '#/components/schemas/ReplicationConfigurationReplicatedDisk'
+        bandwidthThrottling:
+          type: integer
+          description: Bandwidth throttling in Mbps (0 for unlimited)
+          example: 0
+        defaultLargeStagingDiskType:
+          type: string
+          description: Default EBS volume type for large staging disks
+          enum: [GP2, ST1, SSD, AUTO, GP3]
+          example: GP2
+        ebsEncryption:
+          type: string
+          description: EBS encryption setting
+          enum: [DEFAULT, CUSTOM, NONE]
+          example: DEFAULT
+        ebsEncryptionKeyArn:
+          type: string
+          description: KMS key ARN for EBS encryption
+          example: arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012
+    ReplicationConfigurationReplicatedDisk:
+      type: object
+      description: Replication configuration for an individual disk
+      properties:
+        deviceName:
+          type: string
+          description: Device name
+          example: /dev/sda1
+        isBootDisk:
+          type: boolean
+          description: Whether this is the boot disk
+          example: true
+        stagingDiskType:
+          type: string
+          description: EBS volume type for staging
+          enum: [AUTO, GP2, IO1, SC1, ST1, STANDARD, SSD, GP3, IO2]
+          example: GP2
+        iops:
+          type: integer
+          description: IOPS for the staging disk
+          example: 0
+        throughput:
+          type: integer
+          description: Throughput for the staging disk in MB/s
+          example: 0
+        optimizedStagingDiskType:
+          type: string
+          description: Optimized staging disk type recommendation
+          example: GP2
+    ReplicationConfigurationTemplate:
+      type: object
+      description: Template for default replication configuration settings
+      properties:
+        replicationConfigurationTemplateID:
+          type: string
+          description: Template ID
+          example: rct-1234567890abcdef0
+        arn:
+          type: string
+          description: ARN of the template
+          example: arn:aws:mgn:us-east-1:123456789012:replication-configuration-template/rct-1234567890abcdef0
+        stagingAreaSubnetId:
+          type: string
+          description: Subnet ID for staging area
+          example: subnet-1234567890abcdef0
+        associateDefaultSecurityGroup:
+          type: boolean
+          description: Whether to associate default security group
+          example: true
+        replicationServersSecurityGroupsIDs:
+          type: array
+          description: Security group IDs
+          items:
+            type: string
+        replicationServerInstanceType:
+          type: string
+          description: EC2 instance type for replication servers
+          example: t3.small
+        useLowBandwidthForReplication:
+          type: boolean
+          description: Whether to use low bandwidth
+          example: false
+        dataPlaneRouting:
+          type: string
+          description: Data plane routing mode
+          enum: [PRIVATE_IP, PUBLIC_IP]
+          example: PRIVATE_IP
+        createPublicIP:
+          type: boolean
+          description: Whether to create public IP
+          example: false
+        stagingAreaTags:
+          type: object
+          description: Tags for staging resources
+          additionalProperties:
+            type: string
+        bandwidthThrottling:
+          type: integer
+          description: Bandwidth throttling in Mbps
+          example: 0
+        defaultLargeStagingDiskType:
+          type: string
+          description: Default disk type for large disks
+          example: GP2
+        ebsEncryption:
+          type: string
+          description: EBS encryption setting
+          example: DEFAULT
+        tags:
+          type: object
+          description: Tags on the template
+          additionalProperties:
+            type: string
+    LaunchConfiguration:
+      type: object
+      description: Launch configuration for a source server
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID
+          example: s-1234567890abcdef0
+        name:
+          type: string
+          description: Configuration name
+          example: Default launch configuration
+        ec2LaunchTemplateID:
+          type: string
+          description: EC2 launch template ID
+          example: lt-1234567890abcdef0
+        launchDisposition:
+          type: string
+          description: Launch disposition for the instance
+          enum: [STOPPED, STARTED]
+          example: STOPPED
+        targetInstanceTypeRightSizingMethod:
+          type: string
+          description: Right-sizing method for target instance type
+          enum: [NONE, BASIC, IN_AWS]
+          example: BASIC
+        copyPrivateIp:
+          type: boolean
+          description: Whether to copy source server private IP to target
+          example: false
+        copyTags:
+          type: boolean
+          description: Whether to copy source server tags to target instance
+          example: false
+        licensing:
+          $ref: '#/components/schemas/Licensing'
+        bootMode:
+          type: string
+          description: Boot mode for the target instance
+          enum: [LEGACY_BIOS, UEFI, USE_SOURCE]
+          example: USE_SOURCE
+        postLaunchActions:
+          $ref: '#/components/schemas/PostLaunchActions'
+        enableMapAutoTagging:
+          type: boolean
+          description: Whether to enable MAP auto-tagging
+          example: false
+        mapAutoTaggingMpeID:
+          type: string
+          description: MAP auto-tagging MPE ID
+          example: ''
+    Licensing:
+      type: object
+      description: Licensing settings for the launched instance
+      properties:
+        osByol:
+          type: boolean
+          description: Whether to use Bring Your Own License for the OS
+          example: false
+    PostLaunchActions:
+      type: object
+      description: Actions to execute after the instance launches
+      properties:
+        deployment:
+          type: string
+          description: Deployment type for post-launch actions
+          enum: [TEST_AND_CUTOVER, CUTOVER_ONLY, TEST_ONLY]
+          example: TEST_AND_CUTOVER
+        s3LogBucket:
+          type: string
+          description: S3 bucket for action logs
+          example: my-migration-logs
+        s3OutputKeyPrefix:
+          type: string
+          description: S3 key prefix for action logs
+          example: mgn-logs/
+        cloudWatchLogGroupName:
+          type: string
+          description: CloudWatch log group name
+          example: /aws/mgn/post-launch-actions
+        ssmDocuments:
+          type: array
+          description: SSM documents to execute
+          items:
+            $ref: '#/components/schemas/SsmDocument'
+    SsmDocument:
+      type: object
+      description: An SSM document configuration for post-launch automation
+      properties:
+        actionName:
+          type: string
+          description: Name of the SSM action
+          example: InstallSoftware
+        ssmDocumentName:
+          type: string
+          description: SSM document name
+          example: AWS-RunShellScript
+        timeoutSeconds:
+          type: integer
+          description: Timeout in seconds
+          example: 3600
+        mustSucceedForCutover:
+          type: boolean
+          description: Whether this action must succeed for cutover to proceed
+          example: false
+        parameters:
+          type: object
+          description: SSM document parameters
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/SsmParameterStoreParameter'
+    SsmParameterStoreParameter:
+      type: object
+      description: SSM Parameter Store parameter reference
+      properties:
+        parameterName:
+          type: string
+          description: Parameter name
+          example: /my/parameter
+        parameterType:
+          type: string
+          description: Parameter type
+          enum: [STRING]
+          example: STRING
+    LaunchConfigurationTemplate:
+      type: object
+      description: Template for default launch configuration settings
+      properties:
+        launchConfigurationTemplateID:
+          type: string
+          description: Template ID
+          example: lct-1234567890abcdef0
+        arn:
+          type: string
+          description: ARN of the template
+          example: arn:aws:mgn:us-east-1:123456789012:launch-configuration-template/lct-1234567890abcdef0
+        launchDisposition:
+          type: string
+          description: Default launch disposition
+          enum: [STOPPED, STARTED]
+          example: STOPPED
+        targetInstanceTypeRightSizingMethod:
+          type: string
+          description: Right-sizing method
+          enum: [NONE, BASIC, IN_AWS]
+          example: BASIC
+        copyPrivateIp:
+          type: boolean
+          description: Whether to copy private IP
+          example: false
+        copyTags:
+          type: boolean
+          description: Whether to copy tags
+          example: false
+        licensing:
+          $ref: '#/components/schemas/Licensing'
+        bootMode:
+          type: string
+          description: Boot mode
+          enum: [LEGACY_BIOS, UEFI, USE_SOURCE]
+          example: USE_SOURCE
+        tags:
+          type: object
+          description: Tags on the template
+          additionalProperties:
+            type: string
+    Application:
+      type: object
+      description: A migration application grouping source servers
+      properties:
+        applicationID:
+          type: string
+          description: Application ID
+          example: app-1234567890abcdef0
+        arn:
+          type: string
+          description: ARN of the application
+          example: arn:aws:mgn:us-east-1:123456789012:application/app-1234567890abcdef0
+        name:
+          type: string
+          description: Application name
+          example: My Application
+        description:
+          type: string
+          description: Application description
+          example: Primary business application
+        isArchived:
+          type: boolean
+          description: Whether the application is archived
+          example: false
+        applicationAggregatedStatus:
+          $ref: '#/components/schemas/ApplicationAggregatedStatus'
+        creationDateTime:
+          type: string
+          description: Creation date/time
+          example: '2026-04-19T00:00:00Z'
+        lastModifiedDateTime:
+          type: string
+          description: Last modification date/time
+          example: '2026-04-19T00:00:00Z'
+        tags:
+          type: object
+          description: Tags on the application
+          additionalProperties:
+            type: string
+        waveID:
+          type: string
+          description: Wave ID this application belongs to
+          example: wave-1234567890abcdef0
+    ApplicationAggregatedStatus:
+      type: object
+      description: Aggregated status of all source servers in an application
+      properties:
+        lastUpdateDateTime:
+          type: string
+          description: Date/time of last status update
+          example: '2026-04-19T00:00:00Z'
+        healthStatus:
+          type: string
+          description: Overall health status
+          enum: [HEALTHY, LAGGING, ERROR]
+          example: HEALTHY
+        progressStatus:
+          type: string
+          description: Overall progress status
+          enum: [NOT_STARTED, IN_PROGRESS, COMPLETED, PAUSED]
+          example: IN_PROGRESS
+        totalSourceServers:
+          type: integer
+          description: Total number of source servers in the application
+          example: 5
+    Wave:
+      type: object
+      description: A migration wave grouping applications
+      properties:
+        waveID:
+          type: string
+          description: Wave ID
+          example: wave-1234567890abcdef0
+        arn:
+          type: string
+          description: ARN of the wave
+          example: arn:aws:mgn:us-east-1:123456789012:wave/wave-1234567890abcdef0
+        name:
+          type: string
+          description: Wave name
+          example: Wave 1
+        description:
+          type: string
+          description: Wave description
+          example: First migration wave
+        isArchived:
+          type: boolean
+          description: Whether the wave is archived
+          example: false
+        waveAggregatedStatus:
+          $ref: '#/components/schemas/WaveAggregatedStatus'
+        creationDateTime:
+          type: string
+          description: Creation date/time
+          example: '2026-04-19T00:00:00Z'
+        lastModifiedDateTime:
+          type: string
+          description: Last modification date/time
+          example: '2026-04-19T00:00:00Z'
+        tags:
+          type: object
+          description: Tags on the wave
+          additionalProperties:
+            type: string
+    WaveAggregatedStatus:
+      type: object
+      description: Aggregated status of all applications in a wave
+      properties:
+        lastUpdateDateTime:
+          type: string
+          description: Date/time of last status update
+          example: '2026-04-19T00:00:00Z'
+        healthStatus:
+          type: string
+          description: Overall health status
+          enum: [HEALTHY, LAGGING, ERROR]
+          example: HEALTHY
+        progressStatus:
+          type: string
+          description: Overall progress status
+          enum: [NOT_STARTED, IN_PROGRESS, COMPLETED, PAUSED]
+          example: IN_PROGRESS
+        totalApplications:
+          type: integer
+          description: Total number of applications in the wave
+          example: 3
+    Job:
+      type: object
+      description: A migration or conversion job
+      properties:
+        jobID:
+          type: string
+          description: Job ID
+          example: mgnjob-1234567890abcdef0
+        arn:
+          type: string
+          description: ARN of the job
+          example: arn:aws:mgn:us-east-1:123456789012:job/mgnjob-1234567890abcdef0
+        type:
+          type: string
+          description: Job type
+          enum: [LAUNCH, TERMINATE, CREATE_CONVERTED_SNAPSHOT]
+          example: LAUNCH
+        initiatedBy:
+          type: string
+          description: Who initiated the job
+          enum: [START_TEST, START_CUTOVER, DIAGNOSTIC, TERMINATE_AFTER_TESTING, FINALIZE_RECOVERY, START_RECOVERY, LAUNCH_DEFAULT, BACK_PRIVATE_KEY]
+          example: START_CUTOVER
+        creationDateTime:
+          type: string
+          description: Date/time job was created
+          example: '2026-04-19T00:00:00Z'
+        endDateTime:
+          type: string
+          description: Date/time job ended
+          example: '2026-04-19T01:00:00Z'
+        status:
+          type: string
+          description: Job status
+          enum: [PENDING, STARTED, COMPLETED]
+          example: COMPLETED
+        participatingServers:
+          type: array
+          description: Servers participating in the job
+          items:
+            $ref: '#/components/schemas/ParticipatingServer'
+        tags:
+          type: object
+          description: Tags on the job
+          additionalProperties:
+            type: string
+    ParticipatingServer:
+      type: object
+      description: A server participating in a migration job
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID
+          example: s-1234567890abcdef0
+        launchStatus:
+          type: string
+          description: Launch status
+          enum: [WAITING, IN_PROGRESS, LAUNCHED, FAILED, TERMINATED]
+          example: LAUNCHED
+        launchedEc2InstanceID:
+          type: string
+          description: Launched EC2 instance ID
+          example: i-1234567890abcdef0
+        postLaunchActionsStatus:
+          $ref: '#/components/schemas/PostLaunchActionsStatus'
+    PostLaunchActionsStatus:
+      type: object
+      description: Status of post-launch actions
+      properties:
+        postLaunchActionsLaunchStatusList:
+          type: array
+          description: List of post-launch action statuses
+          items:
+            type: object
+        ssmAgentDiscoveryDatetime:
+          type: string
+          description: Date/time SSM agent was discovered
+          example: '2026-04-19T00:00:00Z'
+    JobLogItem:
+      type: object
+      description: A log entry for a migration job
+      properties:
+        logDateTime:
+          type: string
+          description: Date/time of the log entry
+          example: '2026-04-19T00:00:00Z'
+        event:
+          type: string
+          description: Log event type
+          example: JOB_START
+        eventData:
+          $ref: '#/components/schemas/JobLogEventData'
+    JobLogEventData:
+      type: object
+      description: Data associated with a job log event
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID
+          example: s-1234567890abcdef0
+        conversionServerID:
+          type: string
+          description: Conversion server ID
+          example: i-1234567890abcdef0
+        targetInstanceID:
+          type: string
+          description: Target EC2 instance ID
+          example: i-1234567890abcdef0
+        rawError:
+          type: string
+          description: Raw error message if applicable
+          example: ''
+    VcenterClient:
+      type: object
+      description: A VMware vCenter client registered with the Application Migration Service
+      properties:
+        vcenterClientID:
+          type: string
+          description: vCenter client ID
+          example: vcc-1234567890abcdef0
+        arn:
+          type: string
+          description: ARN of the vCenter client
+          example: arn:aws:mgn:us-east-1:123456789012:vcenter-client/vcc-1234567890abcdef0
+        hostname:
+          type: string
+          description: vCenter server hostname
+          example: vcenter.example.com
+        vcenterUUID:
+          type: string
+          description: vCenter UUID
+          example: 12345678-1234-1234-1234-123456789012
+        datacenterName:
+          type: string
+          description: Datacenter name
+          example: My Datacenter
+        lastSeenDatetime:
+          type: string
+          description: Date/time client was last seen
+          example: '2026-04-19T00:00:00Z'
+        sourceServerTags:
+          type: object
+          description: Tags applied to source servers discovered by this client
+          additionalProperties:
+            type: string
+        tags:
+          type: object
+          description: Tags on the vCenter client
+          additionalProperties:
+            type: string
+    ExportTaskError:
+      type: object
+      description: An error from a source server export task
+      properties:
+        errorData:
+          $ref: '#/components/schemas/ExportTaskErrorData'
+        errorDateTime:
+          type: string
+          description: Date/time of the error
+          example: '2026-04-19T00:00:00Z'
+    ExportTaskErrorData:
+      type: object
+      description: Data associated with an export task error
+      properties:
+        rawError:
+          type: string
+          description: Raw error message
+          example: Export failed due to insufficient permissions
+    SourceServerAction:
+      type: object
+      description: A lifecycle action hook for a source server
+      properties:
+        actionID:
+          type: string
+          description: Action ID
+          example: action-1234567890abcdef0
+        actionName:
+          type: string
+          description: Action name
+          example: InstallMonitoringAgent
+        active:
+          type: boolean
+          description: Whether the action is active
+          example: true
+        category:
+          type: string
+          description: Action category
+          enum: [DISASTER_RECOVERY, OPERATING_SYSTEM, LICENSE_AND_SUBSCRIPTION, VALIDATION, OBSERVABILITY, SECURITY, NETWORKING, CONFIGURATION, BACKUP, OTHER]
+          example: CONFIGURATION
+        description:
+          type: string
+          description: Action description
+          example: Installs monitoring agent on the launched instance
+        documentIdentifier:
+          type: string
+          description: SSM document identifier
+          example: AWS-RunShellScript
+        documentVersion:
+          type: string
+          description: SSM document version
+          example: '1'
+        externalParameters:
+          type: object
+          description: External parameters for the action
+          additionalProperties:
+            type: object
+        mustSucceedForCutover:
+          type: boolean
+          description: Whether action must succeed for cutover
+          example: false
+        order:
+          type: integer
+          description: Execution order
+          example: 1
+        parameters:
+          type: object
+          description: Action parameters
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/SsmParameterStoreParameter'
+        timeoutSeconds:
+          type: integer
+          description: Timeout in seconds
+          example: 3600
+    DescribeSourceServersRequest:
+      type: object
+      description: Request to describe source servers
+      properties:
+        filters:
+          $ref: '#/components/schemas/DescribeSourceServersRequestFilters'
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    DescribeSourceServersRequestFilters:
+      type: object
+      description: Filters for describing source servers
+      properties:
+        sourceServerIDs:
+          type: array
+          description: Filter by source server IDs
+          items:
+            type: string
+        isArchived:
+          type: boolean
+          description: Filter by archived status
+          example: false
+        replicationTypes:
+          type: array
+          description: Filter by replication type
+          items:
+            type: string
+        lifeCycleStates:
+          type: array
+          description: Filter by lifecycle states
+          items:
+            type: string
+        applicationIDs:
+          type: array
+          description: Filter by application IDs
+          items:
+            type: string
+    DescribeSourceServersResponse:
+      type: object
+      description: Response with list of source servers
+      properties:
+        items:
+          type: array
+          description: List of source servers
+          items:
+            $ref: '#/components/schemas/SourceServer'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    MarkAsArchivedRequest:
+      type: object
+      description: Request to mark a source server as archived
+      required:
+        - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID to archive
+          example: s-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    DeleteSourceServerRequest:
+      type: object
+      description: Request to delete a source server
+      required:
+        - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID to delete
+          example: s-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    DisconnectFromServiceRequest:
+      type: object
+      description: Request to disconnect a source server from the service
+      required:
+        - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID to disconnect
+          example: s-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    RetryDataReplicationRequest:
+      type: object
+      description: Request to retry data replication
+      required:
+        - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID to retry replication for
+          example: s-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    GetReplicationConfigurationRequest:
+      type: object
+      description: Request to get replication configuration
+      required:
+        - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID
+          example: s-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    UpdateReplicationConfigurationRequest:
+      type: object
+      description: Request to update replication configuration
+      required:
+        - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID
+          example: s-1234567890abcdef0
+        name:
+          type: string
+          description: Configuration name
+          example: Updated configuration
+        stagingAreaSubnetId:
+          type: string
+          description: Subnet ID for staging area
+          example: subnet-1234567890abcdef0
+        replicationServerInstanceType:
+          type: string
+          description: EC2 instance type for replication servers
+          example: t3.small
+        useLowBandwidthForReplication:
+          type: boolean
+          description: Whether to use low bandwidth
+          example: false
+        bandwidthThrottling:
+          type: integer
+          description: Bandwidth throttling in Mbps
+          example: 0
+        dataPlaneRouting:
+          type: string
+          description: Data plane routing mode
+          example: PRIVATE_IP
+        createPublicIP:
+          type: boolean
+          description: Whether to create public IP
+          example: false
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    DescribeReplicationConfigurationTemplatesRequest:
+      type: object
+      description: Request to describe replication configuration templates
+      properties:
+        replicationConfigurationTemplateIDs:
+          type: array
+          description: Filter by template IDs
+          items:
+            type: string
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    DescribeReplicationConfigurationTemplatesResponse:
+      type: object
+      description: Response with replication configuration templates
+      properties:
+        items:
+          type: array
+          description: List of templates
+          items:
+            $ref: '#/components/schemas/ReplicationConfigurationTemplate'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    CreateReplicationConfigurationTemplateRequest:
+      type: object
+      description: Request to create a replication configuration template
+      required:
+        - stagingAreaSubnetId
+        - associateDefaultSecurityGroup
+        - replicationServersSecurityGroupsIDs
+        - replicationServerInstanceType
+        - useLowBandwidthForReplication
+        - dataPlaneRouting
+        - createPublicIP
+        - stagingAreaTags
+        - defaultLargeStagingDiskType
+        - ebsEncryption
+        - bandwidthThrottling
+      properties:
+        stagingAreaSubnetId:
+          type: string
+          description: Subnet ID
+          example: subnet-1234567890abcdef0
+        associateDefaultSecurityGroup:
+          type: boolean
+          description: Associate default security group
+          example: true
+        replicationServersSecurityGroupsIDs:
+          type: array
+          items:
+            type: string
+        replicationServerInstanceType:
+          type: string
+          example: t3.small
+        useLowBandwidthForReplication:
+          type: boolean
+          example: false
+        dataPlaneRouting:
+          type: string
+          example: PRIVATE_IP
+        createPublicIP:
+          type: boolean
+          example: false
+        stagingAreaTags:
+          type: object
+          additionalProperties:
+            type: string
+        defaultLargeStagingDiskType:
+          type: string
+          example: GP2
+        ebsEncryption:
+          type: string
+          example: DEFAULT
+        bandwidthThrottling:
+          type: integer
+          example: 0
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+    UpdateReplicationConfigurationTemplateRequest:
+      type: object
+      description: Request to update a replication configuration template
+      required:
+        - replicationConfigurationTemplateID
+      properties:
+        replicationConfigurationTemplateID:
+          type: string
+          description: Template ID to update
+          example: rct-1234567890abcdef0
+        stagingAreaSubnetId:
+          type: string
+          example: subnet-1234567890abcdef0
+        associateDefaultSecurityGroup:
+          type: boolean
+          example: true
+        replicationServerInstanceType:
+          type: string
+          example: t3.medium
+        useLowBandwidthForReplication:
+          type: boolean
+          example: false
+        dataPlaneRouting:
+          type: string
+          example: PRIVATE_IP
+        createPublicIP:
+          type: boolean
+          example: false
+    DeleteReplicationConfigurationTemplateRequest:
+      type: object
+      description: Request to delete a replication configuration template
+      required:
+        - replicationConfigurationTemplateID
+      properties:
+        replicationConfigurationTemplateID:
+          type: string
+          description: Template ID to delete
+          example: rct-1234567890abcdef0
+    GetLaunchConfigurationRequest:
+      type: object
+      description: Request to get launch configuration
+      required:
+        - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID
+          example: s-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    UpdateLaunchConfigurationRequest:
+      type: object
+      description: Request to update launch configuration
+      required:
+        - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID
+          example: s-1234567890abcdef0
+        name:
+          type: string
+          description: Configuration name
+          example: Updated configuration
+        launchDisposition:
+          type: string
+          description: Launch disposition
+          enum: [STOPPED, STARTED]
+          example: STARTED
+        targetInstanceTypeRightSizingMethod:
+          type: string
+          description: Right-sizing method
+          example: BASIC
+        copyPrivateIp:
+          type: boolean
+          example: false
+        copyTags:
+          type: boolean
+          example: true
+        licensing:
+          $ref: '#/components/schemas/Licensing'
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    DescribeLaunchConfigurationTemplatesRequest:
+      type: object
+      description: Request to describe launch configuration templates
+      properties:
+        launchConfigurationTemplateIDs:
+          type: array
+          description: Filter by template IDs
+          items:
+            type: string
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    DescribeLaunchConfigurationTemplatesResponse:
+      type: object
+      description: Response with launch configuration templates
+      properties:
+        items:
+          type: array
+          description: List of launch configuration templates
+          items:
+            $ref: '#/components/schemas/LaunchConfigurationTemplate'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    CreateLaunchConfigurationTemplateRequest:
+      type: object
+      description: Request to create a launch configuration template
+      properties:
+        launchDisposition:
+          type: string
+          description: Default launch disposition
+          example: STOPPED
+        targetInstanceTypeRightSizingMethod:
+          type: string
+          description: Right-sizing method
+          example: BASIC
+        copyPrivateIp:
+          type: boolean
+          example: false
+        copyTags:
+          type: boolean
+          example: false
+        licensing:
+          $ref: '#/components/schemas/Licensing'
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+    UpdateLaunchConfigurationTemplateRequest:
+      type: object
+      description: Request to update a launch configuration template
+      required:
+        - launchConfigurationTemplateID
+      properties:
+        launchConfigurationTemplateID:
+          type: string
+          description: Template ID to update
+          example: lct-1234567890abcdef0
+        launchDisposition:
+          type: string
+          example: STARTED
+        targetInstanceTypeRightSizingMethod:
+          type: string
+          example: BASIC
+        copyPrivateIp:
+          type: boolean
+          example: false
+        copyTags:
+          type: boolean
+          example: false
+    DeleteLaunchConfigurationTemplateRequest:
+      type: object
+      description: Request to delete a launch configuration template
+      required:
+        - launchConfigurationTemplateID
+      properties:
+        launchConfigurationTemplateID:
+          type: string
+          description: Template ID to delete
+          example: lct-1234567890abcdef0
+    StartTestRequest:
+      type: object
+      description: Request to start a test migration job
+      required:
+        - sourceServerIDs
+      properties:
+        sourceServerIDs:
+          type: array
+          description: Source server IDs to test
+          items:
+            type: string
+        tags:
+          type: object
+          description: Tags for the test job
+          additionalProperties:
+            type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    StartTestResponse:
+      type: object
+      description: Response from starting a test job
+      properties:
+        job:
+          $ref: '#/components/schemas/Job'
+    StartCutoverRequest:
+      type: object
+      description: Request to start a cutover migration job
+      required:
+        - sourceServerIDs
+      properties:
+        sourceServerIDs:
+          type: array
+          description: Source server IDs to cut over
+          items:
+            type: string
+        tags:
+          type: object
+          description: Tags for the cutover job
+          additionalProperties:
+            type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    StartCutoverResponse:
+      type: object
+      description: Response from starting a cutover job
+      properties:
+        job:
+          $ref: '#/components/schemas/Job'
+    FinalizeCutoverRequest:
+      type: object
+      description: Request to finalize a cutover
+      required:
+        - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID to finalize cutover for
+          example: s-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    TerminateTargetInstancesRequest:
+      type: object
+      description: Request to terminate test or cutover instances
+      required:
+        - sourceServerIDs
+      properties:
+        sourceServerIDs:
+          type: array
+          description: Source server IDs whose instances to terminate
+          items:
+            type: string
+        tags:
+          type: object
+          description: Tags for the termination job
+          additionalProperties:
+            type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    TerminateTargetInstancesResponse:
+      type: object
+      description: Response from terminating target instances
+      properties:
+        job:
+          $ref: '#/components/schemas/Job'
+    DescribeJobsRequest:
+      type: object
+      description: Request to describe migration jobs
+      properties:
+        filters:
+          $ref: '#/components/schemas/DescribeJobsRequestFilters'
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    DescribeJobsRequestFilters:
+      type: object
+      description: Filters for describing jobs
+      properties:
+        jobIDs:
+          type: array
+          description: Filter by job IDs
+          items:
+            type: string
+        fromDate:
+          type: string
+          description: Filter by start date
+          example: '2026-04-01T00:00:00Z'
+        toDate:
+          type: string
+          description: Filter by end date
+          example: '2026-04-30T00:00:00Z'
+    DescribeJobsResponse:
+      type: object
+      description: Response with list of jobs
+      properties:
+        items:
+          type: array
+          description: List of jobs
+          items:
+            $ref: '#/components/schemas/Job'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    DescribeJobLogItemsRequest:
+      type: object
+      description: Request to describe job log items
+      required:
+        - jobID
+      properties:
+        jobID:
+          type: string
+          description: Job ID to get log items for
+          example: mgnjob-1234567890abcdef0
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    DescribeJobLogItemsResponse:
+      type: object
+      description: Response with job log items
+      properties:
+        items:
+          type: array
+          description: List of job log items
+          items:
+            $ref: '#/components/schemas/JobLogItem'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ListApplicationsRequest:
+      type: object
+      description: Request to list migration applications
+      properties:
+        filters:
+          $ref: '#/components/schemas/ListApplicationsRequestFilters'
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    ListApplicationsRequestFilters:
+      type: object
+      description: Filters for listing applications
+      properties:
+        applicationIDs:
+          type: array
+          description: Filter by application IDs
+          items:
+            type: string
+        isArchived:
+          type: boolean
+          description: Filter by archived status
+          example: false
+        waveIDs:
+          type: array
+          description: Filter by wave IDs
+          items:
+            type: string
+    ListApplicationsResponse:
+      type: object
+      description: Response with list of applications
+      properties:
+        items:
+          type: array
+          description: List of applications
+          items:
+            $ref: '#/components/schemas/Application'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    CreateApplicationRequest:
+      type: object
+      description: Request to create a migration application
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Application name
+          example: My Application
+        description:
+          type: string
+          description: Application description
+          example: Primary business application
+        tags:
+          type: object
+          description: Tags for the application
+          additionalProperties:
+            type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    UpdateApplicationRequest:
+      type: object
+      description: Request to update a migration application
+      required:
+        - applicationID
+      properties:
+        applicationID:
+          type: string
+          description: Application ID to update
+          example: app-1234567890abcdef0
+        name:
+          type: string
+          description: New application name
+          example: Updated Application Name
+        description:
+          type: string
+          description: New application description
+          example: Updated description
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    DeleteApplicationRequest:
+      type: object
+      description: Request to delete a migration application
+      required:
+        - applicationID
+      properties:
+        applicationID:
+          type: string
+          description: Application ID to delete
+          example: app-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    ArchiveApplicationRequest:
+      type: object
+      description: Request to archive a migration application
+      required:
+        - applicationID
+      properties:
+        applicationID:
+          type: string
+          description: Application ID to archive
+          example: app-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    UnarchiveApplicationRequest:
+      type: object
+      description: Request to unarchive a migration application
+      required:
+        - applicationID
+      properties:
+        applicationID:
+          type: string
+          description: Application ID to unarchive
+          example: app-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    AssociateSourceServersRequest:
+      type: object
+      description: Request to associate source servers with an application
+      required:
+        - applicationID
+        - sourceServerIDs
+      properties:
+        applicationID:
+          type: string
+          description: Application ID
+          example: app-1234567890abcdef0
+        sourceServerIDs:
+          type: array
+          description: Source server IDs to associate
+          items:
+            type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    DisassociateSourceServersRequest:
+      type: object
+      description: Request to disassociate source servers from an application
+      required:
+        - applicationID
+        - sourceServerIDs
+      properties:
+        applicationID:
+          type: string
+          description: Application ID
+          example: app-1234567890abcdef0
+        sourceServerIDs:
+          type: array
+          description: Source server IDs to disassociate
+          items:
+            type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    ListWavesRequest:
+      type: object
+      description: Request to list migration waves
+      properties:
+        filters:
+          $ref: '#/components/schemas/ListWavesRequestFilters'
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    ListWavesRequestFilters:
+      type: object
+      description: Filters for listing waves
+      properties:
+        waveIDs:
+          type: array
+          description: Filter by wave IDs
+          items:
+            type: string
+        isArchived:
+          type: boolean
+          description: Filter by archived status
+          example: false
+    ListWavesResponse:
+      type: object
+      description: Response with list of waves
+      properties:
+        items:
+          type: array
+          description: List of waves
+          items:
+            $ref: '#/components/schemas/Wave'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    CreateWaveRequest:
+      type: object
+      description: Request to create a migration wave
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Wave name
+          example: Wave 1
+        description:
+          type: string
+          description: Wave description
+          example: First migration wave
+        tags:
+          type: object
+          description: Tags for the wave
+          additionalProperties:
+            type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    UpdateWaveRequest:
+      type: object
+      description: Request to update a migration wave
+      required:
+        - waveID
+      properties:
+        waveID:
+          type: string
+          description: Wave ID to update
+          example: wave-1234567890abcdef0
+        name:
+          type: string
+          description: New wave name
+          example: Updated Wave Name
+        description:
+          type: string
+          description: New wave description
+          example: Updated description
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    DeleteWaveRequest:
+      type: object
+      description: Request to delete a migration wave
+      required:
+        - waveID
+      properties:
+        waveID:
+          type: string
+          description: Wave ID to delete
+          example: wave-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    AssociateApplicationsRequest:
+      type: object
+      description: Request to associate applications with a wave
+      required:
+        - waveID
+        - applicationIDs
+      properties:
+        waveID:
+          type: string
+          description: Wave ID
+          example: wave-1234567890abcdef0
+        applicationIDs:
+          type: array
+          description: Application IDs to associate
+          items:
+            type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    ExportErrorsRequest:
+      type: object
+      description: Request to get export errors
+      required:
+        - exportID
+      properties:
+        exportID:
+          type: string
+          description: Export ID to get errors for
+          example: export-1234567890abcdef0
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ExportErrorsResponse:
+      type: object
+      description: Response with export errors
+      properties:
+        items:
+          type: array
+          description: List of export errors
+          items:
+            $ref: '#/components/schemas/ExportTaskError'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ListExportErrorsRequest:
+      type: object
+      description: Request to list export errors
+      required:
+        - exportID
+      properties:
+        exportID:
+          type: string
+          description: Export ID
+          example: export-1234567890abcdef0
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ListExportErrorsResponse:
+      type: object
+      description: Response with list of export errors
+      properties:
+        items:
+          type: array
+          description: List of export errors
+          items:
+            $ref: '#/components/schemas/ExportTaskError'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ListSourceServerActionsRequest:
+      type: object
+      description: Request to list source server lifecycle actions
+      required:
+        - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID
+          example: s-1234567890abcdef0
+        filters:
+          type: object
+          description: Action filters
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    ListSourceServerActionsResponse:
+      type: object
+      description: Response with list of source server actions
+      properties:
+        items:
+          type: array
+          description: List of actions
+          items:
+            $ref: '#/components/schemas/SourceServerAction'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ListTemplateActionsRequest:
+      type: object
+      description: Request to list template lifecycle actions
+      required:
+        - launchConfigurationTemplateID
+      properties:
+        launchConfigurationTemplateID:
+          type: string
+          description: Launch configuration template ID
+          example: lct-1234567890abcdef0
+        filters:
+          type: object
+          description: Action filters
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ListTemplateActionsResponse:
+      type: object
+      description: Response with list of template actions
+      properties:
+        items:
+          type: array
+          description: List of template actions
+          items:
+            $ref: '#/components/schemas/SourceServerAction'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    DescribeVcenterClientsResponse:
+      type: object
+      description: Response with list of vCenter clients
+      properties:
+        items:
+          type: array
+          description: List of vCenter clients
+          items:
+            $ref: '#/components/schemas/VcenterClient'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ListTagsForResourceResponse:
+      type: object
+      description: Response with resource tags
+      properties:
+        tags:
+          type: object
+          description: Tags on the resource
+          additionalProperties:
+            type: string
+    TagResourceRequest:
+      type: object
+      description: Request to add tags to a resource
+      required:
+        - tags
+      properties:
+        tags:
+          type: object
+          description: Tags to add
+          additionalProperties:
+            type: string

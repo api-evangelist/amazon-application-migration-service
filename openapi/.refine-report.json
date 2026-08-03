@@ -1,0 +1,32 @@
+{
+  "provider": "amazon-application-migration-service",
+  "sources": [
+    "amazon-application-migration-service-applications-api-openapi.yml",
+    "amazon-application-migration-service-exports-api-openapi.yml",
+    "amazon-application-migration-service-jobs-api-openapi.yml",
+    "amazon-application-migration-service-launch-api-openapi.yml",
+    "amazon-application-migration-service-lifecycle-hooks-api-openapi.yml",
+    "amazon-application-migration-service-replication-api-openapi.yml",
+    "amazon-application-migration-service-source-servers-api-openapi.yml",
+    "amazon-application-migration-service-tags-api-openapi.yml",
+    "amazon-application-migration-service-vcenter-clients-api-openapi.yml",
+    "amazon-application-migration-service-waves-api-openapi.yml"
+  ],
+  "outputs": [
+    "amazon-application-migration-service-applications-api-openapi.yml",
+    "amazon-application-migration-service-exports-api-openapi.yml",
+    "amazon-application-migration-service-jobs-api-openapi.yml",
+    "amazon-application-migration-service-launch-api-openapi.yml",
+    "amazon-application-migration-service-lifecycle-hooks-api-openapi.yml",
+    "amazon-application-migration-service-replication-api-openapi.yml",
+    "amazon-application-migration-service-source-servers-api-openapi.yml",
+    "amazon-application-migration-service-tags-api-openapi.yml",
+    "amazon-application-migration-service-vcenter-clients-api-openapi.yml",
+    "amazon-application-migration-service-waves-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
