@@ -604,6 +604,10 @@ apis:
   - type: Lifecycle
     url: lifecycle/amazon-application-migration-service-lifecycle.yml
 common:
+  - type: MCPServer
+    url: mcp/amazon-application-migration-service-mcp.yml
+  - type: Overlay
+    url: overlays/amazon-application-migration-service-api-overlay.yaml
   - type: AgenticAccess
     url: agentic-access/amazon-application-migration-service-agentic-access.yml
   - type: VulnerabilityDisclosure
