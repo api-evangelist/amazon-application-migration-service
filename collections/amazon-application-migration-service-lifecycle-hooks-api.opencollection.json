@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Application Migration Service Applications Lifecycle Hooks API",
+    "version": "2021-02-25"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Lifecycle Hooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Application Migration Service List Source Server Actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/ListSourceServerActions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Lists all lifecycle action hooks for a specific source server."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service List Template Actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/ListTemplateActions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Lists all lifecycle action hooks defined in a launch configuration template."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

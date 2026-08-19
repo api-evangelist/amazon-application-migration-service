@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Application Migration Service Applications Vcenter Clients API",
+    "version": "2021-02-25"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vcenter Clients",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Describe vCenter Clients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mgn.us-east-1.amazonaws.com/DescribeVcenterClients",
+            "params": [
+              {
+                "name": "maxResults",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return"
+              },
+              {
+                "name": "nextToken",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token"
+              }
+            ]
+          },
+          "docs": "Returns a list of all vCenter clients that were previously installed on an on-premises environment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

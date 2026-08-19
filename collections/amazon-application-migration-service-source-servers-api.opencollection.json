@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Application Migration Service Applications Source Servers API",
+    "version": "2021-02-25"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Source Servers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Describe Source Servers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/DescribeSourceServers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves all source servers or filtered by replication type and lifecycle state."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Initialize Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/InitializeService",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initializes the Application Migration Service for a new AWS account."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Mark As Archived",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/MarkAsArchived",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Archives or unarchives a source server by its ID."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Delete Source Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/DeleteSourceServer",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a single source server by ID. The source server must be disconnected."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Disconnect From Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/DisconnectFromService",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Disconnects a source server from the Application Migration Service replication process."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

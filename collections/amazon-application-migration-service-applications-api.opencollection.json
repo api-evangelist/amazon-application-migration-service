@@ -1,0 +1,146 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Application Migration Service Applications API",
+    "version": "2021-02-25"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Applications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Application Migration Service List Applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/ListApplications",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves all migration applications or filters by wave or archived status."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Create Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/CreateApplication",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new migration application grouping."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Update Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/UpdateApplication",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing migration application's name or description."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Delete Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/DeleteApplication",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a migration application grouping by ID."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Archive Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/ArchiveApplication",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Archives a migration application and all its associated source servers."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Unarchive Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/UnarchiveApplication",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Unarchives a previously archived migration application."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Associate Source Servers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/AssociateSourceServers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Associates source servers with a migration application."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Disassociate Source Servers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/DisassociateSourceServers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes source servers from a migration application."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,791 @@
+{
+  "item": [
+    {
+      "id": "3417bf4b-feba-4d46-afa7-fd9bd84e782f",
+      "name": "Source Servers",
+      "description": {
+        "content": "Manage source servers being migrated",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6cdaa49b-6b56-49b3-b686-dc45946138a5",
+          "name": "Amazon Application Migration Service Describe Source Servers",
+          "request": {
+            "name": "Amazon Application Migration Service Describe Source Servers",
+            "description": {
+              "content": "Retrieves all source servers or filtered by replication type and lifecycle state.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "DescribeSourceServers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filters\": {\n    \"sourceServerIDs\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"isArchived\": \"<boolean>\",\n    \"replicationTypes\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"lifeCycleStates\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"applicationIDs\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"maxResults\": \"<integer>\",\n  \"nextToken\": \"<string>\",\n  \"accountID\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0f74d940-c94b-4374-884c-efe9b7ef1be4",
+              "name": "Successful response with list of source servers",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "DescribeSourceServers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filters\": {\n    \"isArchived\": false\n  },\n  \"maxResults\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"sourceServerID\": \"s-1234567890abcdef0\",\n      \"arn\": \"arn:aws:mgn:us-east-1:123456789012:source-server/s-1234567890abcdef0\",\n      \"isArchived\": false,\n      \"tags\": {},\n      \"launchedInstance\": {\n        \"ec2InstanceID\": \"i-1234567890abcdef0\",\n        \"firstBoot\": \"SUCCESS\",\n        \"jobID\": \"mgnjob-1234567890abcdef0\"\n      },\n      \"dataReplicationInfo\": {\n        \"lagDuration\": \"PT0S\",\n        \"lastSnapshotDateTime\": \"2026-04-19T00:00:00Z\",\n        \"replicatedDisks\": [],\n        \"dataReplicationState\": \"CONTINUOUS\",\n        \"dataReplicationInitiation\": {\n          \"steps\": []\n        }\n      },\n      \"lifeCycle\": {\n        \"state\": \"READY_FOR_CUTOVER\"\n      },\n      \"sourceProperties\": {\n        \"os\": {\n          \"fullString\": \"Microsoft Windows Server 2019\"\n        },\n        \"ramBytes\": 8589934592,\n        \"cpus\": [\n          {\n            \"cores\": 4,\n            \"modelName\": \"Intel Xeon\"\n          }\n        ],\n        \"networkInterfaces\": [],\n        \"recommendedInstanceType\": \"t3.large\"\n      }\n    }\n  ],\n  \"nextToken\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2159fe7e-63ec-49e8-a7e6-914abe3da49b",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "DescribeSourceServers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filters\": {\n    \"isArchived\": false\n  },\n  \"maxResults\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"An internal error occurred\",\n  \"code\": \"InternalServerException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f35202b-e9c0-46e4-9510-3d14e290dc14",
+          "name": "Amazon Application Migration Service Initialize Service",
+          "request": {
+            "name": "Amazon Application Migration Service Initialize Service",
+            "description": {
+              "content": "Initializes the Application Migration Service for a new AWS account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "InitializeService"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5c00121d-20a2-4728-b971-15894001c6a9",
+              "name": "Service initialized successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "InitializeService"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9b890275-f022-468f-9ee5-dc7a74c6142b",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "InitializeService"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"An internal error occurred\",\n  \"code\": \"InternalServerException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c88e5145-c759-472b-a92f-dc443dda668b",
+          "name": "Amazon Application Migration Service Mark As Archived",
+          "request": {
+            "name": "Amazon Application Migration Service Mark As Archived",
+            "description": {
+              "content": "Archives or unarchives a source server by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "MarkAsArchived"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sourceServerID\": \"<string>\",\n  \"accountID\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b2a05480-fef5-426b-a7db-150608599e58",
+              "name": "Source server archived successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "MarkAsArchived"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceServerID\": \"s-1234567890abcdef0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sourceServerID\": \"s-1234567890abcdef0\",\n  \"isArchived\": true,\n  \"arn\": \"arn:aws:mgn:us-east-1:123456789012:source-server/s-1234567890abcdef0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "86c0c020-54d1-49c9-bc31-13d2d2f7191b",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "MarkAsArchived"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceServerID\": \"s-1234567890abcdef0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"An internal error occurred\",\n  \"code\": \"InternalServerException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2f91259b-38d0-4fca-8d62-3d0bb63145c9",
+          "name": "Amazon Application Migration Service Delete Source Server",
+          "request": {
+            "name": "Amazon Application Migration Service Delete Source Server",
+            "description": {
+              "content": "Deletes a single source server by ID. The source server must be disconnected.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "DeleteSourceServer"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sourceServerID\": \"<string>\",\n  \"accountID\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c7c7b538-b0a4-4794-8381-8d1dcef434d3",
+              "name": "Source server deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "DeleteSourceServer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceServerID\": \"s-1234567890abcdef0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "83125b91-90ce-4356-a7e2-ce622f3b0f36",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "DeleteSourceServer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceServerID\": \"s-1234567890abcdef0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"An internal error occurred\",\n  \"code\": \"InternalServerException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a182de9a-6c0b-4118-bedb-43f7b7d320f3",
+          "name": "Amazon Application Migration Service Disconnect From Service",
+          "request": {
+            "name": "Amazon Application Migration Service Disconnect From Service",
+            "description": {
+              "content": "Disconnects a source server from the Application Migration Service replication process.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "DisconnectFromService"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sourceServerID\": \"<string>\",\n  \"accountID\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "43f1caf5-4370-4368-8135-57bbf8044764",
+              "name": "Source server disconnected successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "DisconnectFromService"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceServerID\": \"s-1234567890abcdef0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sourceServerID\": \"s-1234567890abcdef0\",\n  \"isArchived\": false,\n  \"arn\": \"arn:aws:mgn:us-east-1:123456789012:source-server/s-1234567890abcdef0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c16dde3c-b550-4729-96fe-813c86527e4b",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "DisconnectFromService"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceServerID\": \"s-1234567890abcdef0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"An internal error occurred\",\n  \"code\": \"InternalServerException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://mgn.us-east-1.amazonaws.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "691a2f6e-ff7d-45a0-9e4b-7fd291f5096e",
+    "name": "Amazon Application Migration Service Applications Source Servers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "AWS Application Migration Service (MGN) is the primary migration service recommended for lift-and-shift migrations to AWS. It allows organizations to quickly realize the benefits of migrating applications to the cloud without changes and with minimal downtime.\n\nContact Support:\n Name: AWS Support",
+      "type": "text/plain"
+    }
+  }
+}

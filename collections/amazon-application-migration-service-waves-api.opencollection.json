@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Application Migration Service Applications Waves API",
+    "version": "2021-02-25"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Waves",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Application Migration Service List Waves",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/ListWaves",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves all migration waves or filters by archived status."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Create Wave",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/CreateWave",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new migration wave for grouping applications."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Update Wave",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/UpdateWave",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing migration wave's name or description."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Delete Wave",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/DeleteWave",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a migration wave by ID."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Associate Applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/AssociateApplications",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Associates applications with a migration wave."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Application Migration Service Applications Jobs API",
+    "version": "2021-02-25"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Start Test",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/StartTest",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Launches a test instance for one or more source servers to validate migration readiness."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Start Cutover",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/StartCutover",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Launches cutover instances for one or more source servers to complete migration."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Finalize Cutover",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/FinalizeCutover",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Finalizes the cutover for a source server, completing the migration process."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Terminate Target Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/TerminateTargetInstances",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Terminates previously launched test or cutover instances for source servers."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Describe Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/DescribeJobs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves all migration jobs or filters by job ID and date range."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Describe Job Log Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/DescribeJobLogItems",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves log events for a specific migration job."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,131 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Application Migration Service Applications Replication API",
+    "version": "2021-02-25"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Replication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Retry Data Replication",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/RetryDataReplication",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retries data replication for a source server after a replication failure."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Get Replication Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/GetReplicationConfiguration",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves the replication configuration for a specific source server."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Update Replication Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/UpdateReplicationConfiguration",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the replication configuration for a specific source server."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Describe Replication Configuration Templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/DescribeReplicationConfigurationTemplates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves replication configuration templates with optional filtering."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Create Replication Configuration Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/CreateReplicationConfigurationTemplate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new replication configuration template used as default settings for new source servers."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Update Replication Configuration Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/UpdateReplicationConfigurationTemplate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing replication configuration template."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Delete Replication Configuration Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/DeleteReplicationConfigurationTemplate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a replication configuration template by ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

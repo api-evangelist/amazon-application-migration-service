@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Application Migration Service Applications Launch API",
+    "version": "2021-02-25"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Launch",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Get Launch Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/GetLaunchConfiguration",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves the launch configuration for a specific source server."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Update Launch Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/UpdateLaunchConfiguration",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the launch configuration for a specific source server."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Describe Launch Configuration Templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/DescribeLaunchConfigurationTemplates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves all launch configuration templates or specific ones by ID."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Create Launch Configuration Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/CreateLaunchConfigurationTemplate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new launch configuration template."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Update Launch Configuration Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/UpdateLaunchConfigurationTemplate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing launch configuration template."
+        },
+        {
+          "info": {
+            "name": "Amazon Application Migration Service Delete Launch Configuration Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mgn.us-east-1.amazonaws.com/DeleteLaunchConfigurationTemplate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes a launch configuration template by ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

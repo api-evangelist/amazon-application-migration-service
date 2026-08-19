@@ -1,0 +1,1095 @@
+{
+  "item": [
+    {
+      "id": "9348d4fa-7286-4648-9c28-b4f604564c75",
+      "name": "Replication",
+      "description": {
+        "content": "Replication configuration and templates",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "866a21d6-275d-4025-a407-b114ac1d3940",
+          "name": "Amazon Application Migration Service Retry Data Replication",
+          "request": {
+            "name": "Amazon Application Migration Service Retry Data Replication",
+            "description": {
+              "content": "Retries data replication for a source server after a replication failure.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "RetryDataReplication"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sourceServerID\": \"<string>\",\n  \"accountID\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "877523b9-cee0-4331-9648-f7e98ea10f21",
+              "name": "Data replication retry initiated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "RetryDataReplication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceServerID\": \"s-1234567890abcdef0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sourceServerID\": \"s-1234567890abcdef0\",\n  \"isArchived\": false,\n  \"arn\": \"arn:aws:mgn:us-east-1:123456789012:source-server/s-1234567890abcdef0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06216514-05b4-4782-95a4-9be35591a08b",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "RetryDataReplication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceServerID\": \"s-1234567890abcdef0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"An internal error occurred\",\n  \"code\": \"InternalServerException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b320cc8-b267-40f2-932b-1e488537704d",
+          "name": "Amazon Application Migration Service Get Replication Configuration",
+          "request": {
+            "name": "Amazon Application Migration Service Get Replication Configuration",
+            "description": {
+              "content": "Retrieves the replication configuration for a specific source server.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "GetReplicationConfiguration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sourceServerID\": \"<string>\",\n  \"accountID\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "75b1de62-85cb-4f8b-a2d5-8508e122235b",
+              "name": "Replication configuration retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "GetReplicationConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceServerID\": \"s-1234567890abcdef0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sourceServerID\": \"s-1234567890abcdef0\",\n  \"name\": \"Default replication configuration\",\n  \"stagingAreaSubnetId\": \"subnet-1234567890abcdef0\",\n  \"associateDefaultSecurityGroup\": true,\n  \"replicationServersSecurityGroupsIDs\": [],\n  \"replicationServerInstanceType\": \"t3.small\",\n  \"useLowBandwidthForReplication\": false,\n  \"dataPlaneRouting\": \"PRIVATE_IP\",\n  \"createPublicIP\": false,\n  \"stagingAreaTags\": {},\n  \"replicatedDisks\": [],\n  \"bandwidthThrottling\": 0,\n  \"defaultLargeStagingDiskType\": \"GP2\",\n  \"ebsEncryption\": \"DEFAULT\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc059c6f-fdc0-45a3-a7f0-0a21cf74d227",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "GetReplicationConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceServerID\": \"s-1234567890abcdef0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"An internal error occurred\",\n  \"code\": \"InternalServerException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bed3e817-b729-4fdf-af0f-4f98b9c56d2e",
+          "name": "Amazon Application Migration Service Update Replication Configuration",
+          "request": {
+            "name": "Amazon Application Migration Service Update Replication Configuration",
+            "description": {
+              "content": "Updates the replication configuration for a specific source server.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "UpdateReplicationConfiguration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sourceServerID\": \"<string>\",\n  \"name\": \"<string>\",\n  \"stagingAreaSubnetId\": \"<string>\",\n  \"replicationServerInstanceType\": \"<string>\",\n  \"useLowBandwidthForReplication\": \"<boolean>\",\n  \"bandwidthThrottling\": \"<integer>\",\n  \"dataPlaneRouting\": \"<string>\",\n  \"createPublicIP\": \"<boolean>\",\n  \"accountID\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "01b733a8-a08a-49a3-b4d3-d955cab72b32",
+              "name": "Replication configuration updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "UpdateReplicationConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceServerID\": \"s-1234567890abcdef0\",\n  \"replicationServerInstanceType\": \"t3.small\",\n  \"useLowBandwidthForReplication\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sourceServerID\": \"s-1234567890abcdef0\",\n  \"name\": \"Updated configuration\",\n  \"replicationServerInstanceType\": \"t3.small\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "125a4d9b-8904-46cc-a280-74f3c5937544",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "UpdateReplicationConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceServerID\": \"s-1234567890abcdef0\",\n  \"replicationServerInstanceType\": \"t3.small\",\n  \"useLowBandwidthForReplication\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"An internal error occurred\",\n  \"code\": \"InternalServerException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e16fb6e4-f8e3-415a-879a-92bd6cbebfb6",
+          "name": "Amazon Application Migration Service Describe Replication Configuration Templates",
+          "request": {
+            "name": "Amazon Application Migration Service Describe Replication Configuration Templates",
+            "description": {
+              "content": "Retrieves replication configuration templates with optional filtering.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "DescribeReplicationConfigurationTemplates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"replicationConfigurationTemplateIDs\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxResults\": \"<integer>\",\n  \"nextToken\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2b676333-614c-4a79-b4f6-344988096d5a",
+              "name": "Replication configuration templates retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "DescribeReplicationConfigurationTemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"maxResults\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"replicationConfigurationTemplateID\": \"rct-1234567890abcdef0\",\n      \"arn\": \"arn:aws:mgn:us-east-1:123456789012:replication-configuration-template/rct-1234567890abcdef0\",\n      \"stagingAreaSubnetId\": \"subnet-1234567890abcdef0\",\n      \"associateDefaultSecurityGroup\": true,\n      \"replicationServerInstanceType\": \"t3.small\",\n      \"useLowBandwidthForReplication\": false,\n      \"dataPlaneRouting\": \"PRIVATE_IP\",\n      \"createPublicIP\": false\n    }\n  ],\n  \"nextToken\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce69163f-550f-4e00-ad55-b017b9fac67d",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "DescribeReplicationConfigurationTemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"maxResults\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"An internal error occurred\",\n  \"code\": \"InternalServerException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c86939d5-8622-4cad-990a-6945f8fb7247",
+          "name": "Amazon Application Migration Service Create Replication Configuration Template",
+          "request": {
+            "name": "Amazon Application Migration Service Create Replication Configuration Template",
+            "description": {
+              "content": "Creates a new replication configuration template used as default settings for new source servers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "CreateReplicationConfigurationTemplate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"stagingAreaSubnetId\": \"<string>\",\n  \"associateDefaultSecurityGroup\": \"<boolean>\",\n  \"replicationServersSecurityGroupsIDs\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"replicationServerInstanceType\": \"<string>\",\n  \"useLowBandwidthForReplication\": \"<boolean>\",\n  \"dataPlaneRouting\": \"<string>\",\n  \"createPublicIP\": \"<boolean>\",\n  \"stagingAreaTags\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"defaultLargeStagingDiskType\": \"<string>\",\n  \"ebsEncryption\": \"<string>\",\n  \"bandwidthThrottling\": \"<integer>\",\n  \"tags\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2036d781-4bfa-4551-842d-eb414b604c77",
+              "name": "Replication configuration template created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "CreateReplicationConfigurationTemplate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"stagingAreaSubnetId\": \"subnet-1234567890abcdef0\",\n  \"associateDefaultSecurityGroup\": true,\n  \"replicationServersSecurityGroupsIDs\": [],\n  \"replicationServerInstanceType\": \"t3.small\",\n  \"useLowBandwidthForReplication\": false,\n  \"dataPlaneRouting\": \"PRIVATE_IP\",\n  \"createPublicIP\": false,\n  \"stagingAreaTags\": {},\n  \"defaultLargeStagingDiskType\": \"GP2\",\n  \"ebsEncryption\": \"DEFAULT\",\n  \"bandwidthThrottling\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"replicationConfigurationTemplateID\": \"rct-1234567890abcdef0\",\n  \"arn\": \"arn:aws:mgn:us-east-1:123456789012:replication-configuration-template/rct-1234567890abcdef0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa629759-324b-4bc7-90e4-4689a6247acf",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "CreateReplicationConfigurationTemplate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"stagingAreaSubnetId\": \"subnet-1234567890abcdef0\",\n  \"associateDefaultSecurityGroup\": true,\n  \"replicationServersSecurityGroupsIDs\": [],\n  \"replicationServerInstanceType\": \"t3.small\",\n  \"useLowBandwidthForReplication\": false,\n  \"dataPlaneRouting\": \"PRIVATE_IP\",\n  \"createPublicIP\": false,\n  \"stagingAreaTags\": {},\n  \"defaultLargeStagingDiskType\": \"GP2\",\n  \"ebsEncryption\": \"DEFAULT\",\n  \"bandwidthThrottling\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"An internal error occurred\",\n  \"code\": \"InternalServerException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "19befaab-eeec-43da-8676-3e1696b5a6d4",
+          "name": "Amazon Application Migration Service Update Replication Configuration Template",
+          "request": {
+            "name": "Amazon Application Migration Service Update Replication Configuration Template",
+            "description": {
+              "content": "Updates an existing replication configuration template.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "UpdateReplicationConfigurationTemplate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"replicationConfigurationTemplateID\": \"<string>\",\n  \"stagingAreaSubnetId\": \"<string>\",\n  \"associateDefaultSecurityGroup\": \"<boolean>\",\n  \"replicationServerInstanceType\": \"<string>\",\n  \"useLowBandwidthForReplication\": \"<boolean>\",\n  \"dataPlaneRouting\": \"<string>\",\n  \"createPublicIP\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "965c4762-ede3-4a68-b736-d36a4ef20ca6",
+              "name": "Replication configuration template updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "UpdateReplicationConfigurationTemplate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"replicationConfigurationTemplateID\": \"rct-1234567890abcdef0\",\n  \"replicationServerInstanceType\": \"t3.medium\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"replicationConfigurationTemplateID\": \"rct-1234567890abcdef0\",\n  \"arn\": \"arn:aws:mgn:us-east-1:123456789012:replication-configuration-template/rct-1234567890abcdef0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74da8261-da3c-46af-9043-5d3e9ec08f65",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "UpdateReplicationConfigurationTemplate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"replicationConfigurationTemplateID\": \"rct-1234567890abcdef0\",\n  \"replicationServerInstanceType\": \"t3.medium\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"An internal error occurred\",\n  \"code\": \"InternalServerException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "94031714-87e7-4b6c-8f5a-01afad5f103f",
+          "name": "Amazon Application Migration Service Delete Replication Configuration Template",
+          "request": {
+            "name": "Amazon Application Migration Service Delete Replication Configuration Template",
+            "description": {
+              "content": "Deletes a replication configuration template by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "DeleteReplicationConfigurationTemplate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"replicationConfigurationTemplateID\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b808b2cf-3fd6-4e69-993d-dbd91da951c7",
+              "name": "Replication configuration template deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "DeleteReplicationConfigurationTemplate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"replicationConfigurationTemplateID\": \"rct-1234567890abcdef0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4117a412-0421-489b-82b5-d218bc2ce56a",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "DeleteReplicationConfigurationTemplate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"replicationConfigurationTemplateID\": \"rct-1234567890abcdef0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"An internal error occurred\",\n  \"code\": \"InternalServerException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://mgn.us-east-1.amazonaws.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a4441667-e418-4b50-a703-7599f9f11aec",
+    "name": "Amazon Application Migration Service Applications Replication API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "AWS Application Migration Service (MGN) is the primary migration service recommended for lift-and-shift migrations to AWS. It allows organizations to quickly realize the benefits of migrating applications to the cloud without changes and with minimal downtime.\n\nContact Support:\n Name: AWS Support",
+      "type": "text/plain"
+    }
+  }
+}

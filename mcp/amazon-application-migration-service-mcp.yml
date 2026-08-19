@@ -2,148 +2,152 @@ generated: '2026-06-20'
 method: derived
 source: openapi/amazon-application-migration-service-openapi.yml
 status: candidate
-note: >-
-  No official hosted/remote MCP server was found for AWS Application Migration
-  Service. This is a candidate tool list derived one-to-one from the OpenAPI
-  operations; AWS MCP capability is generally reached via the AWS API MCP
-  server / aws-cli rather than a service-specific endpoint.
+note: No official hosted/remote MCP server was found for AWS Application Migration Service. This is a
+  candidate tool list derived one-to-one from the OpenAPI operations; AWS MCP capability is generally
+  reached via the AWS API MCP server / aws-cli rather than a service-specific endpoint.
 server:
   name: amazon-application-migration-service
   transport: stdio
   url: null
 tools:
-  - name: describeSourceServers
-    description: List and filter registered source servers.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#describeSourceServers
-  - name: deleteSourceServer
-    description: Delete a source server.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#deleteSourceServer
-  - name: markAsArchived
-    description: Archive a source server.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#markAsArchived
-  - name: disconnectFromService
-    description: Disconnect a source server from the service.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#disconnectFromService
-  - name: retryDataReplication
-    description: Retry data replication for a source server.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#retryDataReplication
-  - name: initializeService
-    description: Initialize AWS Application Migration Service in the account.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#initializeService
-  - name: getReplicationConfiguration
-    description: Get the replication configuration for a source server.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#getReplicationConfiguration
-  - name: updateReplicationConfiguration
-    description: Update the replication configuration for a source server.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#updateReplicationConfiguration
-  - name: describeReplicationConfigurationTemplates
-    description: List replication configuration templates.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#describeReplicationConfigurationTemplates
-  - name: createReplicationConfigurationTemplate
-    description: Create a replication configuration template.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#createReplicationConfigurationTemplate
-  - name: updateReplicationConfigurationTemplate
-    description: Update a replication configuration template.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#updateReplicationConfigurationTemplate
-  - name: deleteReplicationConfigurationTemplate
-    description: Delete a replication configuration template.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#deleteReplicationConfigurationTemplate
-  - name: getLaunchConfiguration
-    description: Get the launch configuration for a source server.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#getLaunchConfiguration
-  - name: updateLaunchConfiguration
-    description: Update the launch configuration for a source server.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#updateLaunchConfiguration
-  - name: describeLaunchConfigurationTemplates
-    description: List launch configuration templates.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#describeLaunchConfigurationTemplates
-  - name: createLaunchConfigurationTemplate
-    description: Create a launch configuration template.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#createLaunchConfigurationTemplate
-  - name: updateLaunchConfigurationTemplate
-    description: Update a launch configuration template.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#updateLaunchConfigurationTemplate
-  - name: deleteLaunchConfigurationTemplate
-    description: Delete a launch configuration template.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#deleteLaunchConfigurationTemplate
-  - name: startTest
-    description: Launch test instances for source servers.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#startTest
-  - name: startCutover
-    description: Launch cutover instances for source servers.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#startCutover
-  - name: finalizeCutover
-    description: Finalize the cutover for source servers.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#finalizeCutover
-  - name: terminateTargetInstances
-    description: Terminate launched target instances.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#terminateTargetInstances
-  - name: describeJobs
-    description: List and filter migration jobs.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#describeJobs
-  - name: describeJobLogItems
-    description: List log items for a migration job.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#describeJobLogItems
-  - name: listApplications
-    description: List and filter applications.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#listApplications
-  - name: createApplication
-    description: Create an application.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#createApplication
-  - name: updateApplication
-    description: Update an application.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#updateApplication
-  - name: deleteApplication
-    description: Delete an application.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#deleteApplication
-  - name: archiveApplication
-    description: Archive an application.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#archiveApplication
-  - name: unarchiveApplication
-    description: Unarchive an application.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#unarchiveApplication
-  - name: associateSourceServers
-    description: Associate source servers with an application.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#associateSourceServers
-  - name: disassociateSourceServers
-    description: Disassociate source servers from an application.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#disassociateSourceServers
-  - name: listWaves
-    description: List and filter waves.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#listWaves
-  - name: createWave
-    description: Create a wave.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#createWave
-  - name: updateWave
-    description: Update a wave.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#updateWave
-  - name: deleteWave
-    description: Delete a wave.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#deleteWave
-  - name: associateApplications
-    description: Associate applications with a wave.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#associateApplications
-  - name: exportErrors
-    description: Start an export of errors.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#exportErrors
-  - name: listExportErrors
-    description: List export error tasks.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#listExportErrors
-  - name: listSourceServerActions
-    description: List post-launch actions for a source server.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#listSourceServerActions
-  - name: listTemplateActions
-    description: List post-launch actions for a launch configuration template.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#listTemplateActions
-  - name: describeVcenterClients
-    description: List registered vCenter clients (agentless connectors).
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#describeVcenterClients
-  - name: listTagsForResource
-    description: List tags for a resource.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#listTagsForResource
-  - name: tagResource
-    description: Add or overwrite tags on a resource.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#tagResource
-  - name: untagResource
-    description: Remove tags from a resource.
-    source_operation: openapi/amazon-application-migration-service-openapi.yml#untagResource
+- name: describeSourceServers
+  description: List and filter registered source servers.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#describeSourceServers
+- name: deleteSourceServer
+  description: Delete a source server.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#deleteSourceServer
+- name: markAsArchived
+  description: Archive a source server.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#markAsArchived
+- name: disconnectFromService
+  description: Disconnect a source server from the service.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#disconnectFromService
+- name: retryDataReplication
+  description: Retry data replication for a source server.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#retryDataReplication
+- name: initializeService
+  description: Initialize AWS Application Migration Service in the account.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#initializeService
+- name: getReplicationConfiguration
+  description: Get the replication configuration for a source server.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#getReplicationConfiguration
+- name: updateReplicationConfiguration
+  description: Update the replication configuration for a source server.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#updateReplicationConfiguration
+- name: describeReplicationConfigurationTemplates
+  description: List replication configuration templates.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#describeReplicationConfigurationTemplates
+- name: createReplicationConfigurationTemplate
+  description: Create a replication configuration template.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#createReplicationConfigurationTemplate
+- name: updateReplicationConfigurationTemplate
+  description: Update a replication configuration template.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#updateReplicationConfigurationTemplate
+- name: deleteReplicationConfigurationTemplate
+  description: Delete a replication configuration template.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#deleteReplicationConfigurationTemplate
+- name: getLaunchConfiguration
+  description: Get the launch configuration for a source server.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#getLaunchConfiguration
+- name: updateLaunchConfiguration
+  description: Update the launch configuration for a source server.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#updateLaunchConfiguration
+- name: describeLaunchConfigurationTemplates
+  description: List launch configuration templates.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#describeLaunchConfigurationTemplates
+- name: createLaunchConfigurationTemplate
+  description: Create a launch configuration template.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#createLaunchConfigurationTemplate
+- name: updateLaunchConfigurationTemplate
+  description: Update a launch configuration template.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#updateLaunchConfigurationTemplate
+- name: deleteLaunchConfigurationTemplate
+  description: Delete a launch configuration template.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#deleteLaunchConfigurationTemplate
+- name: startTest
+  description: Launch test instances for source servers.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#startTest
+- name: startCutover
+  description: Launch cutover instances for source servers.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#startCutover
+- name: finalizeCutover
+  description: Finalize the cutover for source servers.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#finalizeCutover
+- name: terminateTargetInstances
+  description: Terminate launched target instances.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#terminateTargetInstances
+- name: describeJobs
+  description: List and filter migration jobs.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#describeJobs
+- name: describeJobLogItems
+  description: List log items for a migration job.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#describeJobLogItems
+- name: listApplications
+  description: List and filter applications.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#listApplications
+- name: createApplication
+  description: Create an application.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#createApplication
+- name: updateApplication
+  description: Update an application.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#updateApplication
+- name: deleteApplication
+  description: Delete an application.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#deleteApplication
+- name: archiveApplication
+  description: Archive an application.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#archiveApplication
+- name: unarchiveApplication
+  description: Unarchive an application.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#unarchiveApplication
+- name: associateSourceServers
+  description: Associate source servers with an application.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#associateSourceServers
+- name: disassociateSourceServers
+  description: Disassociate source servers from an application.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#disassociateSourceServers
+- name: listWaves
+  description: List and filter waves.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#listWaves
+- name: createWave
+  description: Create a wave.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#createWave
+- name: updateWave
+  description: Update a wave.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#updateWave
+- name: deleteWave
+  description: Delete a wave.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#deleteWave
+- name: associateApplications
+  description: Associate applications with a wave.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#associateApplications
+- name: exportErrors
+  description: Start an export of errors.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#exportErrors
+- name: listExportErrors
+  description: List export error tasks.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#listExportErrors
+- name: listSourceServerActions
+  description: List post-launch actions for a source server.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#listSourceServerActions
+- name: listTemplateActions
+  description: List post-launch actions for a launch configuration template.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#listTemplateActions
+- name: describeVcenterClients
+  description: List registered vCenter clients (agentless connectors).
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#describeVcenterClients
+- name: listTagsForResource
+  description: List tags for a resource.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#listTagsForResource
+- name: tagResource
+  description: Add or overwrite tags on a resource.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#tagResource
+- name: untagResource
+  description: Remove tags from a resource.
+  source_operation: openapi/amazon-application-migration-service-openapi.yml#untagResource
+deployment:
+  mode: none
+  verified: derived
+  tools: 45
+  checked: '2026-08-12'
+  source: catalog MCP census
