@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Amazon Application Migration Service Applications Replication API
   description: AWS Application Migration Service (MGN) is the primary migration service recommended for lift-and-shift migrations to AWS. It allows organizations to quickly realize the benefits of migrating applications to the cloud without changes and with minimal downtime.
@@ -327,86 +327,19 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    LaunchedInstance:
+    DescribeReplicationConfigurationTemplatesResponse:
       type: object
-      description: Details about the launched EC2 instance
+      description: Response with replication configuration templates
       properties:
-        ec2InstanceID:
-          type: string
-          description: EC2 instance ID
-          example: i-1234567890abcdef0
-        jobID:
-          type: string
-          description: Job ID that launched this instance
-          example: mgnjob-1234567890abcdef0
-        firstBoot:
-          type: string
-          description: First boot status
-          enum:
-          - WAITING
-          - SUCCEEDED
-          - UNKNOWN
-          - STOPPED
-          example: SUCCEEDED
-    DataReplicationInfo:
-      type: object
-      description: Current data replication state and statistics for a source server
-      properties:
-        lagDuration:
-          type: string
-          description: Replication lag duration
-          example: PT0S
-        lastSnapshotDateTime:
-          type: string
-          description: Date/time of the last snapshot
-          example: '2026-04-19T00:00:00Z'
-        replicatedDisks:
+        items:
           type: array
-          description: List of replicated disks
+          description: List of templates
           items:
-            $ref: '#/components/schemas/DataReplicationInfoReplicatedDisk'
-        dataReplicationState:
+            $ref: '#/components/schemas/ReplicationConfigurationTemplate'
+        nextToken:
           type: string
-          description: Current replication state
-          enum:
-          - STOPPED
-          - INITIATING
-          - INITIAL_SYNC
-          - BACKLOG
-          - CREATING_SNAPSHOT
-          - CONTINUOUS
-          - PAUSED
-          - RESCAN
-          - STALLED
-          - DISCONNECTED
-          - PENDING_SNAPSHOT_SHIPPING
-          - SNAPSHOT_SHIPPING
-          example: CONTINUOUS
-        dataReplicationInitiation:
-          $ref: '#/components/schemas/DataReplicationInitiation'
-        dataReplicationError:
-          $ref: '#/components/schemas/DataReplicationError'
-        stagingAvailabilityZone:
-          type: string
-          description: Availability zone used for staging
-          example: us-east-1a
-    DataReplicationInitiation:
-      type: object
-      description: Replication initiation steps and their status
-      properties:
-        startDateTime:
-          type: string
-          description: Date/time replication initiation started
-          example: '2026-04-01T00:00:00Z'
-        nextAttemptDateTime:
-          type: string
-          description: Date/time of next retry attempt
+          description: Pagination token
           example: ''
-        steps:
-          type: array
-          description: Initiation steps
-          items:
-            $ref: '#/components/schemas/DataReplicationInitiationStep'
     RetryDataReplicationRequest:
       type: object
       description: Request to retry data replication
@@ -421,6 +354,25 @@ components:
           type: string
           description: Account ID for cross-account access
           example: '123456789012'
+    NetworkInterface:
+      type: object
+      description: Network interface on a source server
+      properties:
+        macAddress:
+          type: string
+          description: MAC address
+          example: 00:11:22:33:44:55
+        ips:
+          type: array
+          description: IP addresses
+          items:
+            type: string
+          example:
+          - 192.168.1.100
+        isPrimary:
+          type: boolean
+          description: Whether this is the primary interface
+          example: true
     UpdateReplicationConfigurationRequest:
       type: object
       description: Request to update replication configuration
@@ -463,183 +415,77 @@ components:
           type: string
           description: Account ID for cross-account access
           example: '123456789012'
-    SourceServer:
+    LifeCycle:
       type: object
-      description: A source server registered with the Application Migration Service
+      description: Lifecycle state of a source server
       properties:
-        sourceServerID:
+        state:
           type: string
-          description: Unique identifier for the source server
-          example: s-1234567890abcdef0
-        arn:
-          type: string
-          description: ARN of the source server
-          example: arn:aws:mgn:us-east-1:123456789012:source-server/s-1234567890abcdef0
-        isArchived:
-          type: boolean
-          description: Whether the source server is archived
-          example: false
-        tags:
-          type: object
-          description: Tags applied to the source server
-          additionalProperties:
-            type: string
-        lifeCycle:
-          $ref: '#/components/schemas/LifeCycle'
-        dataReplicationInfo:
-          $ref: '#/components/schemas/DataReplicationInfo'
-        sourceProperties:
-          $ref: '#/components/schemas/SourceProperties'
-        launchedInstance:
-          $ref: '#/components/schemas/LaunchedInstance'
-        applicationID:
-          type: string
-          description: ID of the application this server belongs to
-          example: app-1234567890abcdef0
-        vcenterClientID:
-          type: string
-          description: ID of the vCenter client this server was discovered from
-          example: vcc-1234567890abcdef0
-        replicationType:
-          type: string
-          description: Replication type for the source server
+          description: Current lifecycle state
           enum:
-          - AGENT_BASED
-          - SNAPSHOT_SHIPPING
-          example: AGENT_BASED
-        userProvidedID:
+          - STOPPED
+          - NOT_READY
+          - READY_FOR_TEST
+          - TESTING
+          - READY_FOR_CUTOVER
+          - CUTTING_OVER
+          - CUTOVER
+          - DISCONNECTED
+          - DISCOVERED
+          - PENDING_INSTALLATION
+          example: READY_FOR_CUTOVER
+        addedToServiceDateTime:
           type: string
-          description: User-provided identifier for the source server
-          example: my-server-01
-        fqdnForActionFramework:
+          description: Date/time the server was added to the service
+          example: '2026-04-01T00:00:00Z'
+        firstByteDateTime:
           type: string
-          description: FQDN used for action framework connectivity
-          example: server.example.com
-    UpdateReplicationConfigurationTemplateRequest:
-      type: object
-      description: Request to update a replication configuration template
-      required:
-      - replicationConfigurationTemplateID
-      properties:
-        replicationConfigurationTemplateID:
+          description: Date/time the first replication byte was received
+          example: '2026-04-01T01:00:00Z'
+        elapsedReplicationDuration:
           type: string
-          description: Template ID to update
-          example: rct-1234567890abcdef0
-        stagingAreaSubnetId:
+          description: Elapsed duration of replication
+          example: PT24H
+        lastSeenByServiceDateTime:
           type: string
-          example: subnet-1234567890abcdef0
-        associateDefaultSecurityGroup:
-          type: boolean
-          example: true
-        replicationServerInstanceType:
-          type: string
-          example: t3.medium
-        useLowBandwidthForReplication:
-          type: boolean
-          example: false
-        dataPlaneRouting:
-          type: string
-          example: PRIVATE_IP
-        createPublicIP:
-          type: boolean
-          example: false
-    LifeCycleLastTest:
-      type: object
-      description: Details about the last test lifecycle event
-      properties:
-        jobID:
-          type: string
-          description: Job ID of the last test
-          example: mgnjob-1234567890abcdef0
-        initiatedDateTime:
-          type: string
-          description: Date/time the test was initiated
+          description: Date/time the agent last communicated with the service
           example: '2026-04-19T00:00:00Z'
-        finalizedDateTime:
-          type: string
-          description: Date/time the test was finalized
-          example: '2026-04-19T01:00:00Z'
-        revertedDateTime:
-          type: string
-          description: Date/time the test was reverted
-          example: ''
-    ErrorResponse:
+        lastTestInitiated:
+          $ref: '#/components/schemas/LifeCycleLastTest'
+        lastTestReverted:
+          $ref: '#/components/schemas/LifeCycleLastTest'
+        lastTestFinalized:
+          $ref: '#/components/schemas/LifeCycleLastTest'
+        lastCutoverInitiated:
+          $ref: '#/components/schemas/LifeCycleLastCutover'
+        lastCutoverReverted:
+          $ref: '#/components/schemas/LifeCycleLastCutover'
+        lastCutoverFinalized:
+          $ref: '#/components/schemas/LifeCycleLastCutover'
+    DataReplicationInfoReplicatedDisk:
       type: object
-      description: Standard error response from the Application Migration Service API
+      description: Replication status for an individual disk
       properties:
-        message:
+        deviceName:
           type: string
-          description: Error message
-          example: An internal error occurred
-        code:
-          type: string
-          description: Error code
-          example: InternalServerException
-    GetReplicationConfigurationRequest:
-      type: object
-      description: Request to get replication configuration
-      required:
-      - sourceServerID
-      properties:
-        sourceServerID:
-          type: string
-          description: Source server ID
-          example: s-1234567890abcdef0
-        accountID:
-          type: string
-          description: Account ID for cross-account access
-          example: '123456789012'
-    LifeCycleLastCutover:
-      type: object
-      description: Details about the last cutover lifecycle event
-      properties:
-        jobID:
-          type: string
-          description: Job ID of the last cutover
-          example: mgnjob-1234567890abcdef0
-        initiatedDateTime:
-          type: string
-          description: Date/time the cutover was initiated
-          example: '2026-04-19T00:00:00Z'
-        finalizedDateTime:
-          type: string
-          description: Date/time the cutover was finalized
-          example: '2026-04-19T01:00:00Z'
-        revertedDateTime:
-          type: string
-          description: Date/time the cutover was reverted
-          example: ''
-    DataReplicationError:
-      type: object
-      description: Replication error details
-      properties:
-        error:
-          type: string
-          description: Error type
-          example: SNAPSHOTS_FAILURE
-        rawError:
-          type: string
-          description: Raw error message
-          example: Snapshot creation failed
-    NetworkInterface:
-      type: object
-      description: Network interface on a source server
-      properties:
-        macAddress:
-          type: string
-          description: MAC address
-          example: 00:11:22:33:44:55
-        ips:
-          type: array
-          description: IP addresses
-          items:
-            type: string
-          example:
-          - 192.168.1.100
-        isPrimary:
-          type: boolean
-          description: Whether this is the primary interface
-          example: true
+          description: Device name of the disk
+          example: /dev/sda1
+        totalStorageBytes:
+          type: integer
+          description: Total storage in bytes
+          example: 107374182400
+        replicatedStorageBytes:
+          type: integer
+          description: Amount of storage replicated in bytes
+          example: 107374182400
+        rescannedStorageBytes:
+          type: integer
+          description: Amount rescanned in bytes
+          example: 0
+        backloggedStorageBytes:
+          type: integer
+          description: Amount backlogged in bytes
+          example: 0
     ReplicationConfigurationReplicatedDisk:
       type: object
       description: Replication configuration for an individual disk
@@ -678,6 +524,63 @@ components:
           type: string
           description: Optimized staging disk type recommendation
           example: GP2
+    CreateReplicationConfigurationTemplateRequest:
+      type: object
+      description: Request to create a replication configuration template
+      required:
+      - stagingAreaSubnetId
+      - associateDefaultSecurityGroup
+      - replicationServersSecurityGroupsIDs
+      - replicationServerInstanceType
+      - useLowBandwidthForReplication
+      - dataPlaneRouting
+      - createPublicIP
+      - stagingAreaTags
+      - defaultLargeStagingDiskType
+      - ebsEncryption
+      - bandwidthThrottling
+      properties:
+        stagingAreaSubnetId:
+          type: string
+          description: Subnet ID
+          example: subnet-1234567890abcdef0
+        associateDefaultSecurityGroup:
+          type: boolean
+          description: Associate default security group
+          example: true
+        replicationServersSecurityGroupsIDs:
+          type: array
+          items:
+            type: string
+        replicationServerInstanceType:
+          type: string
+          example: t3.small
+        useLowBandwidthForReplication:
+          type: boolean
+          example: false
+        dataPlaneRouting:
+          type: string
+          example: PRIVATE_IP
+        createPublicIP:
+          type: boolean
+          example: false
+        stagingAreaTags:
+          type: object
+          additionalProperties:
+            type: string
+        defaultLargeStagingDiskType:
+          type: string
+          example: GP2
+        ebsEncryption:
+          type: string
+          example: DEFAULT
+        bandwidthThrottling:
+          type: integer
+          example: 0
+        tags:
+          type: object
+          additionalProperties:
+            type: string
     ReplicationConfiguration:
       type: object
       description: Replication configuration for a source server
@@ -758,6 +661,66 @@ components:
           type: string
           description: KMS key ARN for EBS encryption
           example: arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012
+    Disk:
+      type: object
+      description: A disk on a source server
+      properties:
+        deviceName:
+          type: string
+          description: Device name
+          example: /dev/sda1
+        bytes:
+          type: integer
+          description: Disk size in bytes
+          example: 107374182400
+    IdentificationHints:
+      type: object
+      description: Hints used to identify the source server
+      properties:
+        fqdn:
+          type: string
+          description: Fully qualified domain name
+          example: server.example.com
+        hostname:
+          type: string
+          description: Hostname
+          example: my-server
+        vmWareUuid:
+          type: string
+          description: VMware UUID
+          example: 12345678-1234-1234-1234-123456789012
+        awsInstanceID:
+          type: string
+          description: AWS instance ID if previously in AWS
+          example: i-1234567890abcdef0
+        vmPath:
+          type: string
+          description: VMware path
+          example: /Datacenter/vm/my-server
+    DataReplicationError:
+      type: object
+      description: Replication error details
+      properties:
+        error:
+          type: string
+          description: Error type
+          example: SNAPSHOTS_FAILURE
+        rawError:
+          type: string
+          description: Raw error message
+          example: Snapshot creation failed
+    CPU:
+      type: object
+      description: CPU information for a source server
+      properties:
+        cores:
+          type: integer
+          description: Number of cores
+          example: 4
+        modelName:
+          type: string
+          description: CPU model name
+          example: Intel Xeon E5-2676 v3
     OS:
       type: object
       description: Operating system information
@@ -766,6 +729,277 @@ components:
           type: string
           description: Full OS description string
           example: Microsoft Windows Server 2019 Standard
+    LaunchedInstance:
+      type: object
+      description: Details about the launched EC2 instance
+      properties:
+        ec2InstanceID:
+          type: string
+          description: EC2 instance ID
+          example: i-1234567890abcdef0
+        jobID:
+          type: string
+          description: Job ID that launched this instance
+          example: mgnjob-1234567890abcdef0
+        firstBoot:
+          type: string
+          description: First boot status
+          enum:
+          - WAITING
+          - SUCCEEDED
+          - UNKNOWN
+          - STOPPED
+          example: SUCCEEDED
+    UpdateReplicationConfigurationTemplateRequest:
+      type: object
+      description: Request to update a replication configuration template
+      required:
+      - replicationConfigurationTemplateID
+      properties:
+        replicationConfigurationTemplateID:
+          type: string
+          description: Template ID to update
+          example: rct-1234567890abcdef0
+        stagingAreaSubnetId:
+          type: string
+          example: subnet-1234567890abcdef0
+        associateDefaultSecurityGroup:
+          type: boolean
+          example: true
+        replicationServerInstanceType:
+          type: string
+          example: t3.medium
+        useLowBandwidthForReplication:
+          type: boolean
+          example: false
+        dataPlaneRouting:
+          type: string
+          example: PRIVATE_IP
+        createPublicIP:
+          type: boolean
+          example: false
+    DataReplicationInitiation:
+      type: object
+      description: Replication initiation steps and their status
+      properties:
+        startDateTime:
+          type: string
+          description: Date/time replication initiation started
+          example: '2026-04-01T00:00:00Z'
+        nextAttemptDateTime:
+          type: string
+          description: Date/time of next retry attempt
+          example: ''
+        steps:
+          type: array
+          description: Initiation steps
+          items:
+            $ref: '#/components/schemas/DataReplicationInitiationStep'
+    ErrorResponse:
+      type: object
+      description: Standard error response from the Application Migration Service API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: An internal error occurred
+        code:
+          type: string
+          description: Error code
+          example: InternalServerException
+    DescribeReplicationConfigurationTemplatesRequest:
+      type: object
+      description: Request to describe replication configuration templates
+      properties:
+        replicationConfigurationTemplateIDs:
+          type: array
+          description: Filter by template IDs
+          items:
+            type: string
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    LifeCycleLastTest:
+      type: object
+      description: Details about the last test lifecycle event
+      properties:
+        jobID:
+          type: string
+          description: Job ID of the last test
+          example: mgnjob-1234567890abcdef0
+        initiatedDateTime:
+          type: string
+          description: Date/time the test was initiated
+          example: '2026-04-19T00:00:00Z'
+        finalizedDateTime:
+          type: string
+          description: Date/time the test was finalized
+          example: '2026-04-19T01:00:00Z'
+        revertedDateTime:
+          type: string
+          description: Date/time the test was reverted
+          example: ''
+    SourceServer:
+      type: object
+      description: A source server registered with the Application Migration Service
+      properties:
+        sourceServerID:
+          type: string
+          description: Unique identifier for the source server
+          example: s-1234567890abcdef0
+        arn:
+          type: string
+          description: ARN of the source server
+          example: arn:aws:mgn:us-east-1:123456789012:source-server/s-1234567890abcdef0
+        isArchived:
+          type: boolean
+          description: Whether the source server is archived
+          example: false
+        tags:
+          type: object
+          description: Tags applied to the source server
+          additionalProperties:
+            type: string
+        lifeCycle:
+          $ref: '#/components/schemas/LifeCycle'
+        dataReplicationInfo:
+          $ref: '#/components/schemas/DataReplicationInfo'
+        sourceProperties:
+          $ref: '#/components/schemas/SourceProperties'
+        launchedInstance:
+          $ref: '#/components/schemas/LaunchedInstance'
+        applicationID:
+          type: string
+          description: ID of the application this server belongs to
+          example: app-1234567890abcdef0
+        vcenterClientID:
+          type: string
+          description: ID of the vCenter client this server was discovered from
+          example: vcc-1234567890abcdef0
+        replicationType:
+          type: string
+          description: Replication type for the source server
+          enum:
+          - AGENT_BASED
+          - SNAPSHOT_SHIPPING
+          example: AGENT_BASED
+        userProvidedID:
+          type: string
+          description: User-provided identifier for the source server
+          example: my-server-01
+        fqdnForActionFramework:
+          type: string
+          description: FQDN used for action framework connectivity
+          example: server.example.com
+    GetReplicationConfigurationRequest:
+      type: object
+      description: Request to get replication configuration
+      required:
+      - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID
+          example: s-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    DeleteReplicationConfigurationTemplateRequest:
+      type: object
+      description: Request to delete a replication configuration template
+      required:
+      - replicationConfigurationTemplateID
+      properties:
+        replicationConfigurationTemplateID:
+          type: string
+          description: Template ID to delete
+          example: rct-1234567890abcdef0
+    DataReplicationInfo:
+      type: object
+      description: Current data replication state and statistics for a source server
+      properties:
+        lagDuration:
+          type: string
+          description: Replication lag duration
+          example: PT0S
+        lastSnapshotDateTime:
+          type: string
+          description: Date/time of the last snapshot
+          example: '2026-04-19T00:00:00Z'
+        replicatedDisks:
+          type: array
+          description: List of replicated disks
+          items:
+            $ref: '#/components/schemas/DataReplicationInfoReplicatedDisk'
+        dataReplicationState:
+          type: string
+          description: Current replication state
+          enum:
+          - STOPPED
+          - INITIATING
+          - INITIAL_SYNC
+          - BACKLOG
+          - CREATING_SNAPSHOT
+          - CONTINUOUS
+          - PAUSED
+          - RESCAN
+          - STALLED
+          - DISCONNECTED
+          - PENDING_SNAPSHOT_SHIPPING
+          - SNAPSHOT_SHIPPING
+          example: CONTINUOUS
+        dataReplicationInitiation:
+          $ref: '#/components/schemas/DataReplicationInitiation'
+        dataReplicationError:
+          $ref: '#/components/schemas/DataReplicationError'
+        stagingAvailabilityZone:
+          type: string
+          description: Availability zone used for staging
+          example: us-east-1a
+    LifeCycleLastCutover:
+      type: object
+      description: Details about the last cutover lifecycle event
+      properties:
+        jobID:
+          type: string
+          description: Job ID of the last cutover
+          example: mgnjob-1234567890abcdef0
+        initiatedDateTime:
+          type: string
+          description: Date/time the cutover was initiated
+          example: '2026-04-19T00:00:00Z'
+        finalizedDateTime:
+          type: string
+          description: Date/time the cutover was finalized
+          example: '2026-04-19T01:00:00Z'
+        revertedDateTime:
+          type: string
+          description: Date/time the cutover was reverted
+          example: ''
+    DataReplicationInitiationStep:
+      type: object
+      description: A single step in the replication initiation process
+      properties:
+        name:
+          type: string
+          description: Step name
+          example: WAIT
+        status:
+          type: string
+          description: Step status
+          enum:
+          - NOT_STARTED
+          - IN_PROGRESS
+          - SUCCEEDED
+          - FAILED
+          - SKIPPED
+          example: SUCCEEDED
     ReplicationConfigurationTemplate:
       type: object
       description: Template for default replication configuration settings
@@ -867,240 +1101,6 @@ components:
           example: 8589934592
         os:
           $ref: '#/components/schemas/OS'
-    DataReplicationInfoReplicatedDisk:
-      type: object
-      description: Replication status for an individual disk
-      properties:
-        deviceName:
-          type: string
-          description: Device name of the disk
-          example: /dev/sda1
-        totalStorageBytes:
-          type: integer
-          description: Total storage in bytes
-          example: 107374182400
-        replicatedStorageBytes:
-          type: integer
-          description: Amount of storage replicated in bytes
-          example: 107374182400
-        rescannedStorageBytes:
-          type: integer
-          description: Amount rescanned in bytes
-          example: 0
-        backloggedStorageBytes:
-          type: integer
-          description: Amount backlogged in bytes
-          example: 0
-    DataReplicationInitiationStep:
-      type: object
-      description: A single step in the replication initiation process
-      properties:
-        name:
-          type: string
-          description: Step name
-          example: WAIT
-        status:
-          type: string
-          description: Step status
-          enum:
-          - NOT_STARTED
-          - IN_PROGRESS
-          - SUCCEEDED
-          - FAILED
-          - SKIPPED
-          example: SUCCEEDED
-    CreateReplicationConfigurationTemplateRequest:
-      type: object
-      description: Request to create a replication configuration template
-      required:
-      - stagingAreaSubnetId
-      - associateDefaultSecurityGroup
-      - replicationServersSecurityGroupsIDs
-      - replicationServerInstanceType
-      - useLowBandwidthForReplication
-      - dataPlaneRouting
-      - createPublicIP
-      - stagingAreaTags
-      - defaultLargeStagingDiskType
-      - ebsEncryption
-      - bandwidthThrottling
-      properties:
-        stagingAreaSubnetId:
-          type: string
-          description: Subnet ID
-          example: subnet-1234567890abcdef0
-        associateDefaultSecurityGroup:
-          type: boolean
-          description: Associate default security group
-          example: true
-        replicationServersSecurityGroupsIDs:
-          type: array
-          items:
-            type: string
-        replicationServerInstanceType:
-          type: string
-          example: t3.small
-        useLowBandwidthForReplication:
-          type: boolean
-          example: false
-        dataPlaneRouting:
-          type: string
-          example: PRIVATE_IP
-        createPublicIP:
-          type: boolean
-          example: false
-        stagingAreaTags:
-          type: object
-          additionalProperties:
-            type: string
-        defaultLargeStagingDiskType:
-          type: string
-          example: GP2
-        ebsEncryption:
-          type: string
-          example: DEFAULT
-        bandwidthThrottling:
-          type: integer
-          example: 0
-        tags:
-          type: object
-          additionalProperties:
-            type: string
-    Disk:
-      type: object
-      description: A disk on a source server
-      properties:
-        deviceName:
-          type: string
-          description: Device name
-          example: /dev/sda1
-        bytes:
-          type: integer
-          description: Disk size in bytes
-          example: 107374182400
-    DescribeReplicationConfigurationTemplatesResponse:
-      type: object
-      description: Response with replication configuration templates
-      properties:
-        items:
-          type: array
-          description: List of templates
-          items:
-            $ref: '#/components/schemas/ReplicationConfigurationTemplate'
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
-    DescribeReplicationConfigurationTemplatesRequest:
-      type: object
-      description: Request to describe replication configuration templates
-      properties:
-        replicationConfigurationTemplateIDs:
-          type: array
-          description: Filter by template IDs
-          items:
-            type: string
-        maxResults:
-          type: integer
-          description: Maximum results to return
-          example: 100
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
-    LifeCycle:
-      type: object
-      description: Lifecycle state of a source server
-      properties:
-        state:
-          type: string
-          description: Current lifecycle state
-          enum:
-          - STOPPED
-          - NOT_READY
-          - READY_FOR_TEST
-          - TESTING
-          - READY_FOR_CUTOVER
-          - CUTTING_OVER
-          - CUTOVER
-          - DISCONNECTED
-          - DISCOVERED
-          - PENDING_INSTALLATION
-          example: READY_FOR_CUTOVER
-        addedToServiceDateTime:
-          type: string
-          description: Date/time the server was added to the service
-          example: '2026-04-01T00:00:00Z'
-        firstByteDateTime:
-          type: string
-          description: Date/time the first replication byte was received
-          example: '2026-04-01T01:00:00Z'
-        elapsedReplicationDuration:
-          type: string
-          description: Elapsed duration of replication
-          example: PT24H
-        lastSeenByServiceDateTime:
-          type: string
-          description: Date/time the agent last communicated with the service
-          example: '2026-04-19T00:00:00Z'
-        lastTestInitiated:
-          $ref: '#/components/schemas/LifeCycleLastTest'
-        lastTestReverted:
-          $ref: '#/components/schemas/LifeCycleLastTest'
-        lastTestFinalized:
-          $ref: '#/components/schemas/LifeCycleLastTest'
-        lastCutoverInitiated:
-          $ref: '#/components/schemas/LifeCycleLastCutover'
-        lastCutoverReverted:
-          $ref: '#/components/schemas/LifeCycleLastCutover'
-        lastCutoverFinalized:
-          $ref: '#/components/schemas/LifeCycleLastCutover'
-    DeleteReplicationConfigurationTemplateRequest:
-      type: object
-      description: Request to delete a replication configuration template
-      required:
-      - replicationConfigurationTemplateID
-      properties:
-        replicationConfigurationTemplateID:
-          type: string
-          description: Template ID to delete
-          example: rct-1234567890abcdef0
-    IdentificationHints:
-      type: object
-      description: Hints used to identify the source server
-      properties:
-        fqdn:
-          type: string
-          description: Fully qualified domain name
-          example: server.example.com
-        hostname:
-          type: string
-          description: Hostname
-          example: my-server
-        vmWareUuid:
-          type: string
-          description: VMware UUID
-          example: 12345678-1234-1234-1234-123456789012
-        awsInstanceID:
-          type: string
-          description: AWS instance ID if previously in AWS
-          example: i-1234567890abcdef0
-        vmPath:
-          type: string
-          description: VMware path
-          example: /Datacenter/vm/my-server
-    CPU:
-      type: object
-      description: CPU information for a source server
-      properties:
-        cores:
-          type: integer
-          description: Number of cores
-          example: 4
-        modelName:
-          type: string
-          description: CPU model name
-          example: Intel Xeon E5-2676 v3
   securitySchemes:
     awsAuth:
       type: apiKey

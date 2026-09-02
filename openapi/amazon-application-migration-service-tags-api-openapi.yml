@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Amazon Application Migration Service Applications Tags API
   description: AWS Application Migration Service (MGN) is the primary migration service recommended for lift-and-shift migrations to AWS. It allows organizations to quickly realize the benefits of migrating applications to the cloud without changes and with minimal downtime.
@@ -156,6 +156,15 @@ components:
           description: Tags to add
           additionalProperties:
             type: string
+    ListTagsForResourceResponse:
+      type: object
+      description: Response with resource tags
+      properties:
+        tags:
+          type: object
+          description: Tags on the resource
+          additionalProperties:
+            type: string
     ErrorResponse:
       type: object
       description: Standard error response from the Application Migration Service API
@@ -168,15 +177,6 @@ components:
           type: string
           description: Error code
           example: InternalServerException
-    ListTagsForResourceResponse:
-      type: object
-      description: Response with resource tags
-      properties:
-        tags:
-          type: object
-          description: Tags on the resource
-          additionalProperties:
-            type: string
   securitySchemes:
     awsAuth:
       type: apiKey
