@@ -1,9 +1,8 @@
 aid: amazon-application-migration-service
 name: Amazon Application Migration Service
-description: >-
-  AWS Application Migration Service (MGN) is the primary migration service recommended for lift-and-shift migrations to
-  AWS. It allows organizations to quickly realize the benefits of migrating applications to the cloud without changes
-  and with minimal downtime.
+description: AWS Application Migration Service (MGN) is the primary migration service recommended for
+  lift-and-shift migrations to AWS. It allows organizations to quickly realize the benefits of migrating
+  applications to the cloud without changes and with minimal downtime.
 type: Index
 deliveryModel:
   model: unknown
@@ -31,586 +30,481 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/amazon-application-migration-service.png
 tags:
-  - Amazon Application Migration Service
-  - Migration
-  - Lift And Shift
-  - AWS
-  - Cloud Migration
+- Amazon Application Migration Service
+- Migration
+- Lift And Shift
+- AWS
+- Cloud Migration
 url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/apis.yml
 created: '2026-03-16'
-modified: '2026-06-20'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 apis:
-  - aid: amazon-application-migration-service:amazon-application-migration-service-applications-api
-    name: Amazon Application Migration Service Applications API
-    description: Application groupings for migration
-    humanURL: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
-    baseURL: https://mgn.us-east-1.amazonaws.com
-    tags:
-      - Application
-    tags_raw:
-      - Applications
-    properties:
-      - type: OpenAPI
-        url: openapi/amazon-application-migration-service-applications-api-openapi.yml
-      - type: SpectralRules
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/rules/amazon-application-migration-service-spectral-rules.yml
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/vocabulary/amazon-application-migration-service-vocabulary.yaml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-source-server-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-replication-configuration-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-launch-configuration-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-job-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-source-server-structure.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-job-structure.json
-      - type: JSONLD
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-ld/amazon-application-migration-service-context.jsonld
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-source-server-example.json
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-job-example.json
-      - type: Packages
-        url: packages/amazon-application-migration-service-packages.yml
-      - type: ErrorCatalog
-        url: errors/amazon-application-migration-service-problem-types.yml
-      - type: Conformance
-        url: conformance/amazon-application-migration-service-conformance.yml
-      - type: Lifecycle
-        url: lifecycle/amazon-application-migration-service-lifecycle.yml
-  - aid: amazon-application-migration-service:amazon-application-migration-service-exports-api
-    name: Amazon Application Migration Service Exports API
-    description: Source server export tasks
-    humanURL: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
-    baseURL: https://mgn.us-east-1.amazonaws.com
-    tags:
-      - Export
-    tags_raw:
-      - Exports
-    properties:
-      - type: OpenAPI
-        url: openapi/amazon-application-migration-service-exports-api-openapi.yml
-      - type: SpectralRules
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/rules/amazon-application-migration-service-spectral-rules.yml
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/vocabulary/amazon-application-migration-service-vocabulary.yaml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-source-server-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-replication-configuration-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-launch-configuration-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-job-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-source-server-structure.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-job-structure.json
-      - type: JSONLD
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-ld/amazon-application-migration-service-context.jsonld
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-source-server-example.json
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-job-example.json
-      - type: Packages
-        url: packages/amazon-application-migration-service-packages.yml
-      - type: ErrorCatalog
-        url: errors/amazon-application-migration-service-problem-types.yml
-      - type: Conformance
-        url: conformance/amazon-application-migration-service-conformance.yml
-      - type: Lifecycle
-        url: lifecycle/amazon-application-migration-service-lifecycle.yml
-  - aid: amazon-application-migration-service:amazon-application-migration-service-jobs-api
-    name: Amazon Application Migration Service Jobs API
-    description: Migration and conversion jobs
-    humanURL: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
-    baseURL: https://mgn.us-east-1.amazonaws.com
-    tags:
-      - Job
-    tags_raw:
-      - Jobs
-    properties:
-      - type: OpenAPI
-        url: openapi/amazon-application-migration-service-jobs-api-openapi.yml
-      - type: SpectralRules
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/rules/amazon-application-migration-service-spectral-rules.yml
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/vocabulary/amazon-application-migration-service-vocabulary.yaml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-source-server-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-replication-configuration-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-launch-configuration-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-job-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-source-server-structure.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-job-structure.json
-      - type: JSONLD
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-ld/amazon-application-migration-service-context.jsonld
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-source-server-example.json
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-job-example.json
-      - type: Packages
-        url: packages/amazon-application-migration-service-packages.yml
-      - type: ErrorCatalog
-        url: errors/amazon-application-migration-service-problem-types.yml
-      - type: Conformance
-        url: conformance/amazon-application-migration-service-conformance.yml
-      - type: Lifecycle
-        url: lifecycle/amazon-application-migration-service-lifecycle.yml
-  - aid: amazon-application-migration-service:amazon-application-migration-service-launch-api
-    name: Amazon Application Migration Service Launch API
-    description: Launch configuration and templates
-    humanURL: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
-    baseURL: https://mgn.us-east-1.amazonaws.com
-    tags:
-      - Launch
-    properties:
-      - type: OpenAPI
-        url: openapi/amazon-application-migration-service-launch-api-openapi.yml
-      - type: SpectralRules
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/rules/amazon-application-migration-service-spectral-rules.yml
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/vocabulary/amazon-application-migration-service-vocabulary.yaml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-source-server-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-replication-configuration-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-launch-configuration-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-job-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-source-server-structure.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-job-structure.json
-      - type: JSONLD
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-ld/amazon-application-migration-service-context.jsonld
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-source-server-example.json
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-job-example.json
-      - type: Packages
-        url: packages/amazon-application-migration-service-packages.yml
-      - type: ErrorCatalog
-        url: errors/amazon-application-migration-service-problem-types.yml
-      - type: Conformance
-        url: conformance/amazon-application-migration-service-conformance.yml
-      - type: Lifecycle
-        url: lifecycle/amazon-application-migration-service-lifecycle.yml
-  - aid: amazon-application-migration-service:amazon-application-migration-service-lifecycle-hooks-api
-    name: Amazon Application Migration Service Lifecycle Hooks API
-    description: Lifecycle action hooks for automated workflows
-    humanURL: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
-    baseURL: https://mgn.us-east-1.amazonaws.com
-    tags:
-      - Lifecycle Hooks
-    properties:
-      - type: OpenAPI
-        url: openapi/amazon-application-migration-service-lifecycle-hooks-api-openapi.yml
-      - type: SpectralRules
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/rules/amazon-application-migration-service-spectral-rules.yml
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/vocabulary/amazon-application-migration-service-vocabulary.yaml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-source-server-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-replication-configuration-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-launch-configuration-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-job-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-source-server-structure.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-job-structure.json
-      - type: JSONLD
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-ld/amazon-application-migration-service-context.jsonld
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-source-server-example.json
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-job-example.json
-      - type: Packages
-        url: packages/amazon-application-migration-service-packages.yml
-      - type: ErrorCatalog
-        url: errors/amazon-application-migration-service-problem-types.yml
-      - type: Conformance
-        url: conformance/amazon-application-migration-service-conformance.yml
-      - type: Lifecycle
-        url: lifecycle/amazon-application-migration-service-lifecycle.yml
-  - aid: amazon-application-migration-service:amazon-application-migration-service-replication-api
-    name: Amazon Application Migration Service Replication API
-    description: Replication configuration and templates
-    humanURL: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
-    baseURL: https://mgn.us-east-1.amazonaws.com
-    tags:
-      - Replication
-    properties:
-      - type: OpenAPI
-        url: openapi/amazon-application-migration-service-replication-api-openapi.yml
-      - type: SpectralRules
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/rules/amazon-application-migration-service-spectral-rules.yml
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/vocabulary/amazon-application-migration-service-vocabulary.yaml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-source-server-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-replication-configuration-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-launch-configuration-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-job-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-source-server-structure.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-job-structure.json
-      - type: JSONLD
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-ld/amazon-application-migration-service-context.jsonld
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-source-server-example.json
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-job-example.json
-      - type: Packages
-        url: packages/amazon-application-migration-service-packages.yml
-      - type: ErrorCatalog
-        url: errors/amazon-application-migration-service-problem-types.yml
-      - type: Conformance
-        url: conformance/amazon-application-migration-service-conformance.yml
-      - type: Lifecycle
-        url: lifecycle/amazon-application-migration-service-lifecycle.yml
-  - aid: amazon-application-migration-service:amazon-application-migration-service-source-servers-api
-    name: Amazon Application Migration Service Source Servers API
-    description: Manage source servers being migrated
-    humanURL: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
-    baseURL: https://mgn.us-east-1.amazonaws.com
-    tags:
-      - Source Servers
-    properties:
-      - type: OpenAPI
-        url: openapi/amazon-application-migration-service-source-servers-api-openapi.yml
-      - type: SpectralRules
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/rules/amazon-application-migration-service-spectral-rules.yml
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/vocabulary/amazon-application-migration-service-vocabulary.yaml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-source-server-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-replication-configuration-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-launch-configuration-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-job-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-source-server-structure.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-job-structure.json
-      - type: JSONLD
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-ld/amazon-application-migration-service-context.jsonld
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-source-server-example.json
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-job-example.json
-      - type: Packages
-        url: packages/amazon-application-migration-service-packages.yml
-      - type: ErrorCatalog
-        url: errors/amazon-application-migration-service-problem-types.yml
-      - type: Conformance
-        url: conformance/amazon-application-migration-service-conformance.yml
-      - type: Lifecycle
-        url: lifecycle/amazon-application-migration-service-lifecycle.yml
-  - aid: amazon-application-migration-service:amazon-application-migration-service-tags-api
-    name: Amazon Application Migration Service Tags API
-    description: Resource tagging operations
-    humanURL: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
-    baseURL: https://mgn.us-east-1.amazonaws.com
-    tags:
-      - Tags
-    properties:
-      - type: OpenAPI
-        url: openapi/amazon-application-migration-service-tags-api-openapi.yml
-      - type: SpectralRules
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/rules/amazon-application-migration-service-spectral-rules.yml
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/vocabulary/amazon-application-migration-service-vocabulary.yaml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-source-server-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-replication-configuration-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-launch-configuration-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-job-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-source-server-structure.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-job-structure.json
-      - type: JSONLD
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-ld/amazon-application-migration-service-context.jsonld
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-source-server-example.json
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-job-example.json
-      - type: Packages
-        url: packages/amazon-application-migration-service-packages.yml
-      - type: ErrorCatalog
-        url: errors/amazon-application-migration-service-problem-types.yml
-      - type: Conformance
-        url: conformance/amazon-application-migration-service-conformance.yml
-      - type: Lifecycle
-        url: lifecycle/amazon-application-migration-service-lifecycle.yml
-  - aid: amazon-application-migration-service:amazon-application-migration-service-vcenter-clients-api
-    name: Amazon Application Migration Service Vcenter Clients API
-    description: VMware vCenter client management
-    humanURL: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
-    baseURL: https://mgn.us-east-1.amazonaws.com
-    tags:
-      - Vcenter Clients
-    properties:
-      - type: OpenAPI
-        url: openapi/amazon-application-migration-service-vcenter-clients-api-openapi.yml
-      - type: SpectralRules
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/rules/amazon-application-migration-service-spectral-rules.yml
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/vocabulary/amazon-application-migration-service-vocabulary.yaml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-source-server-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-replication-configuration-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-launch-configuration-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-job-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-source-server-structure.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-job-structure.json
-      - type: JSONLD
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-ld/amazon-application-migration-service-context.jsonld
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-source-server-example.json
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-job-example.json
-      - type: Packages
-        url: packages/amazon-application-migration-service-packages.yml
-      - type: ErrorCatalog
-        url: errors/amazon-application-migration-service-problem-types.yml
-      - type: Conformance
-        url: conformance/amazon-application-migration-service-conformance.yml
-      - type: Lifecycle
-        url: lifecycle/amazon-application-migration-service-lifecycle.yml
-  - aid: amazon-application-migration-service:amazon-application-migration-service-waves-api
-    name: Amazon Application Migration Service Waves API
-    description: Wave-based migration orchestration
-    humanURL: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
-    baseURL: https://mgn.us-east-1.amazonaws.com
-    tags:
-      - Waves
-    properties:
-      - type: OpenAPI
-        url: openapi/amazon-application-migration-service-waves-api-openapi.yml
-      - type: SpectralRules
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/rules/amazon-application-migration-service-spectral-rules.yml
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/vocabulary/amazon-application-migration-service-vocabulary.yaml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-source-server-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-replication-configuration-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-launch-configuration-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-job-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-source-server-structure.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-job-structure.json
-      - type: JSONLD
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-ld/amazon-application-migration-service-context.jsonld
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-source-server-example.json
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-job-example.json
-      - type: Packages
-        url: packages/amazon-application-migration-service-packages.yml
-      - type: ErrorCatalog
-        url: errors/amazon-application-migration-service-problem-types.yml
-      - type: Conformance
-        url: conformance/amazon-application-migration-service-conformance.yml
-      - type: Lifecycle
-        url: lifecycle/amazon-application-migration-service-lifecycle.yml
+- aid: amazon-application-migration-service:amazon-application-migration-service-applications-api
+  name: Amazon Application Migration Service Applications API
+  description: Application groupings for migration
+  humanURL: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
+  baseURL: https://mgn.us-east-1.amazonaws.com
+  tags:
+  - Application
+  tags_raw:
+  - Applications
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-application-migration-service-applications-api-openapi.yml
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/rules/amazon-application-migration-service-spectral-rules.yml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/vocabulary/amazon-application-migration-service-vocabulary.yaml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-source-server-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-replication-configuration-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-launch-configuration-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-job-schema.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-source-server-structure.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-job-structure.json
+  - type: JSONLD
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-ld/amazon-application-migration-service-context.jsonld
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-source-server-example.json
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-job-example.json
+  - type: Packages
+    url: packages/amazon-application-migration-service-packages.yml
+  - type: ErrorCatalog
+    url: errors/amazon-application-migration-service-problem-types.yml
+  - type: Conformance
+    url: conformance/amazon-application-migration-service-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/amazon-application-migration-service-lifecycle.yml
+- aid: amazon-application-migration-service:amazon-application-migration-service-exports-api
+  name: Amazon Application Migration Service Exports API
+  description: Source server export tasks
+  humanURL: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
+  baseURL: https://mgn.us-east-1.amazonaws.com
+  tags:
+  - Export
+  tags_raw:
+  - Exports
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-application-migration-service-exports-api-openapi.yml
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/rules/amazon-application-migration-service-spectral-rules.yml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/vocabulary/amazon-application-migration-service-vocabulary.yaml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-source-server-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-replication-configuration-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-launch-configuration-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-job-schema.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-source-server-structure.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-job-structure.json
+  - type: JSONLD
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-ld/amazon-application-migration-service-context.jsonld
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-source-server-example.json
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-job-example.json
+  - type: Packages
+    url: packages/amazon-application-migration-service-packages.yml
+  - type: ErrorCatalog
+    url: errors/amazon-application-migration-service-problem-types.yml
+  - type: Conformance
+    url: conformance/amazon-application-migration-service-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/amazon-application-migration-service-lifecycle.yml
+- aid: amazon-application-migration-service:amazon-application-migration-service-jobs-api
+  name: Amazon Application Migration Service Jobs API
+  description: Migration and conversion jobs
+  humanURL: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
+  baseURL: https://mgn.us-east-1.amazonaws.com
+  tags:
+  - Job
+  tags_raw:
+  - Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-application-migration-service-jobs-api-openapi.yml
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/rules/amazon-application-migration-service-spectral-rules.yml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/vocabulary/amazon-application-migration-service-vocabulary.yaml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-source-server-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-replication-configuration-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-launch-configuration-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-job-schema.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-source-server-structure.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-job-structure.json
+  - type: JSONLD
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-ld/amazon-application-migration-service-context.jsonld
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-source-server-example.json
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-job-example.json
+  - type: Packages
+    url: packages/amazon-application-migration-service-packages.yml
+  - type: ErrorCatalog
+    url: errors/amazon-application-migration-service-problem-types.yml
+  - type: Conformance
+    url: conformance/amazon-application-migration-service-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/amazon-application-migration-service-lifecycle.yml
+- aid: amazon-application-migration-service:amazon-application-migration-service-launch-api
+  name: Amazon Application Migration Service Launch API
+  description: Launch configuration and templates
+  humanURL: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
+  baseURL: https://mgn.us-east-1.amazonaws.com
+  tags:
+  - Launch
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-application-migration-service-launch-api-openapi.yml
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/rules/amazon-application-migration-service-spectral-rules.yml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/vocabulary/amazon-application-migration-service-vocabulary.yaml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-source-server-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-replication-configuration-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-launch-configuration-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-job-schema.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-source-server-structure.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-job-structure.json
+  - type: JSONLD
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-ld/amazon-application-migration-service-context.jsonld
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-source-server-example.json
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-job-example.json
+  - type: Packages
+    url: packages/amazon-application-migration-service-packages.yml
+  - type: ErrorCatalog
+    url: errors/amazon-application-migration-service-problem-types.yml
+  - type: Conformance
+    url: conformance/amazon-application-migration-service-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/amazon-application-migration-service-lifecycle.yml
+- aid: amazon-application-migration-service:amazon-application-migration-service-lifecycle-hooks-api
+  name: Amazon Application Migration Service Lifecycle Hooks API
+  description: Lifecycle action hooks for automated workflows
+  humanURL: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
+  baseURL: https://mgn.us-east-1.amazonaws.com
+  tags:
+  - Lifecycle Hooks
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-application-migration-service-lifecycle-hooks-api-openapi.yml
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/rules/amazon-application-migration-service-spectral-rules.yml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/vocabulary/amazon-application-migration-service-vocabulary.yaml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-source-server-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-replication-configuration-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-launch-configuration-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-job-schema.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-source-server-structure.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-job-structure.json
+  - type: JSONLD
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-ld/amazon-application-migration-service-context.jsonld
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-source-server-example.json
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-job-example.json
+  - type: Packages
+    url: packages/amazon-application-migration-service-packages.yml
+  - type: ErrorCatalog
+    url: errors/amazon-application-migration-service-problem-types.yml
+  - type: Conformance
+    url: conformance/amazon-application-migration-service-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/amazon-application-migration-service-lifecycle.yml
+- aid: amazon-application-migration-service:amazon-application-migration-service-replication-api
+  name: Amazon Application Migration Service Replication API
+  description: Replication configuration and templates
+  humanURL: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
+  baseURL: https://mgn.us-east-1.amazonaws.com
+  tags:
+  - Replication
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-application-migration-service-replication-api-openapi.yml
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/rules/amazon-application-migration-service-spectral-rules.yml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/vocabulary/amazon-application-migration-service-vocabulary.yaml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-source-server-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-replication-configuration-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-launch-configuration-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-job-schema.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-source-server-structure.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-job-structure.json
+  - type: JSONLD
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-ld/amazon-application-migration-service-context.jsonld
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-source-server-example.json
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-job-example.json
+  - type: Packages
+    url: packages/amazon-application-migration-service-packages.yml
+  - type: ErrorCatalog
+    url: errors/amazon-application-migration-service-problem-types.yml
+  - type: Conformance
+    url: conformance/amazon-application-migration-service-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/amazon-application-migration-service-lifecycle.yml
+- aid: amazon-application-migration-service:amazon-application-migration-service-source-servers-api
+  name: Amazon Application Migration Service Source Servers API
+  description: Manage source servers being migrated
+  humanURL: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
+  baseURL: https://mgn.us-east-1.amazonaws.com
+  tags:
+  - Source Servers
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-application-migration-service-source-servers-api-openapi.yml
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/rules/amazon-application-migration-service-spectral-rules.yml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/vocabulary/amazon-application-migration-service-vocabulary.yaml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-source-server-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-replication-configuration-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-launch-configuration-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-job-schema.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-source-server-structure.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-job-structure.json
+  - type: JSONLD
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-ld/amazon-application-migration-service-context.jsonld
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-source-server-example.json
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-job-example.json
+  - type: Packages
+    url: packages/amazon-application-migration-service-packages.yml
+  - type: ErrorCatalog
+    url: errors/amazon-application-migration-service-problem-types.yml
+  - type: Conformance
+    url: conformance/amazon-application-migration-service-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/amazon-application-migration-service-lifecycle.yml
+- aid: amazon-application-migration-service:amazon-application-migration-service-tags-api
+  name: Amazon Application Migration Service Tags API
+  description: Resource tagging operations
+  humanURL: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
+  baseURL: https://mgn.us-east-1.amazonaws.com
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-application-migration-service-tags-api-openapi.yml
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/rules/amazon-application-migration-service-spectral-rules.yml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/vocabulary/amazon-application-migration-service-vocabulary.yaml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-source-server-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-replication-configuration-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-launch-configuration-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-job-schema.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-source-server-structure.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-job-structure.json
+  - type: JSONLD
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-ld/amazon-application-migration-service-context.jsonld
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-source-server-example.json
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-job-example.json
+  - type: Packages
+    url: packages/amazon-application-migration-service-packages.yml
+  - type: ErrorCatalog
+    url: errors/amazon-application-migration-service-problem-types.yml
+  - type: Conformance
+    url: conformance/amazon-application-migration-service-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/amazon-application-migration-service-lifecycle.yml
+- aid: amazon-application-migration-service:amazon-application-migration-service-vcenter-clients-api
+  name: Amazon Application Migration Service Vcenter Clients API
+  description: VMware vCenter client management
+  humanURL: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
+  baseURL: https://mgn.us-east-1.amazonaws.com
+  tags:
+  - Vcenter Clients
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-application-migration-service-vcenter-clients-api-openapi.yml
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/rules/amazon-application-migration-service-spectral-rules.yml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/vocabulary/amazon-application-migration-service-vocabulary.yaml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-source-server-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-replication-configuration-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-launch-configuration-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-job-schema.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-source-server-structure.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-job-structure.json
+  - type: JSONLD
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-ld/amazon-application-migration-service-context.jsonld
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-source-server-example.json
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-job-example.json
+  - type: Packages
+    url: packages/amazon-application-migration-service-packages.yml
+  - type: ErrorCatalog
+    url: errors/amazon-application-migration-service-problem-types.yml
+  - type: Conformance
+    url: conformance/amazon-application-migration-service-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/amazon-application-migration-service-lifecycle.yml
+- aid: amazon-application-migration-service:amazon-application-migration-service-waves-api
+  name: Amazon Application Migration Service Waves API
+  description: Wave-based migration orchestration
+  humanURL: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
+  baseURL: https://mgn.us-east-1.amazonaws.com
+  tags:
+  - Waves
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-application-migration-service-waves-api-openapi.yml
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/rules/amazon-application-migration-service-spectral-rules.yml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/vocabulary/amazon-application-migration-service-vocabulary.yaml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-source-server-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-replication-configuration-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-launch-configuration-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-schema/application-migration-service-job-schema.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-source-server-structure.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-structure/application-migration-service-job-structure.json
+  - type: JSONLD
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/json-ld/amazon-application-migration-service-context.jsonld
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-source-server-example.json
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-application-migration-service/refs/heads/main/examples/application-migration-service-job-example.json
+  - type: Packages
+    url: packages/amazon-application-migration-service-packages.yml
+  - type: ErrorCatalog
+    url: errors/amazon-application-migration-service-problem-types.yml
+  - type: Conformance
+    url: conformance/amazon-application-migration-service-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/amazon-application-migration-service-lifecycle.yml
 common:
-  - type: X-MCPServerCandidate
-    url: mcp/amazon-application-migration-service-mcp.yml
-    note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
-  - type: Overlay
-    url: overlays/amazon-application-migration-service-api-overlay.yaml
-  - type: AgenticAccess
-    url: agentic-access/amazon-application-migration-service-agentic-access.yml
-  - type: VulnerabilityDisclosure
-    url: security/amazon-application-migration-service-vulnerability-disclosure.yml
-  - type: DomainSecurity
-    url: security/amazon-application-migration-service-domain-security.yml
-  - type: Authentication
-    url: authentication/amazon-application-migration-service-authentication.yml
-  - type: WellKnown
-    url: well-known/amazon-application-migration-service-well-known.yml
-  - type: SecurityTxt
-    url: well-known/amazon-application-migration-service-security.txt
-  - type: LLMsTxt
-    url: llms/amazon-application-migration-service-llms.txt
-  - type: Features
-    data:
-      - Continuous block-level replication with near-zero RPO
-      - Automated lift-and-shift migration without application changes
-      - Test migration capability without impacting production servers
-      - Wave and application grouping for phased migration management
-      - Agentless migration via VMware vCenter connector
-      - Post-launch automation via AWS Systems Manager documents
-      - Right-sizing recommendations for target instance types
-      - Cross-account and cross-region migration support
-      - Integration with AWS Migration Hub for centralized tracking
-      - Automatic EC2 launch template creation for migrated servers
-  - type: UseCases
-    data:
-      - Migrate on-premises data center servers to AWS with minimal downtime
-      - Execute phased migrations organized by application waves
-      - Test migration outcomes before executing production cutover
-      - Migrate VMware virtual machines to EC2 instances without agent installation
-      - Standardize migration configuration across hundreds of servers with templates
-      - Automate post-migration software installation and configuration with SSM
-  - type: Integrations
-    data:
-      - AWS Migration Hub
-      - Amazon EC2
-      - Amazon EBS
-      - AWS Systems Manager
-      - VMware vCenter
-      - AWS IAM
-      - Amazon CloudWatch
-      - AWS CloudTrail
-      - Amazon S3
-      - AWS KMS
+- type: Website
+  url: https://amazon.com
+- type: X-MCPServerCandidate
+  url: mcp/amazon-application-migration-service-mcp.yml
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate
+    — a tool list derived from the published API contracts, not an existing server. The scorer already
+    read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type
+    surfaces with a server that does not exist.'
+- type: Overlay
+  url: overlays/amazon-application-migration-service-api-overlay.yaml
+- type: AgenticAccess
+  url: agentic-access/amazon-application-migration-service-agentic-access.yml
+- type: VulnerabilityDisclosure
+  url: security/amazon-application-migration-service-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/amazon-application-migration-service-domain-security.yml
+- type: Authentication
+  url: authentication/amazon-application-migration-service-authentication.yml
+- type: WellKnown
+  url: well-known/amazon-application-migration-service-well-known.yml
+- type: SecurityTxt
+  url: well-known/amazon-application-migration-service-security.txt
+- type: LLMsTxt
+  url: llms/amazon-application-migration-service-llms.txt
+- type: Features
+  data:
+  - Continuous block-level replication with near-zero RPO
+  - Automated lift-and-shift migration without application changes
+  - Test migration capability without impacting production servers
+  - Wave and application grouping for phased migration management
+  - Agentless migration via VMware vCenter connector
+  - Post-launch automation via AWS Systems Manager documents
+  - Right-sizing recommendations for target instance types
+  - Cross-account and cross-region migration support
+  - Integration with AWS Migration Hub for centralized tracking
+  - Automatic EC2 launch template creation for migrated servers
+- type: UseCases
+  data:
+  - Migrate on-premises data center servers to AWS with minimal downtime
+  - Execute phased migrations organized by application waves
+  - Test migration outcomes before executing production cutover
+  - Migrate VMware virtual machines to EC2 instances without agent installation
+  - Standardize migration configuration across hundreds of servers with templates
+  - Automate post-migration software installation and configuration with SSM
+- type: Integrations
+  data:
+  - AWS Migration Hub
+  - Amazon EC2
+  - Amazon EBS
+  - AWS Systems Manager
+  - VMware vCenter
+  - AWS IAM
+  - Amazon CloudWatch
+  - AWS CloudTrail
+  - Amazon S3
+  - AWS KMS
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
 x-parent: aws
 x-relationship: product
