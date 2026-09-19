@@ -172,6 +172,8 @@ apis:
   humanURL: https://docs.aws.amazon.com/mgn/latest/APIReference/Welcome.html
   baseURL: https://mgn.us-east-1.amazonaws.com
   tags:
+  - Launches
+  tags_raw:
   - Launch
   properties:
   - type: OpenAPI
