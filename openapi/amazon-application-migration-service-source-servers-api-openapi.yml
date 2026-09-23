@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon Application Migration Service Applications Source Servers API
+  title: Amazon Application Migration Service Source Servers API
   description: AWS Application Migration Service (MGN) is the primary migration service recommended for lift-and-shift migrations to AWS. It allows organizations to quickly realize the benefits of migrating applications to the cloud without changes and with minimal downtime.
   version: '2021-02-25'
   contact:
@@ -231,6 +231,177 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    IdentificationHints:
+      type: object
+      description: Hints used to identify the source server
+      properties:
+        fqdn:
+          type: string
+          description: Fully qualified domain name
+          example: server.example.com
+        hostname:
+          type: string
+          description: Hostname
+          example: my-server
+        vmWareUuid:
+          type: string
+          description: VMware UUID
+          example: 12345678-1234-1234-1234-123456789012
+        awsInstanceID:
+          type: string
+          description: AWS instance ID if previously in AWS
+          example: i-1234567890abcdef0
+        vmPath:
+          type: string
+          description: VMware path
+          example: /Datacenter/vm/my-server
+    LaunchedInstance:
+      type: object
+      description: Details about the launched EC2 instance
+      properties:
+        ec2InstanceID:
+          type: string
+          description: EC2 instance ID
+          example: i-1234567890abcdef0
+        jobID:
+          type: string
+          description: Job ID that launched this instance
+          example: mgnjob-1234567890abcdef0
+        firstBoot:
+          type: string
+          description: First boot status
+          enum:
+          - WAITING
+          - SUCCEEDED
+          - UNKNOWN
+          - STOPPED
+          example: SUCCEEDED
+    DescribeSourceServersRequestFilters:
+      type: object
+      description: Filters for describing source servers
+      properties:
+        sourceServerIDs:
+          type: array
+          description: Filter by source server IDs
+          items:
+            type: string
+        isArchived:
+          type: boolean
+          description: Filter by archived status
+          example: false
+        replicationTypes:
+          type: array
+          description: Filter by replication type
+          items:
+            type: string
+        lifeCycleStates:
+          type: array
+          description: Filter by lifecycle states
+          items:
+            type: string
+        applicationIDs:
+          type: array
+          description: Filter by application IDs
+          items:
+            type: string
+    DisconnectFromServiceRequest:
+      type: object
+      description: Request to disconnect a source server from the service
+      required:
+      - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID to disconnect
+          example: s-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    DataReplicationInitiationStep:
+      type: object
+      description: A single step in the replication initiation process
+      properties:
+        name:
+          type: string
+          description: Step name
+          example: WAIT
+        status:
+          type: string
+          description: Step status
+          enum:
+          - NOT_STARTED
+          - IN_PROGRESS
+          - SUCCEEDED
+          - FAILED
+          - SKIPPED
+          example: SUCCEEDED
+    Disk:
+      type: object
+      description: A disk on a source server
+      properties:
+        deviceName:
+          type: string
+          description: Device name
+          example: /dev/sda1
+        bytes:
+          type: integer
+          description: Disk size in bytes
+          example: 107374182400
+    CPU:
+      type: object
+      description: CPU information for a source server
+      properties:
+        cores:
+          type: integer
+          description: Number of cores
+          example: 4
+        modelName:
+          type: string
+          description: CPU model name
+          example: Intel Xeon E5-2676 v3
+    DataReplicationInfo:
+      type: object
+      description: Current data replication state and statistics for a source server
+      properties:
+        lagDuration:
+          type: string
+          description: Replication lag duration
+          example: PT0S
+        lastSnapshotDateTime:
+          type: string
+          description: Date/time of the last snapshot
+          example: '2026-04-19T00:00:00Z'
+        replicatedDisks:
+          type: array
+          description: List of replicated disks
+          items:
+            $ref: '#/components/schemas/DataReplicationInfoReplicatedDisk'
+        dataReplicationState:
+          type: string
+          description: Current replication state
+          enum:
+          - STOPPED
+          - INITIATING
+          - INITIAL_SYNC
+          - BACKLOG
+          - CREATING_SNAPSHOT
+          - CONTINUOUS
+          - PAUSED
+          - RESCAN
+          - STALLED
+          - DISCONNECTED
+          - PENDING_SNAPSHOT_SHIPPING
+          - SNAPSHOT_SHIPPING
+          example: CONTINUOUS
+        dataReplicationInitiation:
+          $ref: '#/components/schemas/DataReplicationInitiation'
+        dataReplicationError:
+          $ref: '#/components/schemas/DataReplicationError'
+        stagingAvailabilityZone:
+          type: string
+          description: Availability zone used for staging
+          example: us-east-1a
     NetworkInterface:
       type: object
       description: Network interface on a source server
@@ -250,6 +421,44 @@ components:
           type: boolean
           description: Whether this is the primary interface
           example: true
+    LifeCycleLastCutover:
+      type: object
+      description: Details about the last cutover lifecycle event
+      properties:
+        jobID:
+          type: string
+          description: Job ID of the last cutover
+          example: mgnjob-1234567890abcdef0
+        initiatedDateTime:
+          type: string
+          description: Date/time the cutover was initiated
+          example: '2026-04-19T00:00:00Z'
+        finalizedDateTime:
+          type: string
+          description: Date/time the cutover was finalized
+          example: '2026-04-19T01:00:00Z'
+        revertedDateTime:
+          type: string
+          description: Date/time the cutover was reverted
+          example: ''
+    DescribeSourceServersRequest:
+      type: object
+      description: Request to describe source servers
+      properties:
+        filters:
+          $ref: '#/components/schemas/DescribeSourceServersRequestFilters'
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
     LifeCycle:
       type: object
       description: Lifecycle state of a source server
@@ -297,153 +506,6 @@ components:
           $ref: '#/components/schemas/LifeCycleLastCutover'
         lastCutoverFinalized:
           $ref: '#/components/schemas/LifeCycleLastCutover'
-    DeleteSourceServerRequest:
-      type: object
-      description: Request to delete a source server
-      required:
-      - sourceServerID
-      properties:
-        sourceServerID:
-          type: string
-          description: Source server ID to delete
-          example: s-1234567890abcdef0
-        accountID:
-          type: string
-          description: Account ID for cross-account access
-          example: '123456789012'
-    DescribeSourceServersResponse:
-      type: object
-      description: Response with list of source servers
-      properties:
-        items:
-          type: array
-          description: List of source servers
-          items:
-            $ref: '#/components/schemas/SourceServer'
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
-    DescribeSourceServersRequestFilters:
-      type: object
-      description: Filters for describing source servers
-      properties:
-        sourceServerIDs:
-          type: array
-          description: Filter by source server IDs
-          items:
-            type: string
-        isArchived:
-          type: boolean
-          description: Filter by archived status
-          example: false
-        replicationTypes:
-          type: array
-          description: Filter by replication type
-          items:
-            type: string
-        lifeCycleStates:
-          type: array
-          description: Filter by lifecycle states
-          items:
-            type: string
-        applicationIDs:
-          type: array
-          description: Filter by application IDs
-          items:
-            type: string
-    DataReplicationInfoReplicatedDisk:
-      type: object
-      description: Replication status for an individual disk
-      properties:
-        deviceName:
-          type: string
-          description: Device name of the disk
-          example: /dev/sda1
-        totalStorageBytes:
-          type: integer
-          description: Total storage in bytes
-          example: 107374182400
-        replicatedStorageBytes:
-          type: integer
-          description: Amount of storage replicated in bytes
-          example: 107374182400
-        rescannedStorageBytes:
-          type: integer
-          description: Amount rescanned in bytes
-          example: 0
-        backloggedStorageBytes:
-          type: integer
-          description: Amount backlogged in bytes
-          example: 0
-    DisconnectFromServiceRequest:
-      type: object
-      description: Request to disconnect a source server from the service
-      required:
-      - sourceServerID
-      properties:
-        sourceServerID:
-          type: string
-          description: Source server ID to disconnect
-          example: s-1234567890abcdef0
-        accountID:
-          type: string
-          description: Account ID for cross-account access
-          example: '123456789012'
-    Disk:
-      type: object
-      description: A disk on a source server
-      properties:
-        deviceName:
-          type: string
-          description: Device name
-          example: /dev/sda1
-        bytes:
-          type: integer
-          description: Disk size in bytes
-          example: 107374182400
-    IdentificationHints:
-      type: object
-      description: Hints used to identify the source server
-      properties:
-        fqdn:
-          type: string
-          description: Fully qualified domain name
-          example: server.example.com
-        hostname:
-          type: string
-          description: Hostname
-          example: my-server
-        vmWareUuid:
-          type: string
-          description: VMware UUID
-          example: 12345678-1234-1234-1234-123456789012
-        awsInstanceID:
-          type: string
-          description: AWS instance ID if previously in AWS
-          example: i-1234567890abcdef0
-        vmPath:
-          type: string
-          description: VMware path
-          example: /Datacenter/vm/my-server
-    DescribeSourceServersRequest:
-      type: object
-      description: Request to describe source servers
-      properties:
-        filters:
-          $ref: '#/components/schemas/DescribeSourceServersRequestFilters'
-        maxResults:
-          type: integer
-          description: Maximum results to return
-          example: 100
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
-        accountID:
-          type: string
-          description: Account ID for cross-account access
-          example: '123456789012'
     DataReplicationError:
       type: object
       description: Replication error details
@@ -456,47 +518,18 @@ components:
           type: string
           description: Raw error message
           example: Snapshot creation failed
-    CPU:
+    ErrorResponse:
       type: object
-      description: CPU information for a source server
+      description: Standard error response from the Application Migration Service API
       properties:
-        cores:
-          type: integer
-          description: Number of cores
-          example: 4
-        modelName:
+        message:
           type: string
-          description: CPU model name
-          example: Intel Xeon E5-2676 v3
-    OS:
-      type: object
-      description: Operating system information
-      properties:
-        fullString:
+          description: Error message
+          example: An internal error occurred
+        code:
           type: string
-          description: Full OS description string
-          example: Microsoft Windows Server 2019 Standard
-    LaunchedInstance:
-      type: object
-      description: Details about the launched EC2 instance
-      properties:
-        ec2InstanceID:
-          type: string
-          description: EC2 instance ID
-          example: i-1234567890abcdef0
-        jobID:
-          type: string
-          description: Job ID that launched this instance
-          example: mgnjob-1234567890abcdef0
-        firstBoot:
-          type: string
-          description: First boot status
-          enum:
-          - WAITING
-          - SUCCEEDED
-          - UNKNOWN
-          - STOPPED
-          example: SUCCEEDED
+          description: Error code
+          example: InternalServerException
     MarkAsArchivedRequest:
       type: object
       description: Request to mark a source server as archived
@@ -511,55 +544,20 @@ components:
           type: string
           description: Account ID for cross-account access
           example: '123456789012'
-    DataReplicationInitiation:
+    DeleteSourceServerRequest:
       type: object
-      description: Replication initiation steps and their status
+      description: Request to delete a source server
+      required:
+      - sourceServerID
       properties:
-        startDateTime:
+        sourceServerID:
           type: string
-          description: Date/time replication initiation started
-          example: '2026-04-01T00:00:00Z'
-        nextAttemptDateTime:
+          description: Source server ID to delete
+          example: s-1234567890abcdef0
+        accountID:
           type: string
-          description: Date/time of next retry attempt
-          example: ''
-        steps:
-          type: array
-          description: Initiation steps
-          items:
-            $ref: '#/components/schemas/DataReplicationInitiationStep'
-    ErrorResponse:
-      type: object
-      description: Standard error response from the Application Migration Service API
-      properties:
-        message:
-          type: string
-          description: Error message
-          example: An internal error occurred
-        code:
-          type: string
-          description: Error code
-          example: InternalServerException
-    LifeCycleLastTest:
-      type: object
-      description: Details about the last test lifecycle event
-      properties:
-        jobID:
-          type: string
-          description: Job ID of the last test
-          example: mgnjob-1234567890abcdef0
-        initiatedDateTime:
-          type: string
-          description: Date/time the test was initiated
-          example: '2026-04-19T00:00:00Z'
-        finalizedDateTime:
-          type: string
-          description: Date/time the test was finalized
-          example: '2026-04-19T01:00:00Z'
-        revertedDateTime:
-          type: string
-          description: Date/time the test was reverted
-          example: ''
+          description: Account ID for cross-account access
+          example: '123456789012'
     SourceServer:
       type: object
       description: A source server registered with the Application Migration Service
@@ -612,86 +610,43 @@ components:
           type: string
           description: FQDN used for action framework connectivity
           example: server.example.com
-    DataReplicationInfo:
+    LifeCycleLastTest:
       type: object
-      description: Current data replication state and statistics for a source server
-      properties:
-        lagDuration:
-          type: string
-          description: Replication lag duration
-          example: PT0S
-        lastSnapshotDateTime:
-          type: string
-          description: Date/time of the last snapshot
-          example: '2026-04-19T00:00:00Z'
-        replicatedDisks:
-          type: array
-          description: List of replicated disks
-          items:
-            $ref: '#/components/schemas/DataReplicationInfoReplicatedDisk'
-        dataReplicationState:
-          type: string
-          description: Current replication state
-          enum:
-          - STOPPED
-          - INITIATING
-          - INITIAL_SYNC
-          - BACKLOG
-          - CREATING_SNAPSHOT
-          - CONTINUOUS
-          - PAUSED
-          - RESCAN
-          - STALLED
-          - DISCONNECTED
-          - PENDING_SNAPSHOT_SHIPPING
-          - SNAPSHOT_SHIPPING
-          example: CONTINUOUS
-        dataReplicationInitiation:
-          $ref: '#/components/schemas/DataReplicationInitiation'
-        dataReplicationError:
-          $ref: '#/components/schemas/DataReplicationError'
-        stagingAvailabilityZone:
-          type: string
-          description: Availability zone used for staging
-          example: us-east-1a
-    LifeCycleLastCutover:
-      type: object
-      description: Details about the last cutover lifecycle event
+      description: Details about the last test lifecycle event
       properties:
         jobID:
           type: string
-          description: Job ID of the last cutover
+          description: Job ID of the last test
           example: mgnjob-1234567890abcdef0
         initiatedDateTime:
           type: string
-          description: Date/time the cutover was initiated
+          description: Date/time the test was initiated
           example: '2026-04-19T00:00:00Z'
         finalizedDateTime:
           type: string
-          description: Date/time the cutover was finalized
+          description: Date/time the test was finalized
           example: '2026-04-19T01:00:00Z'
         revertedDateTime:
           type: string
-          description: Date/time the cutover was reverted
+          description: Date/time the test was reverted
           example: ''
-    DataReplicationInitiationStep:
+    DataReplicationInitiation:
       type: object
-      description: A single step in the replication initiation process
+      description: Replication initiation steps and their status
       properties:
-        name:
+        startDateTime:
           type: string
-          description: Step name
-          example: WAIT
-        status:
+          description: Date/time replication initiation started
+          example: '2026-04-01T00:00:00Z'
+        nextAttemptDateTime:
           type: string
-          description: Step status
-          enum:
-          - NOT_STARTED
-          - IN_PROGRESS
-          - SUCCEEDED
-          - FAILED
-          - SKIPPED
-          example: SUCCEEDED
+          description: Date/time of next retry attempt
+          example: ''
+        steps:
+          type: array
+          description: Initiation steps
+          items:
+            $ref: '#/components/schemas/DataReplicationInitiationStep'
     SourceProperties:
       type: object
       description: Discovered properties of the source server
@@ -727,6 +682,51 @@ components:
           example: 8589934592
         os:
           $ref: '#/components/schemas/OS'
+    OS:
+      type: object
+      description: Operating system information
+      properties:
+        fullString:
+          type: string
+          description: Full OS description string
+          example: Microsoft Windows Server 2019 Standard
+    DescribeSourceServersResponse:
+      type: object
+      description: Response with list of source servers
+      properties:
+        items:
+          type: array
+          description: List of source servers
+          items:
+            $ref: '#/components/schemas/SourceServer'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    DataReplicationInfoReplicatedDisk:
+      type: object
+      description: Replication status for an individual disk
+      properties:
+        deviceName:
+          type: string
+          description: Device name of the disk
+          example: /dev/sda1
+        totalStorageBytes:
+          type: integer
+          description: Total storage in bytes
+          example: 107374182400
+        replicatedStorageBytes:
+          type: integer
+          description: Amount of storage replicated in bytes
+          example: 107374182400
+        rescannedStorageBytes:
+          type: integer
+          description: Amount rescanned in bytes
+          example: 0
+        backloggedStorageBytes:
+          type: integer
+          description: Amount backlogged in bytes
+          example: 0
   securitySchemes:
     awsAuth:
       type: apiKey

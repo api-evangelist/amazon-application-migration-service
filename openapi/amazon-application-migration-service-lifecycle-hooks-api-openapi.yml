@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon Application Migration Service Applications Lifecycle Hooks API
+  title: Amazon Application Migration Service Lifecycle Hooks API
   description: AWS Application Migration Service (MGN) is the primary migration service recommended for lift-and-shift migrations to AWS. It allows organizations to quickly realize the benefits of migrating applications to the cloud without changes and with minimal downtime.
   version: '2021-02-25'
   contact:
@@ -102,6 +102,54 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    SsmParameterStoreParameter:
+      type: object
+      description: SSM Parameter Store parameter reference
+      properties:
+        parameterName:
+          type: string
+          description: Parameter name
+          example: /my/parameter
+        parameterType:
+          type: string
+          description: Parameter type
+          enum:
+          - STRING
+          example: STRING
+    ListTemplateActionsRequest:
+      type: object
+      description: Request to list template lifecycle actions
+      required:
+      - launchConfigurationTemplateID
+      properties:
+        launchConfigurationTemplateID:
+          type: string
+          description: Launch configuration template ID
+          example: lct-1234567890abcdef0
+        filters:
+          type: object
+          description: Action filters
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ListTemplateActionsResponse:
+      type: object
+      description: Response with list of template actions
+      properties:
+        items:
+          type: array
+          description: List of template actions
+          items:
+            $ref: '#/components/schemas/SourceServerAction'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
     ListSourceServerActionsRequest:
       type: object
       description: Request to list source server lifecycle actions
@@ -127,33 +175,18 @@ components:
           type: string
           description: Account ID for cross-account access
           example: '123456789012'
-    SsmParameterStoreParameter:
+    ErrorResponse:
       type: object
-      description: SSM Parameter Store parameter reference
+      description: Standard error response from the Application Migration Service API
       properties:
-        parameterName:
+        message:
           type: string
-          description: Parameter name
-          example: /my/parameter
-        parameterType:
+          description: Error message
+          example: An internal error occurred
+        code:
           type: string
-          description: Parameter type
-          enum:
-          - STRING
-          example: STRING
-    ListTemplateActionsResponse:
-      type: object
-      description: Response with list of template actions
-      properties:
-        items:
-          type: array
-          description: List of template actions
-          items:
-            $ref: '#/components/schemas/SourceServerAction'
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
+          description: Error code
+          example: InternalServerException
     SourceServerAction:
       type: object
       description: A lifecycle action hook for a source server
@@ -221,27 +254,6 @@ components:
           type: integer
           description: Timeout in seconds
           example: 3600
-    ListTemplateActionsRequest:
-      type: object
-      description: Request to list template lifecycle actions
-      required:
-      - launchConfigurationTemplateID
-      properties:
-        launchConfigurationTemplateID:
-          type: string
-          description: Launch configuration template ID
-          example: lct-1234567890abcdef0
-        filters:
-          type: object
-          description: Action filters
-        maxResults:
-          type: integer
-          description: Maximum results to return
-          example: 100
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
     ListSourceServerActionsResponse:
       type: object
       description: Response with list of source server actions
@@ -255,18 +267,6 @@ components:
           type: string
           description: Pagination token
           example: ''
-    ErrorResponse:
-      type: object
-      description: Standard error response from the Application Migration Service API
-      properties:
-        message:
-          type: string
-          description: Error message
-          example: An internal error occurred
-        code:
-          type: string
-          description: Error code
-          example: InternalServerException
   securitySchemes:
     awsAuth:
       type: apiKey

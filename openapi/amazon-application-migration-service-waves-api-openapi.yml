@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon Application Migration Service Applications Waves API
+  title: Amazon Application Migration Service Waves API
   description: AWS Application Migration Service (MGN) is the primary migration service recommended for lift-and-shift migrations to AWS. It allows organizations to quickly realize the benefits of migrating applications to the cloud without changes and with minimal downtime.
   version: '2021-02-25'
   contact:
@@ -219,170 +219,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    CreateWaveRequest:
-      type: object
-      description: Request to create a migration wave
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Wave name
-          example: Wave 1
-        description:
-          type: string
-          description: Wave description
-          example: First migration wave
-        tags:
-          type: object
-          description: Tags for the wave
-          additionalProperties:
-            type: string
-        accountID:
-          type: string
-          description: Account ID for cross-account access
-          example: '123456789012'
-    AssociateApplicationsRequest:
-      type: object
-      description: Request to associate applications with a wave
-      required:
-      - waveID
-      - applicationIDs
-      properties:
-        waveID:
-          type: string
-          description: Wave ID
-          example: wave-1234567890abcdef0
-        applicationIDs:
-          type: array
-          description: Application IDs to associate
-          items:
-            type: string
-        accountID:
-          type: string
-          description: Account ID for cross-account access
-          example: '123456789012'
-    ListWavesRequestFilters:
-      type: object
-      description: Filters for listing waves
-      properties:
-        waveIDs:
-          type: array
-          description: Filter by wave IDs
-          items:
-            type: string
-        isArchived:
-          type: boolean
-          description: Filter by archived status
-          example: false
-    ListWavesRequest:
-      type: object
-      description: Request to list migration waves
-      properties:
-        filters:
-          $ref: '#/components/schemas/ListWavesRequestFilters'
-        maxResults:
-          type: integer
-          description: Maximum results to return
-          example: 100
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
-        accountID:
-          type: string
-          description: Account ID for cross-account access
-          example: '123456789012'
-    WaveAggregatedStatus:
-      type: object
-      description: Aggregated status of all applications in a wave
-      properties:
-        lastUpdateDateTime:
-          type: string
-          description: Date/time of last status update
-          example: '2026-04-19T00:00:00Z'
-        healthStatus:
-          type: string
-          description: Overall health status
-          enum:
-          - HEALTHY
-          - LAGGING
-          - ERROR
-          example: HEALTHY
-        progressStatus:
-          type: string
-          description: Overall progress status
-          enum:
-          - NOT_STARTED
-          - IN_PROGRESS
-          - COMPLETED
-          - PAUSED
-          example: IN_PROGRESS
-        totalApplications:
-          type: integer
-          description: Total number of applications in the wave
-          example: 3
-    ErrorResponse:
-      type: object
-      description: Standard error response from the Application Migration Service API
-      properties:
-        message:
-          type: string
-          description: Error message
-          example: An internal error occurred
-        code:
-          type: string
-          description: Error code
-          example: InternalServerException
-    ListWavesResponse:
-      type: object
-      description: Response with list of waves
-      properties:
-        items:
-          type: array
-          description: List of waves
-          items:
-            $ref: '#/components/schemas/Wave'
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
-    DeleteWaveRequest:
-      type: object
-      description: Request to delete a migration wave
-      required:
-      - waveID
-      properties:
-        waveID:
-          type: string
-          description: Wave ID to delete
-          example: wave-1234567890abcdef0
-        accountID:
-          type: string
-          description: Account ID for cross-account access
-          example: '123456789012'
-    UpdateWaveRequest:
-      type: object
-      description: Request to update a migration wave
-      required:
-      - waveID
-      properties:
-        waveID:
-          type: string
-          description: Wave ID to update
-          example: wave-1234567890abcdef0
-        name:
-          type: string
-          description: New wave name
-          example: Updated Wave Name
-        description:
-          type: string
-          description: New wave description
-          example: Updated description
-        accountID:
-          type: string
-          description: Account ID for cross-account access
-          example: '123456789012'
     Wave:
       type: object
       description: A migration wave grouping applications
@@ -422,6 +258,170 @@ components:
           description: Tags on the wave
           additionalProperties:
             type: string
+    WaveAggregatedStatus:
+      type: object
+      description: Aggregated status of all applications in a wave
+      properties:
+        lastUpdateDateTime:
+          type: string
+          description: Date/time of last status update
+          example: '2026-04-19T00:00:00Z'
+        healthStatus:
+          type: string
+          description: Overall health status
+          enum:
+          - HEALTHY
+          - LAGGING
+          - ERROR
+          example: HEALTHY
+        progressStatus:
+          type: string
+          description: Overall progress status
+          enum:
+          - NOT_STARTED
+          - IN_PROGRESS
+          - COMPLETED
+          - PAUSED
+          example: IN_PROGRESS
+        totalApplications:
+          type: integer
+          description: Total number of applications in the wave
+          example: 3
+    AssociateApplicationsRequest:
+      type: object
+      description: Request to associate applications with a wave
+      required:
+      - waveID
+      - applicationIDs
+      properties:
+        waveID:
+          type: string
+          description: Wave ID
+          example: wave-1234567890abcdef0
+        applicationIDs:
+          type: array
+          description: Application IDs to associate
+          items:
+            type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    DeleteWaveRequest:
+      type: object
+      description: Request to delete a migration wave
+      required:
+      - waveID
+      properties:
+        waveID:
+          type: string
+          description: Wave ID to delete
+          example: wave-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    ErrorResponse:
+      type: object
+      description: Standard error response from the Application Migration Service API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: An internal error occurred
+        code:
+          type: string
+          description: Error code
+          example: InternalServerException
+    ListWavesRequest:
+      type: object
+      description: Request to list migration waves
+      properties:
+        filters:
+          $ref: '#/components/schemas/ListWavesRequestFilters'
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    ListWavesRequestFilters:
+      type: object
+      description: Filters for listing waves
+      properties:
+        waveIDs:
+          type: array
+          description: Filter by wave IDs
+          items:
+            type: string
+        isArchived:
+          type: boolean
+          description: Filter by archived status
+          example: false
+    ListWavesResponse:
+      type: object
+      description: Response with list of waves
+      properties:
+        items:
+          type: array
+          description: List of waves
+          items:
+            $ref: '#/components/schemas/Wave'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    UpdateWaveRequest:
+      type: object
+      description: Request to update a migration wave
+      required:
+      - waveID
+      properties:
+        waveID:
+          type: string
+          description: Wave ID to update
+          example: wave-1234567890abcdef0
+        name:
+          type: string
+          description: New wave name
+          example: Updated Wave Name
+        description:
+          type: string
+          description: New wave description
+          example: Updated description
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    CreateWaveRequest:
+      type: object
+      description: Request to create a migration wave
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Wave name
+          example: Wave 1
+        description:
+          type: string
+          description: Wave description
+          example: First migration wave
+        tags:
+          type: object
+          description: Tags for the wave
+          additionalProperties:
+            type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
   securitySchemes:
     awsAuth:
       type: apiKey

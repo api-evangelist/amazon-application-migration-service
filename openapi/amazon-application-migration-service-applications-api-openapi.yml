@@ -319,6 +319,87 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    AssociateSourceServersRequest:
+      type: object
+      description: Request to associate source servers with an application
+      required:
+      - applicationID
+      - sourceServerIDs
+      properties:
+        applicationID:
+          type: string
+          description: Application ID
+          example: app-1234567890abcdef0
+        sourceServerIDs:
+          type: array
+          description: Source server IDs to associate
+          items:
+            type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    ListApplicationsRequestFilters:
+      type: object
+      description: Filters for listing applications
+      properties:
+        applicationIDs:
+          type: array
+          description: Filter by application IDs
+          items:
+            type: string
+        isArchived:
+          type: boolean
+          description: Filter by archived status
+          example: false
+        waveIDs:
+          type: array
+          description: Filter by wave IDs
+          items:
+            type: string
+    ApplicationAggregatedStatus:
+      type: object
+      description: Aggregated status of all source servers in an application
+      properties:
+        lastUpdateDateTime:
+          type: string
+          description: Date/time of last status update
+          example: '2026-04-19T00:00:00Z'
+        healthStatus:
+          type: string
+          description: Overall health status
+          enum:
+          - HEALTHY
+          - LAGGING
+          - ERROR
+          example: HEALTHY
+        progressStatus:
+          type: string
+          description: Overall progress status
+          enum:
+          - NOT_STARTED
+          - IN_PROGRESS
+          - COMPLETED
+          - PAUSED
+          example: IN_PROGRESS
+        totalSourceServers:
+          type: integer
+          description: Total number of source servers in the application
+          example: 5
+    ArchiveApplicationRequest:
+      type: object
+      description: Request to archive a migration application
+      required:
+      - applicationID
+      properties:
+        applicationID:
+          type: string
+          description: Application ID to archive
+          example: app-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
     UpdateApplicationRequest:
       type: object
       description: Request to update a migration application
@@ -337,87 +418,6 @@ components:
           type: string
           description: New application description
           example: Updated description
-        accountID:
-          type: string
-          description: Account ID for cross-account access
-          example: '123456789012'
-    ListApplicationsRequest:
-      type: object
-      description: Request to list migration applications
-      properties:
-        filters:
-          $ref: '#/components/schemas/ListApplicationsRequestFilters'
-        maxResults:
-          type: integer
-          description: Maximum results to return
-          example: 100
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
-        accountID:
-          type: string
-          description: Account ID for cross-account access
-          example: '123456789012'
-    CreateApplicationRequest:
-      type: object
-      description: Request to create a migration application
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Application name
-          example: My Application
-        description:
-          type: string
-          description: Application description
-          example: Primary business application
-        tags:
-          type: object
-          description: Tags for the application
-          additionalProperties:
-            type: string
-        accountID:
-          type: string
-          description: Account ID for cross-account access
-          example: '123456789012'
-    DisassociateSourceServersRequest:
-      type: object
-      description: Request to disassociate source servers from an application
-      required:
-      - applicationID
-      - sourceServerIDs
-      properties:
-        applicationID:
-          type: string
-          description: Application ID
-          example: app-1234567890abcdef0
-        sourceServerIDs:
-          type: array
-          description: Source server IDs to disassociate
-          items:
-            type: string
-        accountID:
-          type: string
-          description: Account ID for cross-account access
-          example: '123456789012'
-    AssociateSourceServersRequest:
-      type: object
-      description: Request to associate source servers with an application
-      required:
-      - applicationID
-      - sourceServerIDs
-      properties:
-        applicationID:
-          type: string
-          description: Application ID
-          example: app-1234567890abcdef0
-        sourceServerIDs:
-          type: array
-          description: Source server IDs to associate
-          items:
-            type: string
         accountID:
           type: string
           description: Account ID for cross-account access
@@ -465,20 +465,6 @@ components:
           type: string
           description: Wave ID this application belongs to
           example: wave-1234567890abcdef0
-    ArchiveApplicationRequest:
-      type: object
-      description: Request to archive a migration application
-      required:
-      - applicationID
-      properties:
-        applicationID:
-          type: string
-          description: Application ID to archive
-          example: app-1234567890abcdef0
-        accountID:
-          type: string
-          description: Account ID for cross-account access
-          example: '123456789012'
     ListApplicationsResponse:
       type: object
       description: Response with list of applications
@@ -492,67 +478,6 @@ components:
           type: string
           description: Pagination token
           example: ''
-    UnarchiveApplicationRequest:
-      type: object
-      description: Request to unarchive a migration application
-      required:
-      - applicationID
-      properties:
-        applicationID:
-          type: string
-          description: Application ID to unarchive
-          example: app-1234567890abcdef0
-        accountID:
-          type: string
-          description: Account ID for cross-account access
-          example: '123456789012'
-    ApplicationAggregatedStatus:
-      type: object
-      description: Aggregated status of all source servers in an application
-      properties:
-        lastUpdateDateTime:
-          type: string
-          description: Date/time of last status update
-          example: '2026-04-19T00:00:00Z'
-        healthStatus:
-          type: string
-          description: Overall health status
-          enum:
-          - HEALTHY
-          - LAGGING
-          - ERROR
-          example: HEALTHY
-        progressStatus:
-          type: string
-          description: Overall progress status
-          enum:
-          - NOT_STARTED
-          - IN_PROGRESS
-          - COMPLETED
-          - PAUSED
-          example: IN_PROGRESS
-        totalSourceServers:
-          type: integer
-          description: Total number of source servers in the application
-          example: 5
-    ListApplicationsRequestFilters:
-      type: object
-      description: Filters for listing applications
-      properties:
-        applicationIDs:
-          type: array
-          description: Filter by application IDs
-          items:
-            type: string
-        isArchived:
-          type: boolean
-          description: Filter by archived status
-          example: false
-        waveIDs:
-          type: array
-          description: Filter by wave IDs
-          items:
-            type: string
     ErrorResponse:
       type: object
       description: Standard error response from the Application Migration Service API
@@ -575,6 +500,81 @@ components:
           type: string
           description: Application ID to delete
           example: app-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    UnarchiveApplicationRequest:
+      type: object
+      description: Request to unarchive a migration application
+      required:
+      - applicationID
+      properties:
+        applicationID:
+          type: string
+          description: Application ID to unarchive
+          example: app-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    CreateApplicationRequest:
+      type: object
+      description: Request to create a migration application
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Application name
+          example: My Application
+        description:
+          type: string
+          description: Application description
+          example: Primary business application
+        tags:
+          type: object
+          description: Tags for the application
+          additionalProperties:
+            type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    DisassociateSourceServersRequest:
+      type: object
+      description: Request to disassociate source servers from an application
+      required:
+      - applicationID
+      - sourceServerIDs
+      properties:
+        applicationID:
+          type: string
+          description: Application ID
+          example: app-1234567890abcdef0
+        sourceServerIDs:
+          type: array
+          description: Source server IDs to disassociate
+          items:
+            type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    ListApplicationsRequest:
+      type: object
+      description: Request to list migration applications
+      properties:
+        filters:
+          $ref: '#/components/schemas/ListApplicationsRequestFilters'
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
         accountID:
           type: string
           description: Account ID for cross-account access

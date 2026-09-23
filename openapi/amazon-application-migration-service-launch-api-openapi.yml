@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon Application Migration Service Applications Launch API
+  title: Amazon Application Migration Service Launch API
   description: AWS Application Migration Service (MGN) is the primary migration service recommended for lift-and-shift migrations to AWS. It allows organizations to quickly realize the benefits of migrating applications to the cloud without changes and with minimal downtime.
   version: '2021-02-25'
   contact:
@@ -270,31 +270,76 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    Licensing:
+    PostLaunchActions:
       type: object
-      description: Licensing settings for the launched instance
+      description: Actions to execute after the instance launches
       properties:
-        osByol:
-          type: boolean
-          description: Whether to use Bring Your Own License for the OS
-          example: false
-    DescribeLaunchConfigurationTemplatesRequest:
-      type: object
-      description: Request to describe launch configuration templates
-      properties:
-        launchConfigurationTemplateIDs:
-          type: array
-          description: Filter by template IDs
-          items:
-            type: string
-        maxResults:
-          type: integer
-          description: Maximum results to return
-          example: 100
-        nextToken:
+        deployment:
           type: string
-          description: Pagination token
-          example: ''
+          description: Deployment type for post-launch actions
+          enum:
+          - TEST_AND_CUTOVER
+          - CUTOVER_ONLY
+          - TEST_ONLY
+          example: TEST_AND_CUTOVER
+        s3LogBucket:
+          type: string
+          description: S3 bucket for action logs
+          example: my-migration-logs
+        s3OutputKeyPrefix:
+          type: string
+          description: S3 key prefix for action logs
+          example: mgn-logs/
+        cloudWatchLogGroupName:
+          type: string
+          description: CloudWatch log group name
+          example: /aws/mgn/post-launch-actions
+        ssmDocuments:
+          type: array
+          description: SSM documents to execute
+          items:
+            $ref: '#/components/schemas/SsmDocument'
+    SsmDocument:
+      type: object
+      description: An SSM document configuration for post-launch automation
+      properties:
+        actionName:
+          type: string
+          description: Name of the SSM action
+          example: InstallSoftware
+        ssmDocumentName:
+          type: string
+          description: SSM document name
+          example: AWS-RunShellScript
+        timeoutSeconds:
+          type: integer
+          description: Timeout in seconds
+          example: 3600
+        mustSucceedForCutover:
+          type: boolean
+          description: Whether this action must succeed for cutover to proceed
+          example: false
+        parameters:
+          type: object
+          description: SSM document parameters
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/SsmParameterStoreParameter'
+    SsmParameterStoreParameter:
+      type: object
+      description: SSM Parameter Store parameter reference
+      properties:
+        parameterName:
+          type: string
+          description: Parameter name
+          example: /my/parameter
+        parameterType:
+          type: string
+          description: Parameter type
+          enum:
+          - STRING
+          example: STRING
     UpdateLaunchConfigurationTemplateRequest:
       type: object
       description: Request to update a launch configuration template
@@ -317,6 +362,43 @@ components:
         copyTags:
           type: boolean
           example: false
+    GetLaunchConfigurationRequest:
+      type: object
+      description: Request to get launch configuration
+      required:
+      - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID
+          example: s-1234567890abcdef0
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    DeleteLaunchConfigurationTemplateRequest:
+      type: object
+      description: Request to delete a launch configuration template
+      required:
+      - launchConfigurationTemplateID
+      properties:
+        launchConfigurationTemplateID:
+          type: string
+          description: Template ID to delete
+          example: lct-1234567890abcdef0
+    DescribeLaunchConfigurationTemplatesResponse:
+      type: object
+      description: Response with launch configuration templates
+      properties:
+        items:
+          type: array
+          description: List of launch configuration templates
+          items:
+            $ref: '#/components/schemas/LaunchConfigurationTemplate'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
     LaunchConfigurationTemplate:
       type: object
       description: Template for default launch configuration settings
@@ -367,70 +449,26 @@ components:
           description: Tags on the template
           additionalProperties:
             type: string
-    SsmParameterStoreParameter:
+    ErrorResponse:
       type: object
-      description: SSM Parameter Store parameter reference
+      description: Standard error response from the Application Migration Service API
       properties:
-        parameterName:
+        message:
           type: string
-          description: Parameter name
-          example: /my/parameter
-        parameterType:
+          description: Error message
+          example: An internal error occurred
+        code:
           type: string
-          description: Parameter type
-          enum:
-          - STRING
-          example: STRING
-    DescribeLaunchConfigurationTemplatesResponse:
+          description: Error code
+          example: InternalServerException
+    Licensing:
       type: object
-      description: Response with launch configuration templates
+      description: Licensing settings for the launched instance
       properties:
-        items:
-          type: array
-          description: List of launch configuration templates
-          items:
-            $ref: '#/components/schemas/LaunchConfigurationTemplate'
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
-    UpdateLaunchConfigurationRequest:
-      type: object
-      description: Request to update launch configuration
-      required:
-      - sourceServerID
-      properties:
-        sourceServerID:
-          type: string
-          description: Source server ID
-          example: s-1234567890abcdef0
-        name:
-          type: string
-          description: Configuration name
-          example: Updated configuration
-        launchDisposition:
-          type: string
-          description: Launch disposition
-          enum:
-          - STOPPED
-          - STARTED
-          example: STARTED
-        targetInstanceTypeRightSizingMethod:
-          type: string
-          description: Right-sizing method
-          example: BASIC
-        copyPrivateIp:
+        osByol:
           type: boolean
+          description: Whether to use Bring Your Own License for the OS
           example: false
-        copyTags:
-          type: boolean
-          example: true
-        licensing:
-          $ref: '#/components/schemas/Licensing'
-        accountID:
-          type: string
-          description: Account ID for cross-account access
-          example: '123456789012'
     CreateLaunchConfigurationTemplateRequest:
       type: object
       description: Request to create a launch configuration template
@@ -455,6 +493,23 @@ components:
           type: object
           additionalProperties:
             type: string
+    DescribeLaunchConfigurationTemplatesRequest:
+      type: object
+      description: Request to describe launch configuration templates
+      properties:
+        launchConfigurationTemplateIDs:
+          type: array
+          description: Filter by template IDs
+          items:
+            type: string
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
     LaunchConfiguration:
       type: object
       description: Launch configuration for a source server
@@ -514,9 +569,9 @@ components:
           type: string
           description: MAP auto-tagging MPE ID
           example: ''
-    GetLaunchConfigurationRequest:
+    UpdateLaunchConfigurationRequest:
       type: object
-      description: Request to get launch configuration
+      description: Request to update launch configuration
       required:
       - sourceServerID
       properties:
@@ -524,88 +579,33 @@ components:
           type: string
           description: Source server ID
           example: s-1234567890abcdef0
+        name:
+          type: string
+          description: Configuration name
+          example: Updated configuration
+        launchDisposition:
+          type: string
+          description: Launch disposition
+          enum:
+          - STOPPED
+          - STARTED
+          example: STARTED
+        targetInstanceTypeRightSizingMethod:
+          type: string
+          description: Right-sizing method
+          example: BASIC
+        copyPrivateIp:
+          type: boolean
+          example: false
+        copyTags:
+          type: boolean
+          example: true
+        licensing:
+          $ref: '#/components/schemas/Licensing'
         accountID:
           type: string
           description: Account ID for cross-account access
           example: '123456789012'
-    PostLaunchActions:
-      type: object
-      description: Actions to execute after the instance launches
-      properties:
-        deployment:
-          type: string
-          description: Deployment type for post-launch actions
-          enum:
-          - TEST_AND_CUTOVER
-          - CUTOVER_ONLY
-          - TEST_ONLY
-          example: TEST_AND_CUTOVER
-        s3LogBucket:
-          type: string
-          description: S3 bucket for action logs
-          example: my-migration-logs
-        s3OutputKeyPrefix:
-          type: string
-          description: S3 key prefix for action logs
-          example: mgn-logs/
-        cloudWatchLogGroupName:
-          type: string
-          description: CloudWatch log group name
-          example: /aws/mgn/post-launch-actions
-        ssmDocuments:
-          type: array
-          description: SSM documents to execute
-          items:
-            $ref: '#/components/schemas/SsmDocument'
-    DeleteLaunchConfigurationTemplateRequest:
-      type: object
-      description: Request to delete a launch configuration template
-      required:
-      - launchConfigurationTemplateID
-      properties:
-        launchConfigurationTemplateID:
-          type: string
-          description: Template ID to delete
-          example: lct-1234567890abcdef0
-    SsmDocument:
-      type: object
-      description: An SSM document configuration for post-launch automation
-      properties:
-        actionName:
-          type: string
-          description: Name of the SSM action
-          example: InstallSoftware
-        ssmDocumentName:
-          type: string
-          description: SSM document name
-          example: AWS-RunShellScript
-        timeoutSeconds:
-          type: integer
-          description: Timeout in seconds
-          example: 3600
-        mustSucceedForCutover:
-          type: boolean
-          description: Whether this action must succeed for cutover to proceed
-          example: false
-        parameters:
-          type: object
-          description: SSM document parameters
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/SsmParameterStoreParameter'
-    ErrorResponse:
-      type: object
-      description: Standard error response from the Application Migration Service API
-      properties:
-        message:
-          type: string
-          description: Error message
-          example: An internal error occurred
-        code:
-          type: string
-          description: Error code
-          example: InternalServerException
   securitySchemes:
     awsAuth:
       type: apiKey

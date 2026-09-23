@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon Application Migration Service Applications Vcenter Clients API
+  title: Amazon Application Migration Service Vcenter Clients API
   description: AWS Application Migration Service (MGN) is the primary migration service recommended for lift-and-shift migrations to AWS. It allows organizations to quickly realize the benefits of migrating applications to the cloud without changes and with minimal downtime.
   version: '2021-02-25'
   contact:
@@ -67,6 +67,18 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response from the Application Migration Service API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: An internal error occurred
+        code:
+          type: string
+          description: Error code
+          example: InternalServerException
     VcenterClient:
       type: object
       description: A VMware vCenter client registered with the Application Migration Service
@@ -105,18 +117,6 @@ components:
           description: Tags on the vCenter client
           additionalProperties:
             type: string
-    ErrorResponse:
-      type: object
-      description: Standard error response from the Application Migration Service API
-      properties:
-        message:
-          type: string
-          description: Error message
-          example: An internal error occurred
-        code:
-          type: string
-          description: Error code
-          example: InternalServerException
     DescribeVcenterClientsResponse:
       type: object
       description: Response with list of vCenter clients

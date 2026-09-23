@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon Application Migration Service Applications Exports API
+  title: Amazon Application Migration Service Exports API
   description: AWS Application Migration Service (MGN) is the primary migration service recommended for lift-and-shift migrations to AWS. It allows organizations to quickly realize the benefits of migrating applications to the cloud without changes and with minimal downtime.
   version: '2021-02-25'
   contact:
@@ -102,24 +102,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ListExportErrorsRequest:
-      type: object
-      description: Request to list export errors
-      required:
-      - exportID
-      properties:
-        exportID:
-          type: string
-          description: Export ID
-          example: export-1234567890abcdef0
-        maxResults:
-          type: integer
-          description: Maximum results to return
-          example: 100
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
     ListExportErrorsResponse:
       type: object
       description: Response with list of export errors
@@ -143,36 +125,15 @@ components:
           type: string
           description: Date/time of the error
           example: '2026-04-19T00:00:00Z'
-    ExportErrorsResponse:
+    ListExportErrorsRequest:
       type: object
-      description: Response with export errors
-      properties:
-        items:
-          type: array
-          description: List of export errors
-          items:
-            $ref: '#/components/schemas/ExportTaskError'
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
-    ExportTaskErrorData:
-      type: object
-      description: Data associated with an export task error
-      properties:
-        rawError:
-          type: string
-          description: Raw error message
-          example: Export failed due to insufficient permissions
-    ExportErrorsRequest:
-      type: object
-      description: Request to get export errors
+      description: Request to list export errors
       required:
       - exportID
       properties:
         exportID:
           type: string
-          description: Export ID to get errors for
+          description: Export ID
           example: export-1234567890abcdef0
         maxResults:
           type: integer
@@ -194,6 +155,45 @@ components:
           type: string
           description: Error code
           example: InternalServerException
+    ExportErrorsResponse:
+      type: object
+      description: Response with export errors
+      properties:
+        items:
+          type: array
+          description: List of export errors
+          items:
+            $ref: '#/components/schemas/ExportTaskError'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ExportErrorsRequest:
+      type: object
+      description: Request to get export errors
+      required:
+      - exportID
+      properties:
+        exportID:
+          type: string
+          description: Export ID to get errors for
+          example: export-1234567890abcdef0
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ExportTaskErrorData:
+      type: object
+      description: Data associated with an export task error
+      properties:
+        rawError:
+          type: string
+          description: Raw error message
+          example: Export failed due to insufficient permissions
   securitySchemes:
     awsAuth:
       type: apiKey
