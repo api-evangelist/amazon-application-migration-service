@@ -339,24 +339,85 @@ components:
           type: string
           description: Account ID for cross-account access
           example: '123456789012'
-    ListApplicationsRequestFilters:
+    CreateApplicationRequest:
       type: object
-      description: Filters for listing applications
+      description: Request to create a migration application
+      required:
+      - name
       properties:
-        applicationIDs:
-          type: array
-          description: Filter by application IDs
-          items:
+        name:
+          type: string
+          description: Application name
+          example: My Application
+        description:
+          type: string
+          description: Application description
+          example: Primary business application
+        tags:
+          type: object
+          description: Tags for the application
+          additionalProperties:
             type: string
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
+    ListApplicationsResponse:
+      type: object
+      description: Response with list of applications
+      properties:
+        items:
+          type: array
+          description: List of applications
+          items:
+            $ref: '#/components/schemas/Application'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    Application:
+      type: object
+      description: A migration application grouping source servers
+      properties:
+        applicationID:
+          type: string
+          description: Application ID
+          example: app-1234567890abcdef0
+        arn:
+          type: string
+          description: ARN of the application
+          example: arn:aws:mgn:us-east-1:123456789012:application/app-1234567890abcdef0
+        name:
+          type: string
+          description: Application name
+          example: My Application
+        description:
+          type: string
+          description: Application description
+          example: Primary business application
         isArchived:
           type: boolean
-          description: Filter by archived status
+          description: Whether the application is archived
           example: false
-        waveIDs:
-          type: array
-          description: Filter by wave IDs
-          items:
+        applicationAggregatedStatus:
+          $ref: '#/components/schemas/ApplicationAggregatedStatus'
+        creationDateTime:
+          type: string
+          description: Creation date/time
+          example: '2026-04-19T00:00:00Z'
+        lastModifiedDateTime:
+          type: string
+          description: Last modification date/time
+          example: '2026-04-19T00:00:00Z'
+        tags:
+          type: object
+          description: Tags on the application
+          additionalProperties:
             type: string
+        waveID:
+          type: string
+          description: Wave ID this application belongs to
+          example: wave-1234567890abcdef0
     ApplicationAggregatedStatus:
       type: object
       description: Aggregated status of all source servers in an application
@@ -422,88 +483,6 @@ components:
           type: string
           description: Account ID for cross-account access
           example: '123456789012'
-    Application:
-      type: object
-      description: A migration application grouping source servers
-      properties:
-        applicationID:
-          type: string
-          description: Application ID
-          example: app-1234567890abcdef0
-        arn:
-          type: string
-          description: ARN of the application
-          example: arn:aws:mgn:us-east-1:123456789012:application/app-1234567890abcdef0
-        name:
-          type: string
-          description: Application name
-          example: My Application
-        description:
-          type: string
-          description: Application description
-          example: Primary business application
-        isArchived:
-          type: boolean
-          description: Whether the application is archived
-          example: false
-        applicationAggregatedStatus:
-          $ref: '#/components/schemas/ApplicationAggregatedStatus'
-        creationDateTime:
-          type: string
-          description: Creation date/time
-          example: '2026-04-19T00:00:00Z'
-        lastModifiedDateTime:
-          type: string
-          description: Last modification date/time
-          example: '2026-04-19T00:00:00Z'
-        tags:
-          type: object
-          description: Tags on the application
-          additionalProperties:
-            type: string
-        waveID:
-          type: string
-          description: Wave ID this application belongs to
-          example: wave-1234567890abcdef0
-    ListApplicationsResponse:
-      type: object
-      description: Response with list of applications
-      properties:
-        items:
-          type: array
-          description: List of applications
-          items:
-            $ref: '#/components/schemas/Application'
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
-    ErrorResponse:
-      type: object
-      description: Standard error response from the Application Migration Service API
-      properties:
-        message:
-          type: string
-          description: Error message
-          example: An internal error occurred
-        code:
-          type: string
-          description: Error code
-          example: InternalServerException
-    DeleteApplicationRequest:
-      type: object
-      description: Request to delete a migration application
-      required:
-      - applicationID
-      properties:
-        applicationID:
-          type: string
-          description: Application ID to delete
-          example: app-1234567890abcdef0
-        accountID:
-          type: string
-          description: Account ID for cross-account access
-          example: '123456789012'
     UnarchiveApplicationRequest:
       type: object
       description: Request to unarchive a migration application
@@ -518,29 +497,36 @@ components:
           type: string
           description: Account ID for cross-account access
           example: '123456789012'
-    CreateApplicationRequest:
+    ListApplicationsRequest:
       type: object
-      description: Request to create a migration application
-      required:
-      - name
+      description: Request to list migration applications
       properties:
-        name:
+        filters:
+          $ref: '#/components/schemas/ListApplicationsRequestFilters'
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
           type: string
-          description: Application name
-          example: My Application
-        description:
-          type: string
-          description: Application description
-          example: Primary business application
-        tags:
-          type: object
-          description: Tags for the application
-          additionalProperties:
-            type: string
+          description: Pagination token
+          example: ''
         accountID:
           type: string
           description: Account ID for cross-account access
           example: '123456789012'
+    ErrorResponse:
+      type: object
+      description: Standard error response from the Application Migration Service API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: An internal error occurred
+        code:
+          type: string
+          description: Error code
+          example: InternalServerException
     DisassociateSourceServersRequest:
       type: object
       description: Request to disassociate source servers from an application
@@ -561,20 +547,34 @@ components:
           type: string
           description: Account ID for cross-account access
           example: '123456789012'
-    ListApplicationsRequest:
+    ListApplicationsRequestFilters:
       type: object
-      description: Request to list migration applications
+      description: Filters for listing applications
       properties:
-        filters:
-          $ref: '#/components/schemas/ListApplicationsRequestFilters'
-        maxResults:
-          type: integer
-          description: Maximum results to return
-          example: 100
-        nextToken:
+        applicationIDs:
+          type: array
+          description: Filter by application IDs
+          items:
+            type: string
+        isArchived:
+          type: boolean
+          description: Filter by archived status
+          example: false
+        waveIDs:
+          type: array
+          description: Filter by wave IDs
+          items:
+            type: string
+    DeleteApplicationRequest:
+      type: object
+      description: Request to delete a migration application
+      required:
+      - applicationID
+      properties:
+        applicationID:
           type: string
-          description: Pagination token
-          example: ''
+          description: Application ID to delete
+          example: app-1234567890abcdef0
         accountID:
           type: string
           description: Account ID for cross-account access

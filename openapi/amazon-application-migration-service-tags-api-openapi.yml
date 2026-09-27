@@ -145,6 +145,26 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ListTagsForResourceResponse:
+      type: object
+      description: Response with resource tags
+      properties:
+        tags:
+          type: object
+          description: Tags on the resource
+          additionalProperties:
+            type: string
+    TagResourceRequest:
+      type: object
+      description: Request to add tags to a resource
+      required:
+      - tags
+      properties:
+        tags:
+          type: object
+          description: Tags to add
+          additionalProperties:
+            type: string
     ErrorResponse:
       type: object
       description: Standard error response from the Application Migration Service API
@@ -157,26 +177,6 @@ components:
           type: string
           description: Error code
           example: InternalServerException
-    TagResourceRequest:
-      type: object
-      description: Request to add tags to a resource
-      required:
-      - tags
-      properties:
-        tags:
-          type: object
-          description: Tags to add
-          additionalProperties:
-            type: string
-    ListTagsForResourceResponse:
-      type: object
-      description: Response with resource tags
-      properties:
-        tags:
-          type: object
-          description: Tags on the resource
-          additionalProperties:
-            type: string
   securitySchemes:
     awsAuth:
       type: apiKey
