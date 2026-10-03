@@ -102,9 +102,9 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ExportErrorsResponse:
+    ListExportErrorsResponse:
       type: object
-      description: Response with export errors
+      description: Response with list of export errors
       properties:
         items:
           type: array
@@ -125,27 +125,17 @@ components:
           type: string
           description: Date/time of the error
           example: '2026-04-19T00:00:00Z'
-    ExportErrorsRequest:
+    ExportTaskErrorData:
       type: object
-      description: Request to get export errors
-      required:
-      - exportID
+      description: Data associated with an export task error
       properties:
-        exportID:
+        rawError:
           type: string
-          description: Export ID to get errors for
-          example: export-1234567890abcdef0
-        maxResults:
-          type: integer
-          description: Maximum results to return
-          example: 100
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
-    ListExportErrorsResponse:
+          description: Raw error message
+          example: Export failed due to insufficient permissions
+    ExportErrorsResponse:
       type: object
-      description: Response with list of export errors
+      description: Response with export errors
       properties:
         items:
           type: array
@@ -156,26 +146,6 @@ components:
           type: string
           description: Pagination token
           example: ''
-    ExportTaskErrorData:
-      type: object
-      description: Data associated with an export task error
-      properties:
-        rawError:
-          type: string
-          description: Raw error message
-          example: Export failed due to insufficient permissions
-    ErrorResponse:
-      type: object
-      description: Standard error response from the Application Migration Service API
-      properties:
-        message:
-          type: string
-          description: Error message
-          example: An internal error occurred
-        code:
-          type: string
-          description: Error code
-          example: InternalServerException
     ListExportErrorsRequest:
       type: object
       description: Request to list export errors
@@ -194,6 +164,36 @@ components:
           type: string
           description: Pagination token
           example: ''
+    ExportErrorsRequest:
+      type: object
+      description: Request to get export errors
+      required:
+      - exportID
+      properties:
+        exportID:
+          type: string
+          description: Export ID to get errors for
+          example: export-1234567890abcdef0
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ErrorResponse:
+      type: object
+      description: Standard error response from the Application Migration Service API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: An internal error occurred
+        code:
+          type: string
+          description: Error code
+          example: InternalServerException
   securitySchemes:
     awsAuth:
       type: apiKey

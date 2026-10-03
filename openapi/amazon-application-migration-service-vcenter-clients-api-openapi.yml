@@ -67,18 +67,19 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
+    DescribeVcenterClientsResponse:
       type: object
-      description: Standard error response from the Application Migration Service API
+      description: Response with list of vCenter clients
       properties:
-        message:
+        items:
+          type: array
+          description: List of vCenter clients
+          items:
+            $ref: '#/components/schemas/VcenterClient'
+        nextToken:
           type: string
-          description: Error message
-          example: An internal error occurred
-        code:
-          type: string
-          description: Error code
-          example: InternalServerException
+          description: Pagination token
+          example: ''
     VcenterClient:
       type: object
       description: A VMware vCenter client registered with the Application Migration Service
@@ -117,19 +118,18 @@ components:
           description: Tags on the vCenter client
           additionalProperties:
             type: string
-    DescribeVcenterClientsResponse:
+    ErrorResponse:
       type: object
-      description: Response with list of vCenter clients
+      description: Standard error response from the Application Migration Service API
       properties:
-        items:
-          type: array
-          description: List of vCenter clients
-          items:
-            $ref: '#/components/schemas/VcenterClient'
-        nextToken:
+        message:
           type: string
-          description: Pagination token
-          example: ''
+          description: Error message
+          example: An internal error occurred
+        code:
+          type: string
+          description: Error code
+          example: InternalServerException
   securitySchemes:
     awsAuth:
       type: apiKey
