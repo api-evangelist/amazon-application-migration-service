@@ -67,19 +67,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    DescribeVcenterClientsResponse:
-      type: object
-      description: Response with list of vCenter clients
-      properties:
-        items:
-          type: array
-          description: List of vCenter clients
-          items:
-            $ref: '#/components/schemas/VcenterClient'
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
     VcenterClient:
       type: object
       description: A VMware vCenter client registered with the Application Migration Service
@@ -118,6 +105,19 @@ components:
           description: Tags on the vCenter client
           additionalProperties:
             type: string
+    DescribeVcenterClientsResponse:
+      type: object
+      description: Response with list of vCenter clients
+      properties:
+        items:
+          type: array
+          description: List of vCenter clients
+          items:
+            $ref: '#/components/schemas/VcenterClient'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
     ErrorResponse:
       type: object
       description: Standard error response from the Application Migration Service API
