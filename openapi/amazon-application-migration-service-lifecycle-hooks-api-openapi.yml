@@ -182,58 +182,6 @@ components:
           type: string
           description: Pagination token
           example: ''
-    ListSourceServerActionsRequest:
-      type: object
-      description: Request to list source server lifecycle actions
-      required:
-      - sourceServerID
-      properties:
-        sourceServerID:
-          type: string
-          description: Source server ID
-          example: s-1234567890abcdef0
-        filters:
-          type: object
-          description: Action filters
-        maxResults:
-          type: integer
-          description: Maximum results to return
-          example: 100
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
-        accountID:
-          type: string
-          description: Account ID for cross-account access
-          example: '123456789012'
-    SsmParameterStoreParameter:
-      type: object
-      description: SSM Parameter Store parameter reference
-      properties:
-        parameterName:
-          type: string
-          description: Parameter name
-          example: /my/parameter
-        parameterType:
-          type: string
-          description: Parameter type
-          enum:
-          - STRING
-          example: STRING
-    ListTemplateActionsResponse:
-      type: object
-      description: Response with list of template actions
-      properties:
-        items:
-          type: array
-          description: List of template actions
-          items:
-            $ref: '#/components/schemas/SourceServerAction'
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
     ListTemplateActionsRequest:
       type: object
       description: Request to list template lifecycle actions
@@ -267,6 +215,58 @@ components:
           type: string
           description: Error code
           example: InternalServerException
+    SsmParameterStoreParameter:
+      type: object
+      description: SSM Parameter Store parameter reference
+      properties:
+        parameterName:
+          type: string
+          description: Parameter name
+          example: /my/parameter
+        parameterType:
+          type: string
+          description: Parameter type
+          enum:
+          - STRING
+          example: STRING
+    ListTemplateActionsResponse:
+      type: object
+      description: Response with list of template actions
+      properties:
+        items:
+          type: array
+          description: List of template actions
+          items:
+            $ref: '#/components/schemas/SourceServerAction'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ListSourceServerActionsRequest:
+      type: object
+      description: Request to list source server lifecycle actions
+      required:
+      - sourceServerID
+      properties:
+        sourceServerID:
+          type: string
+          description: Source server ID
+          example: s-1234567890abcdef0
+        filters:
+          type: object
+          description: Action filters
+        maxResults:
+          type: integer
+          description: Maximum results to return
+          example: 100
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+        accountID:
+          type: string
+          description: Account ID for cross-account access
+          example: '123456789012'
   securitySchemes:
     awsAuth:
       type: apiKey
